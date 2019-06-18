@@ -1,6 +1,6 @@
 ---
 # Display name
-name: Eungang (Peter) Choi
+name: Eungang Choi
 
 # Username (this should match the folder name)
 authors:
