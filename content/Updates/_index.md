@@ -15,6 +15,7 @@ header:
 
 ### 2019
 
+- (Aug) **ASA 2019** | New York, NY
 - (June) **SICSS 2019** | Chicago, IL
 - (Apr) **PAA 2019** | Austin, Texas
 - (Mar) **openVA Pipeline Development and Implementation** | Honiara, Solomon Islands
