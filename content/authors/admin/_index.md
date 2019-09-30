@@ -62,4 +62,6 @@ social:
 
 Eungang (Peter) Choi is a graduate student in the Department of Sociology at The Ohio State University. He is also a graduate affiliate for Institute for Population Research (IPR).
 
+He is advised by [Sam Clark](http://www.samclark.net/Sam_Clark.html) and a part of the [openVA](http://openva.net/) team.
+
 His research interest includes fertility, mortality, network analysis and NLP. He is originally from Seoul, South Korea.
