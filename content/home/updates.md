@@ -24,7 +24,7 @@ date_format = "Jan 2006"
   title = "Access to Transportation: Bus Network and Spatial Inequality in Columbus"
   url = ""
   certificate_url = "asa2019/asa_081019_Choi.html"
-  date_start = "Aug, 2019"
+  date_start = "2019-08-10"
   date_end = ""
   description = ""
 
