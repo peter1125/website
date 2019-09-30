@@ -34,7 +34,7 @@ COTA Bus stop data (Sept. 2018)
 + bus lines passing through the stop
 
 ```{r, echo=FALSE}
-knitr::include_url("mymap.html")
+knitr::include_url("posts/mymap.html")
 ```
 
 ## Create Network
@@ -44,7 +44,7 @@ knitr::include_url("mymap.html")
 3. Calculate *Centrality*
 
 ```{r, echo=FALSE}
-knitr::include_url("mymap_color.html")
+knitr::include_url("posts/mymap_color.html")
 ```
 
 ## Aggregate by Tracts

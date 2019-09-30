@@ -7,6 +7,7 @@
 <meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 <meta name="author" content="Eungang (Peter) Choi" />
@@ -269,7 +270,6 @@ code {
 }
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -343,18 +343,6 @@ summary {
 }
 </style>
 
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
-
 <!-- code folding -->
 
 
@@ -404,7 +392,7 @@ $(document).ready(function () {
 <li>geocodes</li>
 <li>bus lines passing through the stop</li>
 </ul>
-<iframe src="https://www.eungangchoi.com/updates/mymap" width="672" height="400px">
+<iframe src="posts/mymap.html" width="672" height="400px">
 </iframe>
 </div>
 <div id="create-network" class="section level2">
@@ -414,13 +402,7 @@ $(document).ready(function () {
 <li>Connect the stops (<em>nodes</em>) in each lines (forming <em>ties</em>)</li>
 <li>Calculate <em>Centrality</em></li>
 </ol>
-<p><strong>Centrality</strong></p>
-<ul>
-<li>Measuring the importance of a node</li>
-<li>Having the most ties to other actors in the network</li>
-<li>More access to other parts of the city</li>
-</ul>
-<iframe src="https://www.eungangchoi.com/updates/mymap_color" width="672" height="400px">
+<iframe src="posts/mymap_color.html" width="672" height="400px">
 </iframe>
 </div>
 <div id="aggregate-by-tracts" class="section level2">
@@ -452,7 +434,7 @@ $(document).ready(function () {
 </div>
 <div id="results" class="section level1">
 <h1>Results</h1>
-<iframe src="https://www.eungangchoi.com/updates/table" width="672" height="400px">
+<iframe src="table.html" width="672" height="400px">
 </iframe>
 <div id="model-1-income" class="section level2">
 <h2>Model 1: Income</h2>
@@ -472,13 +454,13 @@ $(document).ready(function () {
 <div id="limitations" class="section level2">
 <h2>Limitations</h2>
 <ul>
-<li><p>Causality:</p>
+<li>Causality:
 <ul>
 <li>Are the bus stops exacerbating spatial inequality</li>
 <li>Is inequality shaping the bus lines?</li>
 </ul></li>
 <li>Divide between residential/industrial areas</li>
-<li><p>Usage (# of passengers)</p></li>
+<li>Usage (# of passengers)</li>
 </ul>
 </div>
 <div id="contributions" class="section level2">
@@ -508,6 +490,23 @@ $(document).ready(function () {
 
 
 </script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
