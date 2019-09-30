@@ -10,7 +10,7 @@
 
 [[main]]
   name = "Updates"
-  url = "Updates"
+  url = "#Updates"
   weight = 2
 
 
