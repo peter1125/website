@@ -7,10 +7,6 @@ title: Updates
 #   3 = Card
 view: 1
 
-# Optional header image (relative to `static/img/` folder).
-header:
-  caption: ""
-  image: ""
 ---
 
 ### 2019
