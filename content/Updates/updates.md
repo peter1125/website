@@ -26,7 +26,7 @@ date_format = "Jan 2006"
   certificate_url = ""
   date_start = "2019-08-10"
   date_end = ""
-  description = """[Access to Transportation: Bus Network and Spatial Inequality in Columbus](/Updates/asa_081019_Choi.html)
+  description = """[Access to Transportation: Bus Network and Spatial Inequality in Columbus](asa_081019_Choi.html)
   """
 
 [[item]]
