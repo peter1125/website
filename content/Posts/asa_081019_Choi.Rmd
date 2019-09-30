@@ -34,7 +34,7 @@ COTA Bus stop data (Sept. 2018)
 + bus lines passing through the stop
 
 ```{r, echo=FALSE}
-knitr::include_url("posts/mymap.html")
+knitr::include_url("https://www.eungangchoi.com/posts/mymap")
 ```
 
 ## Create Network
@@ -44,7 +44,7 @@ knitr::include_url("posts/mymap.html")
 3. Calculate *Centrality*
 
 ```{r, echo=FALSE}
-knitr::include_url("posts/mymap_color.html")
+knitr::include_url("https://www.eungangchoi.com/posts/mymap_color")
 ```
 
 ## Aggregate by Tracts
@@ -73,7 +73,7 @@ Source: [USDA](https://www.ers.usda.gov/data-products/food-access-research-atlas
 
 # Results
 ```{r, echo=FALSE}
-knitr::include_url("table.html")
+knitr::include_url("https://www.eungangchoi.com/posts/mymap/")
 ```
 
 ## Model 1: Income
