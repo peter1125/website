@@ -3,7 +3,7 @@
 widget = "accomplishments"  # See https://sourcethemes.com/academic/docs/page-builder/
 headless = true  # This file represents a page section.
 active = true  # Activate this widget? true/false
-weight = 50  # Order that this section will appear.
+weight = 30  # Order that this section will appear.
 
 title = "Updates"
 subtitle = ""
@@ -75,7 +75,7 @@ date_format = "Jan 2006"
   title = "IUSSP/MPIDR Workshop on Monitoring Mortality in the Era of the SDGs"
   url = ""
   certificate_url = ""
-  date_start = "12-01-18"
+  date_start = "2018-12-01"
   date_end = ""
   description = ""
 
@@ -85,7 +85,7 @@ date_format = "Jan 2006"
   title = "VA Algorithms and CoD Assignments Country Support"
   url = ""
   certificate_url = ""
-  date_start = "11-01-18"
+  date_start = "2018-11-01"
   date_end = ""
   description = ""
 
@@ -95,7 +95,7 @@ date_format = "Jan 2006"
   title = "OpenVA Pipeline & DHIS2 Setup Country Support"
   url = ""
   certificate_url = ""
-  date_start = "11-01-18"
+  date_start = "2018-11-01"
   date_end = ""
   description = ""
 
@@ -105,7 +105,7 @@ date_format = "Jan 2006"
   title = "VA Data Quality Review and COD Assignment - Training of Trainers Workshop"
   url = ""
   certificate_url = ""
-  date_start = "11-01-18"
+  date_start = "2018-11-01"
   date_end = ""
   description = ""
 
@@ -115,7 +115,7 @@ date_format = "Jan 2006"
   title = "Annual Workshop on Formal Demography"
   url = ""
   certificate_url = ""
-  date_start = "06-01-2018"
+  date_start = "2018-06-01"
   date_end = ""
   description = ""
 
@@ -125,7 +125,7 @@ date_format = "Jan 2006"
   title = "OpenVA Pipeline Implementers’ and Developers’ Meeting"
   url = ""
   certificate_url = ""
-  date_start = "05-01-18"
+  date_start = "2018-05-01"
   date_end = ""
   description = ""
 
@@ -135,7 +135,7 @@ date_format = "Jan 2006"
   title = "PAA 2018/Workshop on Demographic Research in the Digital Age"
   url = ""
   certificate_url = ""
-  date_start = "04-01-18"
+  date_start = "2018-04-01"
   date_end = ""
   description = ""
 
