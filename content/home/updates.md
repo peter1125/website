@@ -1,7 +1,12 @@
-widget = "Updates"
++++
+# Updates widget.
+widget = "accomplishments"  # See https://sourcethemes.com/academic/docs/page-builder/
 headless = true  # This file represents a page section.
+active = true  # Activate this widget? true/false
+weight = 20  # Order that this section will appear.
 
-# Updates
+title = "Accomplish&shy;ments"
+subtitle = ""
 
 # Date format
 #   Refer to https://sourcethemes.com/academic/docs/customization/#date-format
