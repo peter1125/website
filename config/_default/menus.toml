@@ -10,7 +10,7 @@
 
 [[main]]
   name = "Updates"
-  url = "content/Updates/updates.md"
+  url = "content/Updates/"
   weight = 2
 
 
