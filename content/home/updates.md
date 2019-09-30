@@ -19,14 +19,14 @@ date_format = "Jan 2006"
 #   Begin/end multi-line descriptions with 3 quotes `"""`.
 
 [[item]]
-  organization = "ASA 2019"
+  organization = ""
   organization_url = ""
-  title = "[Access to Transportation: Bus Network and Spatial Inequality in Columbus](asa2019/asa_081019_Choi.html)"
+  title = "ASA 2019"
   url = ""
   certificate_url = ""
   date_start = "2019-08-10"
   date_end = ""
-  description = ""
+  description = "[Access to Transportation: Bus Network and Spatial Inequality in Columbus](/Updates/asa2019/asa_081019_Choi.html)"
 
 [[item]]
   organization = "edX"
