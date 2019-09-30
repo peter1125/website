@@ -58,4 +58,84 @@ date_format = "Jan 2006"
   date_start = "2019-03-01"
   date_end = ""
   description = ""
+
+[[item]]
+  organization = "Basel, Switzerland"
+  organization_url = ""
+  title = "SwissTPH"
+  url = ""
+  certificate_url = ""
+  date_start = "2019-03-01"
+  date_end = ""
+  description = ""
+
+[[item]]
+  organization = "Rostock, Germany"
+  organization_url = ""
+  title = "IUSSP/MPIDR Workshop on Monitoring Mortality in the Era of the SDGs"
+  url = ""
+  certificate_url = ""
+  date_start = "12-01-18"
+  date_end = ""
+  description = ""
+
+[[item]]
+  organization = "New Delhi, India"
+  organization_url = ""
+  title = "VA Algorithms and CoD Assignments Country Support"
+  url = ""
+  certificate_url = ""
+  date_start = "11-01-18"
+  date_end = ""
+  description = ""
+
+[[item]]
+  organization = "Dhaka, Bangladesh"
+  organization_url = ""
+  title = "OpenVA Pipeline & DHIS2 Setup Country Support"
+  url = ""
+  certificate_url = ""
+  date_start = "11-01-18"
+  date_end = ""
+  description = ""
+
+[[item]]
+  organization = "Columbus, Ohio"
+  organization_url = ""
+  title = "VA Data Quality Review and COD Assignment - Training of Trainers Workshop"
+  url = ""
+  certificate_url = ""
+  date_start = "11-01-18"
+  date_end = ""
+  description = ""
+
+[[item]]
+  organization = "Berkley, California"
+  organization_url = ""
+  title = "Annual Workshop on Formal Demography"
+  url = ""
+  certificate_url = ""
+  date_start = "06-01-2018"
+  date_end = ""
+  description = ""
+
+[[item]]
+  organization = "Singapore"
+  organization_url = ""
+  title = "OpenVA Pipeline Implementers’ and Developers’ Meeting"
+  url = ""
+  certificate_url = ""
+  date_start = "05-01-18"
+  date_end = ""
+  description = ""
+
+[[item]]
+  organization = "Denver, Colorado"
+  organization_url = ""
+  title = "PAA 2018/Workshop on Demographic Research in the Digital Age"
+  url = ""
+  certificate_url = ""
+  date_start = "04-01-18"
+  date_end = ""
+  description = ""
 +++
