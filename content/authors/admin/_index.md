@@ -60,7 +60,7 @@ social:
 
 ---
 
-Eungang (Peter) Choi is a graduate student in the Department of Sociology at The Ohio State University. He is a graduate affiliate for [Institute for Population Research (IPR)](https://ipr.osu.edu/) and an associate for the [Translational Data Analytics Institute (TDAI)](https://tdai.osu.edu/).
+Eungang (Peter) Choi is a graduate student in the Department of Sociology at The Ohio State University. He is a graduate affiliate for [Institute for Population Research (IPR)](https://ipr.osu.edu/) and a [Translational Data Analytics Institute (TDAI)](https://tdai.osu.edu/) associate.
 
 He is advised by [Sam Clark](http://www.samclark.net/) and is a part of the [openVA](http://openva.net/) team.
 
