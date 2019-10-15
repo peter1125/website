@@ -19,6 +19,16 @@ date_format = "Jan 2006"
 #   Begin/end multi-line descriptions with 3 quotes `"""`.
 
 [[item]]
+  organization = "Mtubatuba, South Africa"
+  organization_url = ""
+  title = "Africa Health Research Institute"
+  url = "https://www.ahri.org"
+  certificate_url = ""
+  date_start = "2019-10-01"
+  date_end = ""
+  description = ""
+
+[[item]]
   organization = "Newyork, NY"
   organization_url = ""
   title = "ASA 2019"
