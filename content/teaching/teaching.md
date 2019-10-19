@@ -14,9 +14,14 @@ date_format = "Jan 2006"
 
 +++
 
-### [Data Processing in Python](Intro_to_python.htm)
+### [Data Processing in Python]
 + Guest Lecture for [Sam Clark](http://www.samclark.net/) SOC 8802/PUBHLTH 8802: Seminar for Graduate Interdisciplinary Specialization in Demography
-
+<iframe
+      src="./<CONVERTED_NOTEBOOK_FILENAME>"
+      width="90%"
+      height="1000px"
+      style="border:none;">
+</iframe>
 
 ### [Population Change](Population.pdf)
 + Guest Lecture for [Eric Schoon](https://sociology.osu.edu/people/schoon.1) SOC 1101: Introduction to Sociology
