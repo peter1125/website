@@ -14,5 +14,6 @@ date_format = "Jan 2006"
 
 +++
 
-# SOC 1101: Introduction to Sociology 
-## Population Change[Population.pdf]
+## SOC 1101: Introduction to Sociology
+### [Population Change](Population.pdf)
++ Guest Lecture for Eric Schoon
