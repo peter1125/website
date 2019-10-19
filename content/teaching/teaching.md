@@ -3,6 +3,7 @@
 widget = "pages"  # Use the Pages widget
 headless = true  # This file represents a page section.
 title: "Teaching"  # Add a page title.
+active = true  # Activate this widget? true/false
 
 # ... Put Your Section Options Here (title etc.) ...
 
