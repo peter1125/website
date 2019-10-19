@@ -14,9 +14,9 @@ date_format = "Jan 2006"
 
 +++
 
-
+## dd
 ### [Data Processing in Python](Intro_to_python.html)
-+ Guest Lecture for [Sam Clark](http://www.samclark.net/) SOC 8802: Seminar for Graduate Interdisciplinary Specialization in Demography
++ Guest Lecture for [Sam Clark](http://www.samclark.net/) SOC 8802/PUBHLTH 8802: Seminar for Graduate Interdisciplinary Specialization in Demography
 
 
 ### [Population Change](Population.pdf)
