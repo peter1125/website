@@ -1,5 +1,8 @@
++++
+
 widget = "pages"  # Use the Pages widget
 headless = true  # This file represents a page section.
+title: "Teaching"  # Add a page title.
 
 # ... Put Your Section Options Here (title etc.) ...
 
@@ -32,6 +35,5 @@ headless = true  # This file represents a page section.
   #   3 = Card
   #   4 = Citation (publication only)
   view = 1
++++
 
-
-  
