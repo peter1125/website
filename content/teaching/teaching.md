@@ -16,4 +16,9 @@ date_format = "Jan 2006"
 
 ## SOC 1101: Introduction to Sociology
 ### [Population Change](Population.pdf)
-+ Guest Lecture for Eric Schoon
++ Guest Lecture for [Eric Schoon](https://sociology.osu.edu/people/schoon.1)
+
+
+## SOC 8802: Seminar for Graduate Interdisciplinary Specialization in Demography
+### [Data Processing in Python](Intro_to_python.ipynb)
++ Guest Lecture for [Sam Clark](http://www.samclark.net/)
