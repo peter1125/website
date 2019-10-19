@@ -39,6 +39,13 @@ subtitle = ""
   description = ""
 
 [[feature]]
+  icon = "markdown"
+  icon_pack = "fab"
+  name = "Markdown"
+  description = ""
+
+
+[[feature]]
   icon = "language"
   icon_pack = "fas"
   name = "Language"
