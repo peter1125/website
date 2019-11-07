@@ -18,6 +18,17 @@ date_format = "Jan 2006"
 #   Leave other parameters empty if not required.
 #   Begin/end multi-line descriptions with 3 quotes `"""`.
 
+
+[[item]]
+  organization = "Columbus, OH"
+  organization_url = ""
+  title = "TDAI Fall Forum"
+  url = "https://tdai.osu.edu/2019-fall-forum/"
+  certificate_url = ""
+  date_start = "2019-11-01"
+  date_end = ""
+  description = "[Verbal Autopsy and OpenVA](/posts/poster_tdai.pdf)"
+
 [[item]]
   organization = "Dhaka, Bangladesh"
   organization_url = ""
