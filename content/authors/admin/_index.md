@@ -29,6 +29,10 @@ interests:
 
 education:
   courses:
+  - course: M.A. in Sociology
+    institution: The Ohio State University
+    year: 2019
+
   - course: Master of Public Policy (MPP)
     institution: KDI School of Public Policy and Management
     year: 2013
