@@ -18,6 +18,15 @@ date_format = "Jan 2006"
 #   Leave other parameters empty if not required.
 #   Begin/end multi-line descriptions with 3 quotes `"""`.
 
+[[item]]
+  organization = "São Paulo, Brazil"
+  organization_url = ""
+  title = "Universidade de São Paulo - Medicina"
+  url = ""
+  certificate_url = ""
+  date_start = "2019-12-01"
+  date_end = ""
+  description = ""
 
 [[item]]
   organization = "Columbus, OH"
