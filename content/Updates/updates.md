@@ -44,10 +44,21 @@ date_format = "Jan 2006"
   organization_url = ""
   title = "PAA 2019"
   url = ""
-  certificate_url = ""
+  certificate_url = "https://events.rdmobile.com/Lists/Details/1015286"
   date_start = "2020-04-01"
   date_end = ""
   description = "A Flaw of the Open-Rating System: Discrimination within AirBnb’s User-Based Ratings"
+
+[[item]]
+  organization = "Cancelled Due to COVID-19"
+  organization_url = ""
+  title = "socPIE"
+  url = ""
+  certificate_url = ""
+  date_start = "2020-04-01"
+  date_end = ""
+  description = "Behind the Cyber Curtain: Discrimination Within Airbnb's Open-Rating System"
+
 
 [[item]]
   organization = "São Paulo, Brazil"
