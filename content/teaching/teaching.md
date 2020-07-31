@@ -14,6 +14,9 @@ date_format = "Jan 2006"
 
 +++
 
+### ECON 3400: The Analysis and Display of Data
++ Nov. 8, 2019 - [Computational Social Science & Data Collection](/Posts/CSS_DataAnalytics.html)
+
 ### SOC 8802/PUBHLTH 8802: Seminar for Graduate Interdisciplinary Specialization in Demography
 + Oct. 8, 2019 - [Data Processing in Python](/Posts/Intro_to_python.html)
 
