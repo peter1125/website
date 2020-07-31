@@ -6,7 +6,7 @@ active = true  # Activate this widget? true/false
 
 
 title = "Teaching"
-subtitle = ""
+subtitle = "For any inquiries on presentations or guest lectures at meetings or courses please [e-mail](choi.1443@osu.edu) me."
 
 # Date format
 #   Refer to https://sourcethemes.com/academic/docs/customization/#date-format
