@@ -50,7 +50,7 @@ date_format = "Jan 2006"
   description = "[A Flaw of the Open-Rating System: Discrimination within AirBnb’s User-Based Ratings](https://events.rdmobile.com/Lists/Details/1015286)"
 
 [[item]]
-  organization = "Cancelled Due to COVID-19"
+  organization = "Virtual Presentation"
   organization_url = ""
   title = "socPIE"
   url = ""
