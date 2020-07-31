@@ -44,10 +44,10 @@ date_format = "Jan 2006"
   organization_url = ""
   title = "PAA 2019"
   url = ""
-  certificate_url = "https://events.rdmobile.com/Lists/Details/1015286"
+  certificate_url = ""
   date_start = "2020-04-01"
   date_end = ""
-  description = "A Flaw of the Open-Rating System: Discrimination within AirBnb’s User-Based Ratings"
+  description = "[A Flaw of the Open-Rating System: Discrimination within AirBnb’s User-Based Ratings](https://events.rdmobile.com/Lists/Details/1015286)"
 
 [[item]]
   organization = "Cancelled Due to COVID-19"
