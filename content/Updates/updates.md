@@ -18,6 +18,37 @@ date_format = "Jan 2006"
 #   Leave other parameters empty if not required.
 #   Begin/end multi-line descriptions with 3 quotes `"""`.
 
+
+[[item]]
+  organization = "Virtual Workshop"
+  organization_url = ""
+  title = "Response pattern analysis for the revision of the 2016 WHO Verbal Autopsy instrument"
+  url = ""
+  certificate_url = ""
+  date_start = "2020-07-01"
+  date_end = ""
+  description = ""
+
+[[item]]
+  organization = "Virtual Workshop"
+  organization_url = ""
+  title = "South Africa openVA Training workshop"
+  url = ""
+  certificate_url = ""
+  date_start = "2020-05-01"
+  date_end = ""
+  description = ""
+
+[[item]]
+  organization = "Cancelled Due to COVID-19"
+  organization_url = ""
+  title = "PAA 2019"
+  url = ""
+  certificate_url = ""
+  date_start = "2020-04-01"
+  date_end = ""
+  description = "A Flaw of the Open-Rating System: Discrimination within AirBnb’s User-Based Ratings"
+
 [[item]]
   organization = "São Paulo, Brazil"
   organization_url = ""
