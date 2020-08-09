@@ -18,6 +18,15 @@ date_format = "Jan 2006"
 #   Leave other parameters empty if not required.
 #   Begin/end multi-line descriptions with 3 quotes `"""`.
 
+[[item]]
+  organization = "Virtual Presentation"
+  organization_url = ""
+  title = "ASA 2020"
+  url = "https://convention2.allacademic.com/one/asa/asa20/index.php?cmd=Online+Program+View+Session&selected_session_id=1657547&PHPSESSID=bampcibuk6jho2aa839c3687pa"
+  certificate_url = ""
+  date_start = "2020-08-01"
+  date_end = ""
+  description = "[Behind the Cyber Curtain: Discrimination within Airbnb’s Open-Rating System](/posts/ASA2020_AXXE_CHOI_Final.pdf)"
 
 [[item]]
   organization = "Virtual Workshop"
