@@ -26,7 +26,7 @@ date_format = "Jan 2006"
   certificate_url = ""
   date_start = "2020-09-01"
   date_end = ""
-  description = "Translation strategies in verbal autopsy research"
+  description = "Translation Strategies in Verbal Autopsy Research"
 
 [[item]]
   organization = "Virtual Presentation"
