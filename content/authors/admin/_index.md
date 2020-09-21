@@ -22,10 +22,11 @@ bio: Ph.D Student in Sociology, OSU
 
 
 interests:
+- Computational Social Science
 - Fertility/Mortality
+- Inequality
 - Verbal Autopsy
-- Network Analysis
-- Natural Language Processing (NLP)
+
 
 education:
   courses:
