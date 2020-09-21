@@ -21,6 +21,16 @@ date_format = "Jan 2006"
 [[item]]
   organization = "Virtual Presentation"
   organization_url = ""
+  title = "ALAPP 2020"
+  url = "https://www.ntnu.edu/documents/38274309/1295148049/ALAPP2020-PROGRAMME-IN-DETAIL.pdf/14ed5d34-5b6a-db5a-99fa-ac34840c324c?t=1600239167429"
+  certificate_url = ""
+  date_start = "2020-09-01"
+  date_end = ""
+  description = "Translation strategies in verbal autopsy research"
+
+[[item]]
+  organization = "Virtual Presentation"
+  organization_url = ""
   title = "ASA 2020"
   url = "https://convention2.allacademic.com/one/asa/asa20/index.php?cmd=Online+Program+View+Session&selected_session_id=1657547&PHPSESSID=bampcibuk6jho2aa839c3687pa"
   certificate_url = ""
