@@ -81,8 +81,8 @@ library(kableExtra)
 
 ##
 ![an image](income.png)
-##
 
+##
 ![an image](race.png)
 
 ## Research Questions
