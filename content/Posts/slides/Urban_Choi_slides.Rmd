@@ -12,11 +12,12 @@ library(kableExtra)
 ```
 
 # Reading
+<img class="plain"  src="reading.png"/>
 
-![an image](reading.png)
 
 #
-<img src="seoul.jpeg" width="70%" height="100%"/>
+
+<img class="plain" img src="seoul.jpeg" width="70%" height="100%"/>
 
 
 ## Seoul, Korea
@@ -47,52 +48,78 @@ library(kableExtra)
 
 
 ## Cheonggyecheon
-- 3 mile stretch of elevated freeway built over a stream
+- historic stretth of a natural stream in the heart of the city
+- markets, industrial areas, shopping malls, city hall
+- elevated freeway built over a stream
 - restored in 2005, uncovering nature
+
+## Cheonggyecheon
+<img class="plain"  src="cgc.jpg"/>
+
+## Benefits
+- less traffic congestion
 - less air polution
 - lower temperature in nearby areas during summer
 - "car-oriented city to a human-oriented city"
-- number of fish species 4 -> 25
-- bird species 6 -> 36
-- insect species 15 -> 192
-
-##
-![an image](cgc.jpg)
-
+- restoring the nature
+  - number of fish species 4 -> 25
+  - bird species 6 -> 36
+  - insect species 15 -> 192
 
 ## 
-![an image](cgc1.jpeg)
+
+<img class="plain"  src="cgc1.jpeg"/>
 
 ## Seoul-ro
 - elevated highway near Seoul Station
-- built in 1970 to accomodate growing traffic congestion in Seoul (1970)
+- built in 1970 to accomodate growing traffic congestion in Seoul
 - Project 7017
   - turn a highway into a pedestrian walkway
-  - people-friendly city
+  - become a people-friendly city
   - boost in local economy (connectivity and access to small shops)
 
 ##
-![an image](seoulro.jpeg)
+
+<img class="plain"  src="seoulro.jpeg"/>
 
 ## 
-![an image](seoulro1.jpeg)
+
+<img class="plain"  src="seoulro1.jpeg"/>
 
 # Columbus, OH
 
-##
-![an image](income.png)
++ 42 bus lines
++ serving 1.2M residents around Columbus
++ more than 19M passengers annually 
 
-##
-![an image](race.png)
+## Income
+<img class="plain"  src="income.png"/>
+
+## Race
+<img class="plain"  src="race.png"/>
 
 ## Research Questions
 
 **What is the relationship between the bus network and spatial inequality in Columbus?**
 
   + Income levels
-  + Low access (food deserts)
-  + Race
+  + Food deserts
 
+## Food Desert (Low access to healty food)
+
++ areas in which people have limited access to healty food
++ gas stations, doller stores (x)
++ groceries (o)
++ parks and recreational facilities
++ financial institutions
+
+## Tract
++ State > County > Tract
++ geographic region around about 4000 people
+
+##
+
+<img class="plain"  src="2018pop.png"/>
 
 # Data & Methods
 ## Bus Stop Data
@@ -102,10 +129,6 @@ COTA Bus stop data (Sept. 2018)
 
 + geocodes
 + bus lines passing through the stop
-
-##
-
-<img src="busnetwork_columbus.png" width="70%" height="100%"/>
 
 ## Create Network
 
@@ -120,6 +143,10 @@ COTA Bus stop data (Sept. 2018)
   + More access to other parts of the city
 
 ##
+
+<img src="busnetwork_columbus.png" width="70%" height="100%"/>
+
+##
 ```{r, echo=FALSE}
 knitr::include_url("https://www.eungangchoi.com/posts/mymap_color.html")
 ```
@@ -128,28 +155,49 @@ knitr::include_url("https://www.eungangchoi.com/posts/mymap_color.html")
 
 Source: [USDA](https://www.ers.usda.gov/data-products/food-access-research-atlas/)
 
-+ tract-level data on food access (supermarket accessibility)
-+ Low income
-+ low vehicle access
-+ by various demographic groups (race, age)
++ tract-level data on
+  + food access (supermarket accessibility)
+  + Low income population
+  + low vehicle access
+  + by various demographic groups (race, age)
 
-## Key Variables
-
-+ **Median Family Income**: tract median family income (standardized)
-+ **Low Access Vehicles**: more than 100 households without vehicles & beyond 1/2 mile from supermarket
-+ **Low Access Population(%)**: Share of Low Access(1/2 mile) population in tract 
-+ **Low Access Race/Ethnicity(%)**: Share of Low Access(1/2 mile) in tract population by race/ethnicity
-+ WILL BE ADDING URBAN/RURAL VARIABLE
 
 # Results
-```{r, echo=FALSE}
-knitr::include_url("https://www.eungangchoi.com/posts/table.html")
-```
-- WILL BE REPLACED WITH GRAPHS
 
-## Results
-- WILL BE MAKING CHANGES
+## Income
+
+<img class="plain"  src="income_cent.png"/>
+
+## High Centrality vs. Low Centrality (Median Income)
+
+<img class="plain"  src="high_low.png" width="70%"/>
+
+## Low Access Population
+
+<img class="plain"  src="lowpop1.png"/>
+
+## Without Vehicle
+
+<img class="plain"  src="hunv.png"/>
+
+## Without Vehicle + Low Access
+
+<img class="plain"  src="lahunv1.png"/>
 
 # Conclusion
-- Access to transportation is not equally provided to the people that need it most
+- Access to transportation is not equal
+  + people with lower income have lower access
+  + people with low access to food have lower access to transportation
 - Accordance with the article ("Long Commutes Are Awful, Especially for the Poor”)
+
+# Discussion
+
+1. Based on the NYT article ("I've Seen a Future Without Cars, and It's Amazing") and case of Seoul, what are your reflections?
+2. What measure (e.g. Income, Food desert) would you use to evaluate the transportation system of Columbus?
+3. Think about the city you are from/grew up in. What is the transportation system like there? How can it be better? What can Columbus learn from it?
+
+
+# Thank you
+
+- choi.1443@osu.edu
+- https://eungangchoi.com/
