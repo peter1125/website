@@ -15,7 +15,7 @@ date_format = "Jan 2006"
 +++
 
 ### Soc 2367: Urban Social Problems
-+ Nov. 8, 2019 - [Access to Transportation: Bus Network and Spatial Inequality](/Posts/Urban_Choi_slides.html)
++ Oct. 22, 2020 - [Access to Transportation: Bus Network and Spatial Inequality](/Posts/Urban_Choi_slides.html)
 
 ### ECON 3400: The Analysis and Display of Data
 + Nov. 8, 2019 - [Computational Social Science & Data Collection](/Posts/CSS_DataAnalytics.html)

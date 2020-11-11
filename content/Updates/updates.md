@@ -26,7 +26,7 @@ date_format = "Jan 2006"
   certificate_url = ""
   date_start = "2020-10-01"
   date_end = ""
-  description = "[Race and Gender in Academic Pay](/Posts/osu_bgsu_CHOI&AXXE.pdf)"
+  description = "[Race and Gender Disparities in Academic Pay](/Posts/osu_bgsu_CHOI&AXXE.pdf)"
 
 [[item]]
   organization = "Virtual Presentation"
