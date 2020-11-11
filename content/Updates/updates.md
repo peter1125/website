@@ -21,6 +21,16 @@ date_format = "Jan 2006"
 [[item]]
   organization = "Virtual Presentation"
   organization_url = ""
+  title = "14th Annual OSU/BGSU Graduate Student Conference"
+  url = ""
+  certificate_url = ""
+  date_start = "2020-10-01"
+  date_end = ""
+  description = "[Race and Gender in Academic Pay](/Posts/osu_bgsu_CHOI&AXXE.pdf)"
+
+[[item]]
+  organization = "Virtual Presentation"
+  organization_url = ""
   title = "ALAPP 2020"
   url = "https://www.ntnu.edu/documents/38274309/1295148049/ALAPP2020-PROGRAMME-IN-DETAIL.pdf/14ed5d34-5b6a-db5a-99fa-ac34840c324c?t=1600239167429"
   certificate_url = ""
