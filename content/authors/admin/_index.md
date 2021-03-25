@@ -65,7 +65,7 @@ social:
 
 ---
 
-I am a graduate student in the [Department of Sociology](https://sociology.osu.edu/) at The Ohio State University. I am also a graduate affiliate for [Institute for Population Research (IPR)](https://ipr.osu.edu/) and an associate at the [Translational Data Analytics Institute (TDAI)](https://tdai.osu.edu/).
+I am a Ph.D. candidate in the [Department of Sociology](https://sociology.osu.edu/) at The Ohio State University. I am also a graduate affiliate for [Institute for Population Research (IPR)](https://ipr.osu.edu/) and an associate at the [Translational Data Analytics Institute (TDAI)](https://tdai.osu.edu/).
 
 My advisor is [Sam Clark](http://www.samclark.net/) and I am also part of the [openVA](http://openva.net/) team.
 
