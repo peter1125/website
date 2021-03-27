@@ -58,9 +58,6 @@ social:
 - icon: github
   icon_pack: fab
   link: https://github.com/peter1125
-- icon: scholar
-  icon_pack: fab
-  link: https://scholar.google.com/citations?user=ONfbbeoAAAAJ&hl=en
 - icon: cv
   icon_pack: ai
   link: files/cv.pdf
