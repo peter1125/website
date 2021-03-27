@@ -29,6 +29,26 @@ date_format = "Jan 2006"
   description = ""
 
 [[item]]
+  organization = "Virtual Workshop"
+  organization_url = ""
+  title = "Revision of the 2016 WHO Verbal Autopsy Instrument - Final Phase"
+  url = ""
+  certificate_url = ""
+  date_start = "2021-02-01"
+  date_end = ""
+  description = ""
+
+[[item]]
+  organization = "Virtual Workshop"
+  organization_url = ""
+  title = "WHO 2016 Verbal Autopsy Instrument Item Reduction Training Workshop"
+  url = ""
+  certificate_url = ""
+  date_start = "2020-10-01"
+  date_end = ""
+  description = ""
+
+[[item]]
   organization = "Virtual Presentation"
   organization_url = ""
   title = "14th Annual OSU/BGSU Graduate Student Conference"
