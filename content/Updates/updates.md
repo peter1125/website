@@ -19,6 +19,16 @@ date_format = "Jan 2006"
 #   Begin/end multi-line descriptions with 3 quotes `"""`.
 
 [[item]]
+  organization = "The Carpentries"
+  organization_url = "https://carpentries.org/"
+  title = "The Carpentries Instructor Training Workshop"
+  url = ""
+  certificate_url = ""
+  date_start = "2021-03-01"
+  date_end = ""
+  description = ""
+
+[[item]]
   organization = "Virtual Presentation"
   organization_url = ""
   title = "14th Annual OSU/BGSU Graduate Student Conference"
