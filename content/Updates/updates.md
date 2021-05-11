@@ -19,6 +19,17 @@ date_format = "Jan 2006"
 #   Begin/end multi-line descriptions with 3 quotes `"""`.
 
 [[item]]
+  organization = "Virtual Presentation"
+  organization_url = ""
+  title = "PAA 2020"
+  url = ""
+  certificate_url = ""
+  date_start = "2021-05-01"
+  date_end = ""
+  description = "[Race and Gender Disparities in Academic Pay](/posts/ASA2020_AXXE_CHOI_Final.pdf) - Poster Award (P3)"
+
+
+[[item]]
   organization = "The Carpentries"
   organization_url = "https://carpentries.org/"
   title = "The Carpentries Instructor Training Workshop"
@@ -101,7 +112,7 @@ date_format = "Jan 2006"
 [[item]]
   organization = "Cancelled Due to COVID-19"
   organization_url = ""
-  title = "PAA 2019"
+  title = "PAA 2020"
   url = ""
   certificate_url = ""
   date_start = "2020-04-01"
