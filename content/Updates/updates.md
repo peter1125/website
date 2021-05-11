@@ -26,7 +26,7 @@ date_format = "Jan 2006"
   certificate_url = ""
   date_start = "2021-05-01"
   date_end = ""
-  description = "[Race and Gender Disparities in Academic Pay](/posts/ASA2020_AXXE_CHOI_Final.pdf) - Poster Award (P3)"
+  description = "[Race and Gender Disparities in Academic Pay](/posts/PAA2021_poster.pdf) - Poster Award (P3)"
 
 
 [[item]]
