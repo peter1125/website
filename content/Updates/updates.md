@@ -18,6 +18,17 @@ date_format = "Jan 2006"
 #   Leave other parameters empty if not required.
 #   Begin/end multi-line descriptions with 3 quotes `"""`.
 
+
+[[item]]
+  organization = "Virtual Presentation"
+  organization_url = ""
+  title = "Academic Analytics Webinar"
+  url = "https://aarcresearch.com/events/september-webinar-20210923"
+  certificate_url = ""
+  date_start = "2021-09-01"
+  date_end = ""
+  description = "[Race and Gender Disparities in Academic Pay](/posts/AA_Presentation_092321.pdf)"
+
 [[item]]
   organization = "Virtual Presentation"
   organization_url = ""
