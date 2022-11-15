@@ -1,54 +1,59 @@
-+++
-# A Skills section created with the Featurette widget.
-widget = "featurette"  # See https://sourcethemes.com/academic/docs/page-builder/
-headless = true  # This file represents a page section.
-active = true  # Activate this widget? true/false
-weight = 50  # Order that this section will appear.
+---
+# An instance of the Featurette widget.
+# Documentation: https://wowchemy.com/docs/page-builder/
+widget: features
 
-title = "Skills"
-subtitle = ""
+# This file represents a page section.
+headless: true
+
+# Order that this section appears on the page.
+weight: 30
+
+title: Skills
+subtitle:
 
 # Showcase personal skills or business features.
-# 
-# Add/remove as many `[[feature]]` blocks below as you like.
-# 
-# For available icons, see: https://sourcethemes.com/academic/docs/widgets/#icons
-
-[[feature]]
-  icon = "python"
-  icon_pack = "fab"
-  name = "Python"
-  description = ""  
-
-[[feature]]
-  icon = "r-project"
-  icon_pack = "fab"
-  name = "R"
-  description = ""
-  
-[[feature]]
-  icon = "chart-bar"
-  icon_pack = "fas"
-  name = "Stata"
-  description = ""
-  
-[[feature]]
-  icon = "file-alt"
-  icon_pack = "fas"
-  name = "LaTeX"
-  description = ""
-
-[[feature]]
-  icon = "markdown"
-  icon_pack = "fab"
-  name = "Markdown"
-  description = ""
+# - Add/remove as many `feature` blocks below as you like.
+# - For available icons, see: https://wowchemy.com/docs/page-builder/#icons
+feature:
+  - description: 
+    icon: python
+    icon_pack: fab
+    name: Python
+  - description: 
+    icon: r-project
+    icon_pack: fab
+    name: R
+  - description: 
+    icon: chart-bar
+    icon_pack: fas
+    name: STATA
+  - description: 
+    icon: file-alt
+    icon_pack: fas
+    name: LaTeX
+  - description: 
+    icon: markdown
+    icon_pack: fab
+    name: Markdown
+  - description: Korean, Chinese
+    icon: language
+    icon_pack: fas
+    name: Language
 
 
-[[feature]]
-  icon = "language"
-  icon_pack = "fas"
-  name = "Language"
-  description = "Korean, Chinese"
+# Uncomment to use emoji icons.
+#- icon: ":smile:"
+#  icon_pack: "emoji"
+#  name: "Emojiness"
+#  description: "100%"
 
-+++
+# Uncomment to use custom SVG icons.
+# Place your custom SVG icon in `assets/media/icons/`.
+# Reference the SVG icon name (without `.svg` extension) in the `icon` field.
+# For example, reference `assets/media/icons/xyz.svg` as `icon: 'xyz'`
+#- icon: "your-custom-icon-name"
+#  icon_pack: "custom"
+#  name: "Surfing"
+#  description: "90%"
+---

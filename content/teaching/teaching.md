@@ -1,18 +1,19 @@
-+++
-# pages widget.
-widget = "blank"  # See https://sourcethemes.com/academic/docs/page-builder/
-headless = true  # This file represents a page section.
-active = true  # Activate this widget? true/false
+---
+widget: blank
+headless: true
 
 
-title = "Teaching"
-subtitle = "For any inquiries on presentations or guest lectures please e-mail me at choi.1443@osu.edu."
+# Order that this section appears on the page.
+weight: 10
 
-# Date format
-#   Refer to https://sourcethemes.com/academic/docs/customization/#date-format
-date_format = "Jan 2006"
+title: 'Teaching'
+subtitle: "For any inquiries on presentations or guest lectures please e-mail me at choi.1443@osu.edu."
 
-+++
+design:
+  # Choose how many columns the section has. Valid values: 1 or 2.
+  columns: '1'
+
+---
 
 ### Soc 2367: Urban Social Problems
 + Oct. 22, 2020 - [Access to Transportation: Bus Network and Spatial Inequality](/Posts/Urban_Choi_slides.html)
