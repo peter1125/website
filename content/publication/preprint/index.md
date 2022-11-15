@@ -8,7 +8,7 @@ authors:
 - Samuel J. Clark
 
 date: "2021-09-16T00:00:00Z"
-doi: "arXiv:2109.08244v2"
+doi: ""
 
 # Schedule page publish date (NOT publication's date).
 publishDate: "2021-09-16T00:00:00Z"
