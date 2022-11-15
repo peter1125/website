@@ -16,6 +16,8 @@ baseurl = "https://eungangchoi.com/"
 copyright = "&copy; Eungang Choi {year}"
 
 # Enable analytics by entering your Google Analytics tracking ID
+
+# Google Analytics 4
 googleAnalyticsID = "G-5MNMSZDYZQ"
 
 # Enable comments by entering your Disqus shortname
