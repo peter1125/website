@@ -160,7 +160,5 @@ sharing = true
     index_name = ""
     show_logo = false
 
-marketing:
-  analytics:
-    google_tag_manager: "G-5MNMSZDYZQ"
+
 
