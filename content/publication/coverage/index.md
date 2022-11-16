@@ -21,7 +21,7 @@ publication_types: ["2"]
 
 # Publication name and optional abbreviated publication name.
 publication: "International Journal of Epidemiology"
-publication_short: "IJE"
+publication_short: ""
 
 abstract: COVerAGE-DB aims to provide global coverage of key demographic aspects of the COVID-19 pandemic as it unfolds in an up-to-date, transparent and open-access format. COVerAGE-DB offers data with standardized count measures by sex and harmonized age groups, which is a necessary but not sufficient condition to allow comparisons between populations at national and subnational scales.
 

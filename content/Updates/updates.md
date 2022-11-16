@@ -36,7 +36,7 @@ item:
   - organization:  'Virtual Presentation'
     organization_url:  ''
     title:  'Academic Analytics Webinar'
-    url:  'https://aarcresearch.com/events/september-webinar-20210923'
+    url:  'https://aarcresearch.com/events/2021-09-23-RaceandGenderDispa-6HN5cElWTXwn3PaoOFpGUV'
     certificate_url:  ''
     date_start:  '2021-09-01'
     date_end:  ''
