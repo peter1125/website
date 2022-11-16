@@ -36,7 +36,7 @@ feature:
     icon: markdown
     icon_pack: fab
     name: Markdown
-  - description: Korean, Chinese
+  - description: English, Korean, Chinese
     icon: language
     icon_pack: fas
     name: Language
