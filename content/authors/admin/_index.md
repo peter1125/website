@@ -85,7 +85,8 @@ highlight_name: true
 ---
 
 
-I am a Data Scientist at [Nationwide](https://www.nationwide.com/), where I conduct analysis and build predictive models.  
+I am a Data Scientist at [Nationwide](https://www.nationwide.com/), where I conduct analysis and build predictive models.
+ 
 In May 2023, I graduated with a Ph.D. Sociology from [The Ohio State University]((https://sociology.osu.edu/)). where I was advised by [Sam Clark](http://www.samclark.net/). My dissertation was titled "Computational Social Science for Sociological Research". I was also a part of the [openVA](http://openva.net/) team, where I developed software and tools for global health.
 
 Prior to graduate school, I worked as a Consultant and advised numerous MNEs on corporate sustainability and global business.
