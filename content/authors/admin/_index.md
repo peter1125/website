@@ -10,27 +10,30 @@ last_name: Choi
 superuser: true
 
 # Role/position/tagline
-role: Ph.D Cadidate, Sociology
+role: Data Scientist
 
 # Organizations/Affiliations to show in About widget
 organizations:
-  - name: The Ohio State University
-    url: "https://sociology.osu.edu/"
+  - name: Nationwide
+    url: "https://www.nationwide.com/"
 
 
 # Short bio (displayed in user profile at end of posts)
-bio: Ph.D Cadidate in Sociology, OSU
+bio: Data Scientist with a Ph.D in Sociology
 
 # Interests to show in About widget
 interests:
-  - Computational Social Science
-  - Fertility/Mortality
-  - Inequality
-  - Verbal Autopsy
+  - NLP
+  - Generative AI
+  - LLM
 
 # Education to show in About widget
 education:
   courses:
+  - course: Ph.D. in Sociology
+    institution: The Ohio State University
+    year: 2023
+
   - course: M.A. in Sociology
     institution: The Ohio State University
     year: 2019
@@ -38,6 +41,7 @@ education:
   - course: Master of Public Policy (MPP)
     institution: KDI School of Public Policy and Management
     year: 2013
+  
   - course: B.A. in Management
     institution: Handong Global University
     year: 2012
@@ -64,7 +68,7 @@ social:
     link: https://scholar.google.com/citations?user=ONfbbeoAAAAJ&hl=en
   - icon: cv
     icon_pack: ai
-    link: uploads/cv.pdf
+    link: files/cv.pdf
 
 # Link to a PDF of your resume/CV.
 # To use: copy your resume to `static/uploads/resume.pdf`, enable `ai` icons in `params.yaml`,
@@ -80,8 +84,10 @@ email: ''
 highlight_name: true
 ---
 
-I am a Ph.D. candidate in the [Department of Sociology](https://sociology.osu.edu/) at The Ohio State University. I am a graduate affiliate for [Institute for Population Research (IPR)](https://ipr.osu.edu/) and an associate at the [Translational Data Analytics Institute (TDAI)](https://tdai.osu.edu/). I am also working as a GRA with NCACI (Nationwide Center for Advanced Consumer Insight), where I am gaining experience as a data scientist for [Nationwide](https://www.nationwide.com/).
 
-My advisor is [Sam Clark](http://www.samclark.net/) and I am also part of the [openVA](http://openva.net/) team.
+I am a Data Scientist at [Nationwide](https://www.nationwide.com/), where I conduct analysis and build predictive models.  
+In May 2023, I graduated with a Ph.D. Sociology from [The Ohio State University]((https://sociology.osu.edu/)). where I was advised by [Sam Clark](http://www.samclark.net/). My dissertation was titled "Computational Social Science for Sociological Research}". I was also a part of the [openVA](http://openva.net/) team, where I developed software and tools for global health.
 
-My research interest includes fertility, mortality, and inequality. I use methods that are broadly bound by computational social science to collect and analyze data for my research. Network analysis, NLP, machine learning, computer vision, and deep learning are some of the methods I am actively engaged with in my research.
+Prior to graduate school, I worked as a Consultant and advised numerous MNEs on corporate sustainability as well as global business.
+
+I am currently based in Columbus, Ohio and enjoy playing tennis and golf in my free time.  

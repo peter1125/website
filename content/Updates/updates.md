@@ -23,8 +23,31 @@ date_format: Jan 2006
 #   Leave other parameters empty if not required.
 #   Begin multi-line descriptions with YAML's `|2-` multi-line prefix.
 
-
 item:
+  - certificate_url:  'https://www.coursera.org/account/accomplishments/verify/M4SDNSGC4EJB?utm_product=course'
+    organization:  'Coursera'
+    organization_url:  'https://www.coursera.org'
+    title:  'Generative AI with Large Language Models'
+    url:  ''
+    date_start:  '2023-09-06'
+    date_end:  ''
+    description: ''
+  - certificate_url:  ''
+    organization:  'The Ohio State University Golf Club'
+    organization_url:  'https://ohiostategolfclub.clubhouseonline-e3.com/'
+    title:  'Hole-In-One'
+    url:  ''
+    date_start:  '2023-05-23'
+    date_end:  ''
+    description: 'First ever hole-in-one. 123yd Par 3'
+  - certificate_url:  ''
+    organization:  'The Ohio State University'
+    organization_url:  ''
+    title:  'Ph.D. Commencement'
+    url:  ''
+    date_start:  '2023-05-01'
+    date_end:  ''
+    description: 'Graduated with a Ph.D. In Sociology'
   - certificate_url:  ''
     organization:  'Los Angelas, CA'
     organization_url:  ''
