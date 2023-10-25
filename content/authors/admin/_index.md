@@ -68,7 +68,7 @@ social:
     link: https://scholar.google.com/citations?user=ONfbbeoAAAAJ&hl=en
   - icon: cv
     icon_pack: ai
-    link: files/cv.pdf
+    link: static/uploads/cv.pdf
 
 # Link to a PDF of your resume/CV.
 # To use: copy your resume to `static/uploads/resume.pdf`, enable `ai` icons in `params.yaml`,
