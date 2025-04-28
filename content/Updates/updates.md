@@ -24,6 +24,22 @@ date_format: Jan 2006
 #   Begin multi-line descriptions with YAML's `|2-` multi-line prefix.
 
 item:
+   - certificate_url:  ''
+    organization:  'Nationwide Insurance'
+    organization_url:  ''
+    title:  'Promoted at Work'
+    url:  ''
+    date_start:  '2025-04-01'
+    date_end:  ''
+    description: ''
+  - certificate_url:  ''
+    organization:  'LinkedIn'
+    organization_url:  'https://www.linkedin.com/learning'
+    title:  'Advanced Prompt Engineering Techniques'
+    url:  'https://www.linkedin.com/learning/certificates/77b80b080d1088d3de8e4b255df8192b21df49c3527476115f84a81c8c8e6367?u=2185266'
+    date_start:  '2025-03-01'
+    date_end:  ''
+    description: ''
   - certificate_url:  'https://www.coursera.org/account/accomplishments/verify/M4SDNSGC4EJB?utm_product=course'
     organization:  'Coursera'
     organization_url:  'https://www.coursera.org'
