@@ -54,9 +54,6 @@ social:
   - icon: envelope
     icon_pack: fas
     link: '#contact'
-  - icon: twitter
-    icon_pack: fab
-    link: https://twitter.com/eungang_choi
   - icon: linkedin
     icon_pack: fab
     link: https://linkedin.com/in/peter1125
@@ -68,7 +65,7 @@ social:
     link: https://scholar.google.com/citations?user=ONfbbeoAAAAJ&hl=en
   - icon: cv
     icon_pack: ai
-    link: static/uploads/cv.pdf
+    link: /static/uploads/cv.pdf
 
 # Link to a PDF of your resume/CV.
 # To use: copy your resume to `static/uploads/resume.pdf`, enable `ai` icons in `params.yaml`,
