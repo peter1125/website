@@ -25,6 +25,14 @@ date_format: Jan 2006
 
 item:
   - certificate_url:  ''
+    organization:  'National Fair Housing Alliance'
+    organization_url:  ''
+    title:  'Responsible AI Training'
+    url:  ''
+    date_start:  '2025-10-01'
+    date_end:  ''
+    description: ''
+  - certificate_url:  ''
     organization:  'Nationwide Insurance'
     organization_url:  ''
     title:  'Promoted at Work'
