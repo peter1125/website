@@ -23,9 +23,10 @@ bio: Data Scientist with a Ph.D in Sociology
 
 # Interests to show in About widget
 interests:
-  - NLP
   - Generative AI
   - LLM
+  - AI Ethics and Governance
+  - Computational Social Science
 
 # Education to show in About widget
 education:
