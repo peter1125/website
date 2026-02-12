@@ -10,7 +10,7 @@ headless: true
 weight: 90
 
 title: Publications
-subtitle: ''
+subtitle: Selected peer-reviewed research and applied methodological work.
 
 content:
   # Filter on criteria
@@ -35,4 +35,3 @@ design:
   view: citation
   columns: '2'
 ---
-

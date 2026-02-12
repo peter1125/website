@@ -10,7 +10,7 @@ last_name: Choi
 superuser: true
 
 # Role/position/tagline
-role: Data Scientist
+role: Data Scientist at Nationwide
 
 # Organizations/Affiliations to show in About widget
 organizations:
@@ -19,14 +19,14 @@ organizations:
 
 
 # Short bio (displayed in user profile at end of posts)
-bio: Data Scientist with a Ph.D in Sociology
+bio: Data Scientist building predictive and GenAI systems for enterprise decisions.
 
 # Interests to show in About widget
 interests:
-  - Generative AI
-  - LLM
-  - AI Ethics and Governance
-  - Computational Social Science
+  - Predictive Modeling
+  - Generative AI and LLMs
+  - NLP and Text Analytics
+  - Responsible AI and Model Governance
 
 # Education to show in About widget
 education:
@@ -54,7 +54,7 @@ education:
 social:
   - icon: envelope
     icon_pack: fas
-    link: '#contact'
+    link: mailto:peter1125@gmail.com
   - icon: linkedin
     icon_pack: fab
     link: https://linkedin.com/in/peter1125
@@ -83,8 +83,8 @@ highlight_name: true
 ---
 
 
-I am a Data Scientist at [Nationwide](https://www.nationwide.com/), where I specialize in building predictive models and leveraging Generative AI (GenAI) and Large Language Models (LLMs) to solve complex business problems.
- 
-In May 2023, I graduated with a Ph.D. Sociology from [The Ohio State University](https://sociology.osu.edu/). where I was advised by [Sam Clark](http://www.samclark.net/). My dissertation focused on "Computational Social Science for Sociological Research." I also served on the [openVA](http://openva.net/) team, developing software and tools to support global health initiatives.
+I am a Data Scientist at [Nationwide](https://www.nationwide.com/), focused on predictive modeling, NLP, and LLM-based workflows that turn unstructured business data into measurable decisions.
 
-Prior to my doctoral work, I was a consultant advising multinational enterprises (MNEs) on corporate sustainability and global business strategies. Based in Columbus, Ohio, I spend my free time playing tennis and golf.
+I earned a Ph.D. in Sociology from [The Ohio State University](https://sociology.osu.edu/) in May 2023, advised by [Sam Clark](http://www.samclark.net/). My dissertation focused on computational social science for sociological research. I also worked with the [openVA](http://openva.net/) team, developing software and tooling for global health research and verbal autopsy analysis.
+
+Before my doctoral work, I advised multinational organizations on sustainability and global business strategy. I am based in Columbus, Ohio.

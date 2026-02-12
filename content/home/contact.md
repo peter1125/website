@@ -9,7 +9,7 @@ headless: true
 weight: 130
 
 title: Contact
-subtitle:
+subtitle: I usually reply within 2 business days.
 
 content:
   # Automatically link email and phone or display as text?
@@ -22,10 +22,19 @@ content:
       id:
     netlify:
       # Enable CAPTCHA challenge to reduce spam?
-      captcha: false
+      captcha: true
 
   # Contact details (edit or remove options as required)
   email: peter1125@gmail.com
+  contact_links:
+    - icon: linkedin
+      icon_pack: fab
+      name: LinkedIn
+      link: https://linkedin.com/in/peter1125
+    - icon: github
+      icon_pack: fab
+      name: GitHub
+      link: https://github.com/peter1125
 #   phone: 
 #   address:
 #     street: 

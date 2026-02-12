@@ -18,7 +18,7 @@ marketing:
     site_type: Person
     local_business_type: ''
     org_name: ''
-    description: "Data Scientist and Sociologist specializing in Generative AI, LLMs, and Computational Social Science."
+    description: "Data Scientist at Nationwide building predictive modeling, NLP, and LLM systems for enterprise decisions."
     twitter: 'eungang_choi'
   analytics:
     google_analytics: 'G-5MNMSZDYZQ'    
@@ -36,7 +36,7 @@ header:
     show_logo: true
     show_language: false
     show_day_night: true
-    show_search: true
+    show_search: false
     highlight_active_link: true
 
 # Site footer
@@ -68,7 +68,7 @@ features:
   privacy_pack:
     enable: false
   repository:
-    url: 'https://github.com/peter1125/choi-website'
+    url: 'https://github.com/peter1125/website'
     content_dir: content
     branch: main
   avatar:

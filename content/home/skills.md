@@ -9,37 +9,25 @@ headless: true
 # Order that this section appears on the page.
 weight: 30
 
-title: Skills
+title: What I Do
 subtitle:
 
 # Showcase personal skills or business features.
 # - Add/remove as many `feature` blocks below as you like.
 # - For available icons, see: https://wowchemy.com/docs/page-builder/#icons
 feature:
-  - description: 
-    icon: python
-    icon_pack: fab
-    name: Python
-  - description: 
-    icon: r-project
-    icon_pack: fab
-    name: R
-  - description: 
-    icon: chart-bar
+  - description: Forecasting and risk modeling for operational and strategic decisions.
+    icon: chart-line
     icon_pack: fas
-    name: STATA
-  - description: 
-    icon: file-alt
+    name: Predictive Modeling
+  - description: Document and text pipelines using NLP and LLMs for enterprise workflows.
+    icon: comments
     icon_pack: fas
-    name: LaTeX
-  - description: 
-    icon: markdown
-    icon_pack: fab
-    name: Markdown
-  - description: English, Korean, Chinese
-    icon: language
+    name: NLP and LLM Systems
+  - description: Practical evaluation, controls, and governance for trustworthy AI deployment.
+    icon: shield-alt
     icon_pack: fas
-    name: Language
+    name: Responsible AI
 
 
 # Uncomment to use emoji icons.
