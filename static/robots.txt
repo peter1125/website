@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /tags/
+Disallow: /categories/
+Disallow: /publication-type/
+
+Sitemap: https://eungangchoi.com/sitemap.xml

@@ -21,8 +21,9 @@ content:
     formspree:
       id:
     netlify:
-      # Enable CAPTCHA challenge to reduce spam?
-      captcha: true
+      # Keep this false so reCAPTCHA script is not loaded on every page view.
+      # (Safer performance default for a public portfolio site.)
+      captcha: false
 
   # Contact details (edit or remove options as required)
   email: peter1125@gmail.com

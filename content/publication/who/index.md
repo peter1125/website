@@ -16,7 +16,7 @@ authors:
 author_notes:
 - 
 date: "2021-10-26T00:00:00Z"
-doi: "https://doi.org/10.1080/16549716.2021.1982486"
+doi: "10.1080/16549716.2021.1982486"
 
 # Schedule page publish date (NOT publication's date).
 publishDate: "2021-10-26T00:00:00Z"

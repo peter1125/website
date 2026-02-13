@@ -13,10 +13,15 @@ headless: true
 weight: 20
 
 title: About
+cta:
+  text: Get in touch
+  url: /#contact
 
 # Choose the user profile to display
 # This should be the username (folder name) of a profile in your `content/authors/` folder.
 # See https://wowchemy.com/docs/get-started/#introduce-yourself
 author: admin
 ---
+
+[**Get in touch**](/#contact) to discuss data science, NLP, and LLM projects.
 
