@@ -5,4 +5,20 @@ Disallow: /tags/
 Disallow: /categories/
 Disallow: /publication-type/
 
+# Explicitly allow Naver bot / Yeti crawlers to ensure SEO tooling access.
+User-agent: Yeti
+Allow: /
+
+User-agent: Naverbot
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: AdsBot-Google
+Allow: /
+
 Sitemap: https://eungangchoi.com/sitemap.xml
