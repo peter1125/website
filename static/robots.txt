@@ -4,6 +4,7 @@ Disallow: /admin/
 Disallow: /tags/
 Disallow: /categories/
 Disallow: /publication-type/
+Disallow: /inkstone/maru/
 
 # Explicitly allow Naver bot / Yeti crawlers to ensure SEO tooling access.
 User-agent: Yeti

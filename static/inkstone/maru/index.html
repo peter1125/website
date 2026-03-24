@@ -1,0 +1,2776 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<link rel="icon" href="data:,">
+<title>고스톱 마당</title>
+<style>
+:root {
+  --bg: #2b160f;
+  --felt: #23533d;
+  --felt-2: #163827;
+  --felt-glow: rgba(255, 233, 176, 0.16);
+  --panel: rgba(17, 28, 23, 0.9);
+  --panel-soft: rgba(27, 42, 34, 0.82);
+  --ink: #f7f0e4;
+  --muted: #c8bda7;
+  --gold: #f2c56b;
+  --gold-2: #a76d1f;
+  --red: #cf594c;
+  --blue: #4a7fcc;
+  --shadow: rgba(0, 0, 0, 0.42);
+  --surface-line: rgba(255,255,255,0.08);
+  --surface-glow: rgba(255,244,208,0.12);
+  --shadow-soft: rgba(0,0,0,0.28);
+  --shadow-strong: rgba(0,0,0,0.42);
+  --good: #7fc39d;
+  --good-soft: rgba(127,195,157,0.16);
+  --warn-soft: rgba(207,89,76,0.18);
+  --blue-soft: rgba(74,127,204,0.18);
+  --card-w: clamp(52px, min(6.3vw, 8.8vh), 86px);
+  --card-h: calc(var(--card-w) * 1.6);
+  --card-field-scale: 1.03;
+  --card-player-scale: 1.12;
+  --card-opponent-scale: 0.68;
+  --card-stock-scale: 0.86;
+  --radius: 15px;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: radial-gradient(circle at top, #5f3a21 0%, var(--bg) 38%, #120906 100%); color: var(--ink); font-family: "Palatino Linotype", Georgia, serif; }
+body { overflow: hidden; touch-action: manipulation; }
+button { font: inherit; }
+
+.app {
+  height: 100dvh;
+  min-height: 100dvh;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 44%, rgba(255,243,204,0.08), transparent 20%),
+    radial-gradient(circle at 20% 10%, rgba(255,255,255,0.08), transparent 22%),
+    radial-gradient(circle at 80% 14%, rgba(255,255,255,0.06), transparent 18%),
+    linear-gradient(180deg, rgba(255,255,255,0.06), transparent 18%),
+    linear-gradient(135deg, rgba(255,255,255,0.025) 25%, transparent 25%) 0 0 / 18px 18px,
+    linear-gradient(315deg, rgba(0,0,0,0.06) 25%, transparent 25%) 0 0 / 18px 18px,
+    radial-gradient(circle at center, #336b4f 0%, var(--felt) 42%, var(--felt-2) 100%);
+}
+
+.topbar, .footerbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 7px 9px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(23, 36, 30, 0.96), rgba(14, 24, 20, 0.92));
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 16px 34px var(--shadow);
+}
+.footerbar { flex-wrap: wrap; }
+
+.titlebox h1 { margin: 0; font-size: clamp(19px, 2.5vw, 27px); letter-spacing: 0.05em; color: #fff1cb; line-height: 1; }
+.titlebox p { margin: 1px 0 0; color: var(--muted); font-size: 10px; letter-spacing: 0.11em; text-transform: uppercase; }
+
+.controls { display: flex; gap: 7px; flex-wrap: wrap; justify-content: flex-end; }
+.btn {
+  padding: 7px 11px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.12);
+  color: var(--ink);
+  background: linear-gradient(180deg, rgba(242,197,107,0.22), rgba(167,109,31,0.12));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.12), 0 6px 12px rgba(0,0,0,0.18);
+  cursor: pointer;
+}
+.btn:hover, .btn:active { transform: translateY(-1px); }
+.btn.alt { background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.04)); }
+.btn.warn { background: linear-gradient(180deg, rgba(207,89,76,0.25), rgba(207,89,76,0.1)); }
+.btn.compact { padding: 6px 10px; font-size: 11px; }
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 8px;
+  min-height: 0;
+  flex: 1;
+  overflow: hidden;
+}
+
+.table-wrap {
+  position: relative;
+  border-radius: 24px;
+  border: 1px solid var(--surface-line);
+  background:
+    radial-gradient(circle at 50% 48%, rgba(255,240,194,0.12), transparent 24%),
+    radial-gradient(circle at 50% 46%, rgba(78,133,102,0.18), transparent 54%),
+    linear-gradient(180deg, rgba(255,255,255,0.04), rgba(0,0,0,0.16)),
+    radial-gradient(circle at center, rgba(27,67,49,0.98), rgba(15,39,29,1));
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04), 0 28px 46px rgba(0,0,0,0.38);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 0;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.table-wrap::before {
+  content: "";
+  position: absolute;
+  inset: 18px;
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 50% 46%, rgba(255,233,176,0.08), transparent 22%),
+    linear-gradient(180deg, rgba(255,255,255,0.025), transparent 34%);
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.table-wrap > :not(.ring) {
+  position: relative;
+  z-index: 1;
+}
+
+.ring {
+  position: absolute;
+  inset: 10px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.04);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.statusbar {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 10px;
+}
+
+.table-rhythm {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+  align-items: stretch;
+}
+
+.turn-flow,
+.turn-note {
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(14, 23, 19, 0.72), rgba(8, 13, 11, 0.58));
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.03), 0 10px 18px rgba(0,0,0,0.14);
+}
+
+.turn-flow {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+  padding: 7px 8px;
+}
+
+.flow-step {
+  min-width: 0;
+  padding: 6px 7px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.05);
+  display: flex;
+  gap: 6px;
+  align-items: flex-start;
+  opacity: 0.62;
+  transition: opacity 180ms ease, transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.flow-step strong,
+.flow-step span {
+  display: block;
+}
+
+.flow-step strong {
+  color: #fff0c3;
+  font-size: 10px;
+  letter-spacing: 0.03em;
+}
+
+.flow-step span {
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 9px;
+  line-height: 1.25;
+}
+
+.flow-step > div > span {
+  display: none;
+}
+
+.flow-index {
+  flex: 0 0 auto;
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: rgba(255,255,255,0.08);
+  color: #fff4cf;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.flow-step.active {
+  opacity: 1;
+  transform: translateY(-1px);
+  border-color: rgba(242,197,107,0.46);
+  box-shadow: 0 0 0 1px rgba(242,197,107,0.18), 0 10px 18px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.06);
+}
+
+.flow-step.active .flow-index {
+  background: rgba(242,197,107,0.2);
+  box-shadow: 0 0 0 1px rgba(242,197,107,0.32);
+}
+
+.flow-step.special-active {
+  border-color: rgba(207,89,76,0.42);
+  box-shadow: 0 0 0 1px rgba(207,89,76,0.2), 0 10px 18px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+.flow-step.special-active .flow-index {
+  background: rgba(207,89,76,0.18);
+  box-shadow: 0 0 0 1px rgba(207,89,76,0.34);
+}
+
+.turn-note {
+  display: none;
+}
+
+.turn-note strong {
+  display: block;
+  color: #fff0c6;
+  font-size: 12px;
+}
+
+.turn-note span {
+  display: block;
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.35;
+}
+
+.turn-note-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.note-chip,
+.progress-pill,
+.capture-chip,
+.slot-chip,
+.stock-alert,
+.capture-total {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.note-chip {
+  background: rgba(255,255,255,0.06);
+  color: #f7eed9;
+}
+
+.note-chip.warn,
+.stock-alert.low,
+.stock-alert.critical {
+  background: var(--warn-soft);
+  color: #ffd8cb;
+  border-color: rgba(207,89,76,0.28);
+}
+
+.note-chip.alert {
+  background: rgba(242,197,107,0.16);
+  color: #ffe9b5;
+  border-color: rgba(242,197,107,0.26);
+}
+
+.note-chip.calm,
+.stock-alert.calm {
+  background: rgba(255,255,255,0.06);
+  color: #f7eed9;
+}
+
+.note-chip.info,
+.stock-alert.mid {
+  background: var(--blue-soft);
+  color: #dbe7ff;
+  border-color: rgba(74,127,204,0.28);
+}
+
+.player-strip {
+  padding: 9px 12px;
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(16, 25, 21, 0.74), rgba(9, 15, 13, 0.62));
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.03), 0 10px 18px rgba(0,0,0,0.14);
+}
+.player-strip strong { display: block; color: #ffe7a7; font-size: 13px; margin-bottom: 2px; }
+.player-strip span { color: var(--muted); font-size: 11px; }
+.player-strip.active { box-shadow: 0 0 0 1px rgba(242,197,107,0.38), 0 0 28px rgba(242,197,107,0.16), 0 12px 22px rgba(0,0,0,0.18); }
+
+.strip-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.strip-score {
+  color: #fff3ca;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.strip-progress {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 5px;
+}
+
+.progress-pill {
+  background: rgba(255,255,255,0.06);
+  color: #f0e5ce;
+}
+
+.progress-pill.ready,
+.capture-chip.ready,
+.capture-total.ready {
+  background: var(--good-soft);
+  color: #e6fff2;
+  border-color: rgba(127,195,157,0.28);
+}
+
+.progress-pill.near,
+.capture-chip.near,
+.capture-total.near {
+  background: rgba(242,197,107,0.16);
+  color: #ffefc1;
+  border-color: rgba(242,197,107,0.26);
+}
+
+.strip-hint {
+  display: block;
+  margin-top: 6px;
+  color: #e9d8b2;
+  line-height: 1.3;
+}
+
+.stock {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(14, 22, 19, 0.64), rgba(8, 12, 11, 0.5));
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.03), 0 10px 16px rgba(0,0,0,0.14);
+}
+
+.stock-copy {
+  min-width: 110px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stock-copy strong {
+  color: #fff2c6;
+  font-size: 13px;
+}
+
+.stock-top {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.stock-sub {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.stock-meter {
+  width: 100%;
+  height: 7px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.08);
+  overflow: hidden;
+}
+
+.stock-meter-fill {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, rgba(127,195,157,0.94), rgba(242,197,107,0.96));
+}
+
+.stock-meter-fill.mid {
+  background: linear-gradient(90deg, rgba(74,127,204,0.9), rgba(242,197,107,0.92));
+}
+
+.stock-meter-fill.low,
+.stock-meter-fill.critical {
+  background: linear-gradient(90deg, rgba(207,89,76,0.94), rgba(242,197,107,0.92));
+}
+
+.table-center {
+  display: grid;
+  grid-template-columns: 1fr minmax(124px, 170px);
+  gap: 12px;
+  align-items: stretch;
+  flex: 1;
+  min-height: 0;
+}
+
+.table-center > div:first-child {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 4px 2px 2px;
+  border-radius: 22px;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.field-grid {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  align-content: start;
+}
+
+.field-slot {
+  min-height: calc((var(--card-h) * var(--card-field-scale)) + 30px);
+  border-radius: 20px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.05);
+  padding: 10px 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.025), inset 0 -10px 16px rgba(0,0,0,0.08);
+}
+
+.field-slot.hot {
+  box-shadow: 0 0 0 1px rgba(242,197,107,0.18), 0 10px 18px rgba(0,0,0,0.16), inset 0 1px 0 rgba(255,255,255,0.03), inset 0 -10px 16px rgba(0,0,0,0.08);
+}
+
+.field-slot.stacked {
+  background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.025));
+  border-color: rgba(255,255,255,0.09);
+}
+
+.slot-meta,
+.slot-foot {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  pointer-events: none;
+}
+
+.slot-meta { top: 7px; }
+.slot-foot { bottom: 6px; }
+
+.slot-month,
+.slot-foot span {
+  color: rgba(247,240,228,0.72);
+  font-size: 10px;
+  letter-spacing: 0.05em;
+}
+
+.slot-chip {
+  background: rgba(255,255,255,0.07);
+  color: #fff1c9;
+}
+
+.slot-chip.stack-human {
+  background: var(--good-soft);
+  color: #ebfff3;
+  border-color: rgba(127,195,157,0.28);
+}
+
+.slot-chip.stack-ai {
+  background: rgba(74,127,204,0.18);
+  color: #e5edff;
+  border-color: rgba(74,127,204,0.28);
+}
+
+.pile-indicator {
+  display: inline-flex;
+  gap: 3px;
+  align-items: center;
+}
+
+.pile-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.22);
+}
+
+.pile-dot.on {
+  background: rgba(242,197,107,0.88);
+  box-shadow: 0 0 8px rgba(242,197,107,0.35);
+}
+
+.field-slot.targetable { box-shadow: 0 0 0 2px rgba(242,197,107,0.72), 0 0 22px rgba(242,197,107,0.22), inset 0 1px 0 rgba(255,255,255,0.06); cursor: pointer; }
+.field-slot.targetable::after {
+  content: "선택";
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  color: #fff7de;
+  background: rgba(242,197,107,0.2);
+  border: 1px solid rgba(242,197,107,0.5);
+  padding: 2px 6px;
+  border-radius: 999px;
+}
+
+.capture-column { display: flex; flex-direction: column; gap: 10px; }
+.capture-box {
+  border-radius: 20px;
+  background: linear-gradient(180deg, rgba(15, 23, 19, 0.82), rgba(10, 16, 13, 0.68));
+  border: 1px solid rgba(255,255,255,0.07);
+  padding: 10px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.03), 0 12px 20px rgba(0,0,0,0.16);
+}
+.capture-box.mine { border-color: rgba(242,197,107,0.18); }
+.capture-box.theirs { opacity: 0.92; }
+.capture-box h3 { margin: 0 0 6px; font-size: 12px; color: #ffe5a0; letter-spacing: 0.05em; }
+
+.capture-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.capture-head h3 { margin: 0; }
+
+.capture-total {
+  background: rgba(255,255,255,0.06);
+  color: #fff1c8;
+}
+
+.capture-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 8px;
+}
+
+.capture-chip {
+  background: rgba(255,255,255,0.05);
+  color: #efe1c8;
+}
+
+.capture-chip.hint {
+  background: rgba(242,197,107,0.12);
+  color: #ffe8b2;
+  border-color: rgba(242,197,107,0.22);
+}
+
+.capture-mini { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.hand-zone, .opponent-zone {
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.07);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.04), 0 18px 30px rgba(0,0,0,0.18);
+}
+
+.opponent-zone {
+  display: none;
+}
+
+.hand-zone {
+  gap: 10px;
+  padding: 12px 14px 10px;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255,245,208,0.05), transparent 45%),
+    linear-gradient(180deg, rgba(32, 45, 38, 0.86), rgba(12, 20, 17, 0.92));
+  border-color: rgba(255,255,255,0.09);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.05), 0 22px 34px rgba(0,0,0,0.2), 0 0 0 1px rgba(255,231,173,0.05);
+}
+
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.section-head strong {
+  color: #fff1c7;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+}
+
+.hand-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(4px, 0.55vw, 8px);
+  align-items: flex-end;
+  align-content: flex-start;
+  min-height: calc((var(--card-h) * var(--card-player-scale)) + 8px);
+  padding-top: 2px;
+}
+
+.hand-row .card,
+.opponent-row .card { flex: 0 0 auto; }
+
+.hand-row .card:hover,
+.hand-row .card.selected { z-index: 2; }
+
+.opponent-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  align-items: flex-start;
+  align-content: flex-start;
+  min-height: calc((var(--card-h) * var(--card-opponent-scale)) + 6px);
+  padding-right: 12px;
+  overflow: visible;
+}
+
+.opponent-row .card:not(:last-child) { margin-right: -20px; }
+
+.sidebar {
+  display: none;
+}
+.footer-meta {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+.footer-session {
+  color: var(--muted);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.panel {
+  border-radius: 24px;
+  background:
+    linear-gradient(180deg, rgba(31, 43, 36, 0.2), transparent 22%),
+    linear-gradient(180deg, var(--panel), rgba(10, 17, 14, 0.96));
+  border: 1px solid var(--surface-line);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.04), 0 20px 38px rgba(0,0,0,0.3);
+  padding: 12px 14px;
+}
+
+.score-line { display: flex; justify-content: space-between; gap: 8px; padding: 3px 0; font-size: 12px; border-bottom: 1px dashed rgba(255,255,255,0.08); }
+.score-line:last-child { border-bottom: 0; }
+.score-line strong { color: #ffe5a0; }
+
+.message-box {
+  min-height: 68px;
+  line-height: 1.4;
+  color: #f6ebd7;
+}
+
+.help-box details { border-top: 1px dashed rgba(255,255,255,0.08); padding-top: 8px; }
+.help-box summary { cursor: pointer; color: #ffe6a6; }
+.help-box ul { padding-left: 18px; margin: 10px 0 0; color: var(--muted); }
+
+.mobile-hud {
+  display: none;
+  border-radius: 18px;
+  padding: 8px 10px;
+  background: linear-gradient(180deg, rgba(17, 28, 23, 0.94), rgba(11, 18, 15, 0.92));
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.22);
+}
+.mobile-hud-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 12px;
+  color: #ffe7ad;
+}
+.mobile-hud-top strong { color: #fff3cb; }
+.mobile-hud-message {
+  margin-top: 5px;
+  font-size: 12px;
+  line-height: 1.35;
+  color: var(--muted);
+}
+
+.badge {
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.06));
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+  color: #fff7df;
+}
+
+.card {
+  width: var(--card-size-w, var(--card-w));
+  height: var(--card-size-h, var(--card-h));
+  border-radius: 15px;
+  position: relative;
+  background: linear-gradient(180deg, #c14a34 0%, #93281d 24%, #6c1713 100%);
+  color: #271611;
+  box-shadow: 0 14px 20px var(--shadow-soft), 0 3px 0 rgba(47,15,10,0.24), inset 0 1px 0 rgba(255,255,255,0.18), inset 0 0 0 1px rgba(54,17,12,0.48);
+  overflow: hidden;
+  transform-origin: center bottom;
+  transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+  isolation: isolate;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border-radius: 10px;
+  background: linear-gradient(180deg, rgba(255,253,246,0.98), rgba(240,229,206,0.98));
+  box-shadow: inset 0 0 0 1px rgba(112,67,39,0.26), inset 0 14px 24px rgba(255,255,255,0.18);
+}
+
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 8px 7px;
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 20% 12%, rgba(255,255,255,0.42), transparent 24%),
+    radial-gradient(circle at 50% 100%, rgba(207,172,116,0.08), transparent 44%),
+    repeating-linear-gradient(180deg, rgba(137,96,66,0.045) 0 2px, transparent 2px 6px);
+  box-shadow: inset 0 0 0 1px rgba(109,68,40,0.12);
+  opacity: 0.68;
+}
+
+.card > * {
+  position: relative;
+  z-index: 2;
+}
+
+.card.clickable { cursor: pointer; }
+.card.clickable:hover, .card.clickable:active { transform: translateY(-4px) rotate(-1deg); box-shadow: 0 24px 32px rgba(0,0,0,0.34), 0 4px 0 rgba(47,15,10,0.22); }
+.card.selected { transform: translateY(-10px) scale(1.02); box-shadow: 0 0 0 2px rgba(242,197,107,0.92), 0 20px 24px rgba(0,0,0,0.32); }
+.card.emph { animation: pulse 700ms ease; }
+
+.card-player {
+  --card-size-w: calc(var(--card-w) * var(--card-player-scale));
+  --card-size-h: calc(var(--card-h) * var(--card-player-scale));
+  box-shadow: 0 20px 28px var(--shadow-strong), 0 4px 0 rgba(48,17,12,0.24), inset 0 1px 0 rgba(255,255,255,0.18), inset 0 0 0 1px rgba(54,17,12,0.48);
+}
+
+.card-field {
+  --card-size-w: calc(var(--card-w) * var(--card-field-scale));
+  --card-size-h: calc(var(--card-h) * var(--card-field-scale));
+  box-shadow: 0 18px 24px rgba(0,0,0,0.3), 0 3px 0 rgba(47,15,10,0.22), inset 0 1px 0 rgba(255,255,255,0.18), inset 0 0 0 1px rgba(54,17,12,0.48);
+}
+
+.card-opponent {
+  --card-size-w: calc(var(--card-w) * var(--card-opponent-scale));
+  --card-size-h: calc(var(--card-h) * var(--card-opponent-scale));
+  box-shadow: 0 8px 14px rgba(0,0,0,0.24), 0 2px 0 rgba(47,15,10,0.18), inset 0 1px 0 rgba(255,255,255,0.14), inset 0 0 0 1px rgba(54,17,12,0.44);
+  filter: saturate(0.92) brightness(0.96);
+}
+
+.card-stock {
+  --card-size-w: calc(var(--card-w) * var(--card-stock-scale));
+  --card-size-h: calc(var(--card-h) * var(--card-stock-scale));
+  box-shadow: 0 10px 16px rgba(0,0,0,0.24), 0 2px 0 rgba(47,15,10,0.18), inset 0 1px 0 rgba(255,255,255,0.16), inset 0 0 0 1px rgba(54,17,12,0.46);
+}
+
+.card-back {
+  background: linear-gradient(180deg, #9c261d 0%, #681711 58%, #4b0f0d 100%);
+  color: #fff;
+}
+.card-back::before {
+  inset: 7px;
+  border-radius: 9px;
+  background:
+    radial-gradient(circle at 50% 16%, rgba(255,241,214,0.16), transparent 24%),
+    linear-gradient(180deg, rgba(122,24,24,0.94), rgba(74,13,14,0.98));
+  box-shadow: inset 0 0 0 1px rgba(255,229,195,0.18), inset 0 0 28px rgba(255,255,255,0.05);
+}
+.card-back::after {
+  content: "花";
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: rgba(255,238,210,0.9);
+  font-size: 34px;
+  text-shadow: 0 3px 10px rgba(0,0,0,0.35);
+  letter-spacing: 0.08em;
+}
+
+.card-opponent.card-back::after { font-size: 27px; letter-spacing: 0.05em; }
+.card-stock.card-back::after { font-size: 30px; }
+
+.card-top, .card-bottom {
+  position: absolute;
+  left: 11px;
+  right: 11px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(58,34,22,0.88);
+}
+.card-top { top: 8px; }
+.card-bottom { bottom: 8px; }
+.card-top span:first-child, .card-bottom span:first-child { color: var(--accent, #8e3d2b); font-weight: 700; }
+
+.card-player .card-top,
+.card-player .card-bottom { font-size: 10px; }
+
+.card-art {
+  position: absolute;
+  inset: 18px 10px 20px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: rgba(255, 251, 243, 0.9);
+  box-shadow: inset 0 0 0 1px rgba(108,69,41,0.14);
+}
+.card-art svg { display: block; width: 100%; height: 100%; }
+.card-month { font-size: 13px; color: rgba(46,29,19,0.8); }
+.card-flower { font-size: 28px; text-shadow: 0 3px 12px rgba(255,255,255,0.4); }
+.card-name { font-size: 12px; font-weight: 700; }
+.kind-pill {
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.65), rgba(216,193,160,0.85));
+  border: 1px solid rgba(112,68,38,0.18);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.35);
+}
+
+.pile { position: relative; width: calc((var(--card-w) * var(--card-field-scale)) + 24px); height: calc((var(--card-h) * var(--card-field-scale)) + 18px); display: flex; justify-content: center; align-items: center; }
+.pile-card { position: absolute; }
+
+.mini-card {
+  width: 36px;
+  height: 58px;
+  border-radius: 9px;
+  box-shadow: 0 6px 8px rgba(0,0,0,0.18);
+}
+.mini-card::before { inset: 3px; border-radius: 7px; }
+.mini-card::after { inset: 5px 4px; border-radius: 6px; }
+.mini-card .card-top,
+.mini-card .card-bottom { display: none; }
+.mini-card .card-art {
+  inset: 5px 4px;
+  border-radius: 6px;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  background: rgba(6,8,7,0.72);
+  z-index: 30;
+}
+.overlay.show { display: flex; }
+
+.modal {
+  width: min(560px, 100%);
+  border-radius: 24px;
+  padding: 20px;
+  background: linear-gradient(180deg, rgba(28,20,15,0.98), rgba(14,11,9,0.98));
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 26px 50px rgba(0,0,0,0.45);
+}
+.modal h2 { margin: 0 0 8px; color: #ffe7ad; }
+.modal p { color: var(--muted); line-height: 1.6; }
+
+.go-buttons { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  background: rgba(15,15,13,0.88);
+  color: #fff2cf;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 12px 22px rgba(0,0,0,0.28);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(-4px); }
+
+@keyframes pulse {
+  0% { transform: translateY(0) scale(1); }
+  40% { transform: translateY(-8px) scale(1.04); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+@media (max-width: 980px) {
+  .layout { grid-template-columns: 1fr; }
+  .table-rhythm { grid-template-columns: 1fr; }
+  .table-center { grid-template-columns: 1fr; }
+  .table-center > div:first-child { padding: 10px; }
+  .capture-column { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (min-width: 981px) {
+  .hand-row { justify-content: center; }
+  .opponent-row { flex-wrap: nowrap; justify-content: center; }
+}
+
+@media (max-height: 860px) {
+  :root {
+    --card-w: clamp(44px, min(5.3vw, 7.4vh), 70px);
+    --card-player-scale: 1.08;
+    --card-field-scale: 1;
+    --card-opponent-scale: 0.66;
+    --card-stock-scale: 0.82;
+  }
+  .app { padding: 6px; gap: 6px; }
+  .topbar, .footerbar { padding: 5px 7px; }
+  .titlebox h1 { font-size: clamp(18px, 2.5vw, 24px); }
+  .titlebox p { display: none; }
+  .btn { padding: 7px 10px; }
+  .btn.compact { padding: 5px 8px; font-size: 10px; }
+  .table-wrap { padding: 10px; gap: 5px; }
+  .turn-flow { gap: 5px; padding: 6px 7px; }
+  .flow-step { padding: 6px 7px; }
+  .hand-zone, .panel { padding: 8px 10px; }
+  .field-grid { gap: 8px; }
+  .field-slot { min-height: calc((var(--card-h) * var(--card-field-scale)) + 22px); padding: 8px 6px; }
+  .message-box { min-height: 56px; }
+  .score-line { font-size: 11px; padding: 2px 0; }
+  .capture-box h3, .section-head strong, .panel h3 { font-size: 12px; }
+  #footerText { display: none; }
+  .footerbar { justify-content: flex-end; }
+}
+
+@media (max-width: 720px) {
+  :root {
+    --card-w: clamp(44px, min(10.6vw, 7.4vh), 66px);
+    --card-player-scale: 1.05;
+    --card-field-scale: 0.99;
+    --card-opponent-scale: 0.64;
+    --card-stock-scale: 0.8;
+  }
+  .app { height: auto; min-height: 100dvh; padding: 6px; overflow: visible; }
+  .topbar, .footerbar, .panel, .table-wrap { border-radius: 18px; }
+  .mobile-hud { display: block; }
+  .statusbar { grid-template-columns: 1fr; }
+  .turn-flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .field-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .field-grid { gap: 8px; }
+  .field-slot { min-height: calc((var(--card-h) * var(--card-field-scale)) + 20px); padding: 8px 6px; }
+  .capture-column { grid-template-columns: 1fr; }
+  .controls { justify-content: stretch; }
+  .controls .btn { flex: 1 1 auto; }
+  .topbar { flex-direction: column; align-items: stretch; }
+  .titlebox p { display: none; }
+  .titlebox h1 { font-size: 21px; }
+  .layout { overflow: visible; flex: none; }
+  .table-wrap { overflow: visible; }
+  .table-center > div:first-child { padding: 2px 0 0; }
+  .hand-zone { padding: 10px; }
+  .strip-top { align-items: flex-start; }
+  .sidebar { display: none; }
+  body { overflow-y: auto; }
+  .footerbar { justify-content: center; }
+  .footer-meta { justify-content: center; }
+  .footer-session { white-space: normal; text-align: center; }
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="topbar">
+    <div class="titlebox">
+      <h1>고스톱 마당</h1>
+      <p>Matgo baseline · single player · live score</p>
+    </div>
+    <div class="controls">
+      <button type="button" class="btn" id="newRoundBtn">새 판 시작</button>
+      <button type="button" class="btn alt" id="muteBtn">소리 켜짐</button>
+      <button type="button" class="btn alt" id="helpBtn">규칙 보기</button>
+    </div>
+  </div>
+
+  <div class="mobile-hud" aria-live="polite">
+    <div class="mobile-hud-top">
+      <strong id="mobileScoreSummary">점수 준비 중</strong>
+      <span class="badge" id="mobileTurnBadge"></span>
+    </div>
+    <div class="mobile-hud-message" id="mobileMessage"></div>
+  </div>
+
+  <div class="layout">
+    <div class="table-wrap">
+      <div class="ring"></div>
+      <div class="statusbar">
+        <div class="player-strip" id="aiStrip"></div>
+        <div class="stock" id="stockInfo"></div>
+        <div class="player-strip" id="humanStrip"></div>
+      </div>
+
+      <div class="table-rhythm">
+        <div class="turn-flow" id="turnFlow"></div>
+        <div class="turn-note" id="turnNote"></div>
+      </div>
+
+      <div class="opponent-zone">
+        <div class="section-head">
+          <strong>상대 손패</strong>
+          <span class="badge" id="aiHint"></span>
+        </div>
+        <div class="opponent-row" id="aiHand"></div>
+      </div>
+
+      <div class="table-center">
+        <div>
+          <div class="section-head">
+            <strong>바닥 패</strong>
+            <span class="badge" id="turnBadge"></span>
+          </div>
+          <div class="field-grid" id="field"></div>
+        </div>
+
+        <div class="capture-column">
+          <div class="capture-box mine">
+            <div class="capture-head">
+              <h3>내 먹은 패</h3>
+              <span class="capture-total" id="humanCaptureTotal"></span>
+            </div>
+            <div class="capture-summary" id="humanCaptureSummary"></div>
+            <div class="capture-mini" id="humanCapture"></div>
+          </div>
+          <div class="capture-box theirs">
+            <div class="capture-head">
+              <h3>상대 먹은 패</h3>
+              <span class="capture-total" id="aiCaptureTotal"></span>
+            </div>
+            <div class="capture-summary" id="aiCaptureSummary"></div>
+            <div class="capture-mini" id="aiCapture"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hand-zone">
+        <div class="section-head">
+          <strong>내 손패</strong>
+          <span class="badge" id="promptBadge"></span>
+        </div>
+        <div class="hand-row" id="humanHand"></div>
+        <div id="specialActions" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;"></div>
+      </div>
+    </div>
+
+    <div class="sidebar">
+      <div class="panel">
+        <h3>실시간 점수</h3>
+        <div id="scorePanel"></div>
+      </div>
+
+      <div class="panel message-box">
+        <h3>상황</h3>
+        <div id="message"></div>
+      </div>
+
+      <div class="panel help-box">
+        <h3>선택 룰</h3>
+        <div class="score-line"><span>대전 방식</span><strong>1인 vs AI</strong></div>
+        <div class="score-line"><span>목표 점수</span><strong>7점</strong></div>
+        <div class="score-line"><span>사용 패</span><strong>48장 화투, 조커 없음</strong></div>
+        <div class="score-line"><span>핵심 이벤트</span><strong>쪽 · 따닥 · 뻑 · 쓸</strong></div>
+        <div class="score-line"><span>흔들기</span><strong>손패 3장 같은 월 → 2배</strong></div>
+        <div class="score-line"><span>폭탄</span><strong>손패 3장 + 바닥 1장 동월 → 먹기</strong></div>
+        <div class="score-line" id="nagariLine" style="display:none"><span>나가리 배수</span><strong id="nagariMultText">×1</strong></div>
+        <details>
+          <summary>자세히 보기</summary>
+          <ul>
+            <li>광 / 띠 / 열끗 / 피 점수와 홍단 · 청단 · 초단 · 고도리를 계산합니다.</li>
+            <li>9월 국화술잔과 5월 다리는 상황에 따라 피 2장으로 최적 계산합니다.</li>
+            <li>7점 이상일 때 고 또는 스톱을 선택할 수 있습니다.</li>
+            <li>패배자의 고박, 광박, 피박을 반영합니다.</li>
+            <li>나가리 시 다음 판 지급액이 2배 누적됩니다.</li>
+          </ul>
+        </details>
+    </div>
+  </div>
+  </div>
+
+  <div class="footerbar">
+    <span id="footerText">첫 사용자 입력 후 효과음이 활성화됩니다.</span>
+    <div class="footer-meta">
+      <span class="footer-session" id="sessionScoreText">세션 전적 준비 중</span>
+      <button type="button" class="btn alt compact" id="resetSessionBtn">세션 초기화</button>
+      <span class="badge" id="roundBadge"></span>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="goOverlay">
+  <div class="modal">
+    <h2 id="goTitle">고 / 스톱</h2>
+    <p id="goText"></p>
+    <div class="go-buttons">
+      <button type="button" class="btn" data-go="go">고</button>
+      <button type="button" class="btn warn" data-go="stop">스톱</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="resultOverlay">
+  <div class="modal">
+    <h2 id="resultTitle">판 종료</h2>
+    <p id="resultText"></p>
+    <div class="go-buttons">
+      <button type="button" class="btn" id="resultRestart">한 판 더</button>
+      <button type="button" class="btn alt" id="resultClose">닫기</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="helpOverlay">
+  <div class="modal">
+    <h2>게임 안내</h2>
+    <p>
+      손패를 눌러 같은 월의 바닥패를 먹습니다. 같은 월이 두 장이면 바닥패를 직접 눌러 목표를 고릅니다.
+      한 장을 내고 더미에서 한 장을 뒤집어 같은 방식으로 먹습니다. 7점 이상이 되면 고 또는 스톱을 선택합니다.
+    </p>
+    <div class="go-buttons">
+      <button type="button" class="btn" id="helpClose">확인</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+'use strict';
+
+const MONTHS = {
+  1: { flower: '송학', mark: '학', glyph: '松', accent: '#d46a56' },
+  2: { flower: '매화', mark: '매', glyph: '梅', accent: '#d78db3' },
+  3: { flower: '벚꽃', mark: '벚', glyph: '桜', accent: '#f08f8f' },
+  4: { flower: '등꽃', mark: '등', glyph: '藤', accent: '#8c78cc' },
+  5: { flower: '난초', mark: '난', glyph: '蘭', accent: '#59a97a' },
+  6: { flower: '모란', mark: '모', glyph: '牡', accent: '#e07f4f' },
+  7: { flower: '싸리', mark: '싸', glyph: '萩', accent: '#c66a48' },
+  8: { flower: '공산', mark: '억', glyph: '芒', accent: '#dbc763' },
+  9: { flower: '국화', mark: '국', glyph: '菊', accent: '#d1a350' },
+  10: { flower: '단풍', mark: '단', glyph: '楓', accent: '#cd5d3a' },
+  11: { flower: '오동', mark: '오', glyph: '桐', accent: '#7d7fe0' },
+  12: { flower: '비', mark: '비', glyph: '雨', accent: '#4f92d6' }
+};
+
+let nextCardId = 1;
+let nextPileId = 1;
+
+function makeCard(month, name, opts = {}) {
+  const info = MONTHS[month];
+  return {
+    id: nextCardId++,
+    month,
+    flower: info.flower,
+    glyph: info.glyph,
+    accent: info.accent,
+    name,
+    bright: !!opts.bright,
+    animal: !!opts.animal,
+    ribbon: !!opts.ribbon,
+    junk: opts.junk || 0,
+    flexAnimalJunk: !!opts.flexAnimalJunk,
+    excludedRibbon: !!opts.excludedRibbon,
+    doubleJunk: opts.doubleJunk || 0,
+    emoji: opts.emoji || info.glyph,
+    label: opts.label || (opts.bright ? '광' : opts.animal ? '열끗' : opts.ribbon ? '띠' : '피'),
+    combo: opts.combo || ''
+  };
+}
+
+function createDeck() {
+  nextCardId = 1;
+  return [
+    makeCard(1, '송학 광', { bright: true, emoji: '☀', label: '광' }),
+    makeCard(1, '홍단 띠', { ribbon: true, combo: 'hong', emoji: '🎋', label: '띠' }),
+    makeCard(1, '피', { junk: 1, emoji: '❀', label: '피' }),
+    makeCard(1, '피', { junk: 1, emoji: '❀', label: '피' }),
+
+    makeCard(2, '매화 새', { animal: true, combo: 'godori', emoji: '🐦', label: '열끗' }),
+    makeCard(2, '홍단 띠', { ribbon: true, combo: 'hong', emoji: '🎴', label: '띠' }),
+    makeCard(2, '피', { junk: 1, emoji: '❀', label: '피' }),
+    makeCard(2, '피', { junk: 1, emoji: '❀', label: '피' }),
+
+    makeCard(3, '벚꽃 광', { bright: true, emoji: '🌸', label: '광' }),
+    makeCard(3, '홍단 띠', { ribbon: true, combo: 'hong', emoji: '🧧', label: '띠' }),
+    makeCard(3, '피', { junk: 1, emoji: '❀', label: '피' }),
+    makeCard(3, '피', { junk: 1, emoji: '❀', label: '피' }),
+
+    makeCard(4, '등꽃 두견', { animal: true, combo: 'godori', emoji: '🕊', label: '열끗' }),
+    makeCard(4, '초단 띠', { ribbon: true, combo: 'cho', emoji: '🎴', label: '띠' }),
+    makeCard(4, '피', { junk: 1, emoji: '❀', label: '피' }),
+    makeCard(4, '피', { junk: 1, emoji: '❀', label: '피' }),
+
+    makeCard(5, '난초 다리', { animal: true, flexAnimalJunk: true, emoji: '🌉', label: '열끗/쌍피' }),
+    makeCard(5, '초단 띠', { ribbon: true, combo: 'cho', emoji: '🎴', label: '띠' }),
+    makeCard(5, '피', { junk: 1, emoji: '❀', label: '피' }),
+    makeCard(5, '피', { junk: 1, emoji: '❀', label: '피' }),
+
+    makeCard(6, '모란 나비', { animal: true, emoji: '🦋', label: '열끗' }),
+    makeCard(6, '청단 띠', { ribbon: true, combo: 'blue', emoji: '🎴', label: '띠' }),
+    makeCard(6, '피', { junk: 1, emoji: '❀', label: '피' }),
+    makeCard(6, '피', { junk: 1, emoji: '❀', label: '피' }),
+
+    makeCard(7, '싸리 멧돼지', { animal: true, emoji: '🐗', label: '열끗' }),
+    makeCard(7, '초단 띠', { ribbon: true, combo: 'cho', emoji: '🎴', label: '띠' }),
+    makeCard(7, '피', { junk: 1, emoji: '❀', label: '피' }),
+    makeCard(7, '피', { junk: 1, emoji: '❀', label: '피' }),
+
+    makeCard(8, '공산 광', { bright: true, emoji: '🌕', label: '광' }),
+    makeCard(8, '억새 기러기', { animal: true, combo: 'godori', emoji: '🪶', label: '열끗' }),
+    makeCard(8, '피', { junk: 1, emoji: '❀', label: '피' }),
+    makeCard(8, '피', { junk: 1, emoji: '❀', label: '피' }),
+
+    makeCard(9, '국화 술잔', { animal: true, flexAnimalJunk: true, emoji: '🍶', label: '열끗/쌍피' }),
+    makeCard(9, '청단 띠', { ribbon: true, combo: 'blue', emoji: '🎴', label: '띠' }),
+    makeCard(9, '피', { junk: 1, emoji: '❀', label: '피' }),
+    makeCard(9, '피', { junk: 1, emoji: '❀', label: '피' }),
+
+    makeCard(10, '단풍 사슴', { animal: true, emoji: '🦌', label: '열끗' }),
+    makeCard(10, '청단 띠', { ribbon: true, combo: 'blue', emoji: '🎴', label: '띠' }),
+    makeCard(10, '피', { junk: 1, emoji: '❀', label: '피' }),
+    makeCard(10, '피', { junk: 1, emoji: '❀', label: '피' }),
+
+    makeCard(11, '오동 광', { bright: true, emoji: '🕯', label: '광' }),
+    makeCard(11, '피', { junk: 1, emoji: '❀', label: '피' }),
+    makeCard(11, '쌍피', { junk: 2, doubleJunk: 2, emoji: '✦', label: '쌍피' }),
+    makeCard(11, '피', { junk: 1, emoji: '❀', label: '피' }),
+
+    makeCard(12, '비 광', { bright: true, emoji: '☔', label: '비광' }),
+    makeCard(12, '비 새', { animal: true, emoji: '🐦', label: '열끗' }),
+    makeCard(12, '비 띠', { excludedRibbon: true, emoji: '🎴', label: '띠(제외)' }),
+    makeCard(12, '쌍피', { junk: 2, doubleJunk: 2, emoji: '✦', label: '쌍피' })
+  ];
+}
+
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
+function pile(cards, type = 'single', owner = null) {
+  return { id: nextPileId++, cards: [...cards], type, owner, month: cards[0].month };
+}
+
+function groupByMonth(cards) {
+  const map = new Map();
+  cards.forEach((card) => {
+    if (!map.has(card.month)) map.set(card.month, []);
+    map.get(card.month).push(card);
+  });
+  return map;
+}
+
+function countByMonth(cards) {
+  return groupByMonth(cards);
+}
+
+function sortCards(cards) {
+  return cards.slice().sort((a, b) => (a.month - b.month) || a.id - b.id);
+}
+
+function removeCardById(cards, cardId) {
+  const idx = cards.findIndex((card) => card.id === cardId);
+  if (idx >= 0) return cards.splice(idx, 1)[0];
+  return null;
+}
+
+function scoreCaptured(cards) {
+  const flexCards = cards.filter((card) => card.flexAnimalJunk);
+  const fixed = cards.filter((card) => !card.flexAnimalJunk);
+  const possibilities = [];
+  const maxMask = 1 << flexCards.length;
+  for (let mask = 0; mask < maxMask; mask += 1) {
+    const animals = fixed.filter((card) => card.animal).slice();
+    let junkTotal = fixed.reduce((sum, card) => sum + card.junk, 0);
+    const brights = fixed.filter((card) => card.bright);
+    const ribbons = fixed.filter((card) => card.ribbon);
+    flexCards.forEach((card, index) => {
+      if (mask & (1 << index)) animals.push(card);
+      else junkTotal += 2;
+    });
+
+    const brightCount = brights.length;
+    let brightPoints = 0;
+    if (brightCount === 3) brightPoints = brights.some((card) => card.month === 12) ? 2 : 3;
+    else if (brightCount === 4) brightPoints = 4;
+    else if (brightCount >= 5) brightPoints = 15;
+
+    const ribbonCount = ribbons.length;
+    let ribbonPoints = ribbonCount >= 5 ? ribbonCount - 4 : 0;
+    const hongdan = ['1', '2', '3'].every((m) => ribbons.some((card) => String(card.month) === m));
+    const chodan = ['4', '5', '7'].every((m) => ribbons.some((card) => String(card.month) === m));
+    const cheongdan = ['6', '9', '10'].every((m) => ribbons.some((card) => String(card.month) === m));
+    if (hongdan) ribbonPoints += 3;
+    if (chodan) ribbonPoints += 3;
+    if (cheongdan) ribbonPoints += 3;
+
+    const animalCount = animals.length;
+    let animalPoints = animalCount >= 5 ? animalCount - 4 : 0;
+    const godori = [2, 4, 8].every((month) => animals.some((card) => card.month === month));
+    if (godori) animalPoints += 5;
+
+    const junkPoints = junkTotal >= 10 ? junkTotal - 9 : 0;
+    const total = brightPoints + ribbonPoints + animalPoints + junkPoints;
+    possibilities.push({
+      total,
+      brightCount,
+      brightPoints,
+      ribbonCount,
+      ribbonPoints,
+      animalCount,
+      animalPoints,
+      junkTotal,
+      junkPoints,
+      hongdan,
+      chodan,
+      cheongdan,
+      godori,
+      flexMask: mask
+    });
+  }
+
+  possibilities.sort((a, b) => b.total - a.total || b.junkTotal - a.junkTotal || b.animalCount - a.animalCount);
+  return possibilities[0];
+}
+
+function bestJunkCard(cards) {
+  const sortable = cards.filter((card) => card.junk || card.flexAnimalJunk).map((card) => ({
+    card,
+    rank: card.flexAnimalJunk ? 3 : card.junk >= 2 ? 2 : 1
+  }));
+  sortable.sort((a, b) => a.rank - b.rank || a.card.month - b.card.month);
+  return sortable.length ? sortable[0].card : null;
+}
+
+function chooseGoStop(player, enemy) {
+  const score = scoreCaptured(player.captured).total;
+  if (score < 7) return 'none';
+  if (player.id === 'human') return 'prompt';
+  const enemyScore = scoreCaptured(enemy.captured).total;
+  if (player.goCount >= 1 && score >= 8) return 'stop';
+  if (score >= 10) return 'stop';
+  if (enemyScore >= 6) return 'stop';
+  return 'go';
+}
+
+
+function blossom(cx, cy, size, petalFill, centerFill, opts = {}) {
+  const petals = opts.petals || 5;
+  const rotate = opts.rotate || 0;
+  const stretch = opts.stretch || 1.55;
+  const opacity = opts.opacity || 0.92;
+  const outline = opts.outline || 'rgba(104,48,27,0.14)';
+  const pollen = opts.pollen || '#f7d97a';
+  const petalMarkup = Array.from({ length: petals }, (_, index) => {
+    const angle = rotate + (360 / petals) * index;
+    const rx = size * 0.42;
+    const ry = size * stretch * 0.34;
+    return `<ellipse cx="${cx}" cy="${cy - size * 0.34}" rx="${rx.toFixed(2)}" ry="${ry.toFixed(2)}" fill="${petalFill}" stroke="${outline}" stroke-width="0.35" opacity="${opacity}" transform="rotate(${angle.toFixed(2)} ${cx} ${cy})"/>`;
+  }).join('');
+  const pollenMarkup = Array.from({ length: 5 }, (_, index) => {
+    const angle = rotate + index * 72;
+    const rad = angle * Math.PI / 180;
+    const px = cx + Math.cos(rad) * size * 0.18;
+    const py = cy + Math.sin(rad) * size * 0.18;
+    return `<circle cx="${px.toFixed(2)}" cy="${py.toFixed(2)}" r="${Math.max(0.5, size * 0.05).toFixed(2)}" fill="${pollen}" opacity="0.9"/>`;
+  }).join('');
+  return `${petalMarkup}${pollenMarkup}<circle cx="${cx}" cy="${cy}" r="${(size * 0.2).toFixed(2)}" fill="${centerFill}" opacity="0.96"/>`;
+}
+
+function leaf(cx, cy, rx, ry, fill, rotate = 0, opts = {}) {
+  const stroke = opts.stroke || 'rgba(59,35,21,0.12)';
+  const vein = opts.vein || 'rgba(244,248,228,0.55)';
+  const opacity = opts.opacity || 1;
+  const veinWidth = opts.veinWidth || 0.7;
+  return `<g transform="translate(${cx} ${cy}) rotate(${rotate})" opacity="${opacity}"><path d="M0 ${-ry} C ${rx.toFixed(2)} ${(-ry * 0.38).toFixed(2)}, ${(rx * 0.92).toFixed(2)} ${(ry * 0.54).toFixed(2)}, 0 ${ry} C ${(-rx * 0.92).toFixed(2)} ${(ry * 0.54).toFixed(2)}, ${(-rx).toFixed(2)} ${(-ry * 0.38).toFixed(2)}, 0 ${-ry} Z" fill="${fill}" stroke="${stroke}" stroke-width="0.45"/><path d="M0 ${(-ry + 1).toFixed(2)} L0 ${(ry - 1).toFixed(2)}" stroke="${vein}" stroke-width="${veinWidth}" opacity="0.55"/></g>`;
+}
+
+function brushRibbon(fill, text, opts = {}) {
+  const x = opts.x || 14;
+  const y = opts.y || 22;
+  const angle = opts.angle || -6;
+  const accent = opts.accent || 'rgba(255,248,232,0.82)';
+  const stroke = opts.stroke || 'rgba(75,28,23,0.22)';
+  const brush = text
+    ? `<text x="${x + 6.2}" y="${y + 19}" text-anchor="middle" fill="${accent}" font-size="7.2" font-family="Georgia, serif" font-weight="700">${text}</text>`
+    : `<path d="M${x + 3} ${y + 14} Q${x + 7} ${y + 8} ${x + 10} ${y + 14} M${x + 3.5} ${y + 22} Q${x + 7} ${y + 17} ${x + 10.5} ${y + 23}" stroke="${accent}" stroke-width="1.1" fill="none" stroke-linecap="round"/>`;
+  return `<g transform="rotate(${angle} ${x + 6} ${y + 18})" opacity="0.97"><path d="M${x} ${y} L${x + 12} ${y + 3} L${x + 10} ${y + 34} L${x + 5.8} ${y + 40} L${x + 1.5} ${y + 34} Z" fill="${fill}" stroke="${stroke}" stroke-width="0.6"/><path d="M${x + 2.2} ${y + 3.8} L${x + 9.7} ${y + 5.6} L${x + 8.3} ${y + 31.8} L${x + 5.8} ${y + 35.5} L${x + 3.4} ${y + 31.3} Z" fill="${accent}" opacity="0.18"/>${brush}</g>`;
+}
+
+function cardMarker(text, fill, stroke, textFill) {
+  return `<g opacity="0.97"><rect x="14" y="77" width="32" height="8" rx="3" fill="${fill}" stroke="${stroke}" stroke-width="0.6"/><text x="30" y="82.8" text-anchor="middle" fill="${textFill}" font-size="6.1" font-family="sans-serif" font-weight="700">${text}</text></g>`;
+}
+
+function mapleLeaf(cx, cy, scale, fill, rotate = 0) {
+  return `<g transform="translate(${cx} ${cy}) rotate(${rotate}) scale(${scale})"><path d="M0 -10 L3 -4 L10 -6 L6 0 L10 6 L2 4 L0 10 L-2 4 L-10 6 L-6 0 L-10 -6 L-3 -4 Z" fill="${fill}" stroke="rgba(85,33,17,0.18)" stroke-width="0.8"/></g>`;
+}
+
+function getCardSVG(card) {
+  const m = card.month;
+  const brightOverlay = card.bright
+    ? `<g opacity="0.94"><circle cx="47" cy="14" r="6.8" fill="#c43028"/><circle cx="47" cy="14" r="5.1" fill="#f5db8b" opacity="0.94"/><text x="47" y="16.5" text-anchor="middle" fill="#7a221b" font-size="5.5" font-family="Georgia, serif" font-weight="700">光</text></g>`
+    : '';
+  const ribbonOverlay = (() => {
+    if (!card.ribbon && !card.excludedRibbon) return '';
+    const isBlue = card.combo === 'blue';
+    const isCho = card.combo === 'cho';
+    const isRain = card.excludedRibbon;
+    const fill = isRain ? '#43353b' : isBlue ? '#315aa8' : '#b52228';
+    const text = isRain ? '비' : isBlue ? '청' : isCho ? '초' : '홍';
+    const x = m === 3 || m === 10 || m === 12 ? 37 : 13;
+    return brushRibbon(fill, text, { x, y: 22, angle: x > 20 ? 8 : -7 });
+  })();
+  const bottomMark = card.flexAnimalJunk
+    ? cardMarker('열끗/쌍피', '#e8f0ff', '#7393c7', '#355b97')
+    : card.doubleJunk >= 2
+      ? cardMarker('쌍피', '#f7e7d7', '#b8573f', '#8e3922')
+      : '';
+
+  if (m === 1) {
+    return `<svg viewBox="0 0 60 90" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="90" fill="#f7f0e6"/><ellipse cx="43" cy="16" rx="12" ry="11" fill="#d4452f"/><ellipse cx="43" cy="16" rx="9" ry="8" fill="#f07b57" opacity="0.28"/><path d="M18 85 C19 69, 20 56, 22 36" stroke="#5c3317" stroke-width="3.4" fill="none" stroke-linecap="round"/><path d="M22 60 C17 56, 13 52, 10 48" stroke="#5c3317" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M22 53 C28 49, 33 45, 37 40" stroke="#5c3317" stroke-width="2" fill="none" stroke-linecap="round"/>${[
+      [17, 44, 4.2, 11.6, '#1f5b24', -72],
+      [13, 49, 3.8, 10.2, '#2a6a2d', -102],
+      [22, 42, 4.4, 12.2, '#275f25', -16],
+      [28, 46, 3.8, 10.5, '#2c6d2f', 28],
+      [16, 55, 4.1, 10.8, '#1d5320', -58],
+      [29, 54, 4, 10.6, '#28662b', 36]
+    ].map(([cx, cy, rx, ry, fill, rotate]) => leaf(cx, cy, rx, ry, fill, rotate, { vein: 'rgba(238,250,226,0.38)', veinWidth: 0.55 })).join('')}<path d="M34 66 C41 57, 50 56, 51 62 C46 68, 38 70, 33 68 Z" fill="#fffef8" stroke="#d1c7b4" stroke-width="0.6"/><path d="M35 62 C40 52, 45 46, 50 45 C48 53, 44 60, 39 65 Z" fill="#f5f6f2" stroke="#d1c7b4" stroke-width="0.5"/><path d="M47 48 C49 42, 52 37, 55 33" stroke="#2f231e" stroke-width="1.2" fill="none" stroke-linecap="round"/><circle cx="49.5" cy="45.5" r="2.2" fill="#fffef7"/><circle cx="50.4" cy="44.6" r="1" fill="#c43124"/><path d="M51.8 45.8 L55.8 44.6" stroke="#a87619" stroke-width="0.9" stroke-linecap="round"/>${brightOverlay}${ribbonOverlay}${bottomMark}</svg>`;
+  }
+  if (m === 2) {
+    return `<svg viewBox="0 0 60 90" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="90" fill="#fcf1f4"/><path d="M11 82 C18 63, 26 46, 34 20" stroke="#5f3118" stroke-width="3.1" fill="none" stroke-linecap="round"/><path d="M24 48 C18 44, 14 40, 10 34" stroke="#5f3118" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M28 38 C36 34, 43 29, 50 22" stroke="#5f3118" stroke-width="1.8" fill="none" stroke-linecap="round"/>${[
+      [12, 32, 6.2, 16],
+      [22, 24, 5.8, -4],
+      [34, 22, 5.9, 10],
+      [46, 25, 6.1, 22],
+      [27, 38, 5.3, 30]
+    ].map(([cx, cy, size, rotate]) => blossom(cx, cy, size, '#df677e', '#fff0a6', { rotate, outline: 'rgba(136,44,59,0.18)', pollen: '#9e7a24' })).join('')}${[
+      [16, 55, 3.6, 8.5, '#7ea95a', -30],
+      [34, 51, 3.8, 9.2, '#6f9950', 18]
+    ].map(([cx, cy, rx, ry, fill, rotate]) => leaf(cx, cy, rx, ry, fill, rotate, { veinWidth: 0.55 })).join('')}<path d="M36 57 C42 51, 48 49, 52 53 C48 57, 42 59, 37 58 Z" fill="#dcc16f" stroke="#8a6b1e" stroke-width="0.5"/><path d="M39 55 C42 52, 46 50, 49 51 C46 54, 42 56, 40 57 Z" fill="#77854c" opacity="0.6"/><circle cx="50" cy="52" r="2.4" fill="#dcc16f"/><circle cx="51.2" cy="51.4" r="0.8" fill="#231d14"/><path d="M51.8 52.1 L55.5 50.6" stroke="#8a6b1e" stroke-width="0.8" stroke-linecap="round"/>${brightOverlay}${ribbonOverlay}${bottomMark}</svg>`;
+  }
+  if (m === 3) {
+    const curtain = card.bright
+      ? `<path d="M10 13 L50 16 L46 48 Q30 54 14 48 Z" fill="#d7bfd1" opacity="0.92" stroke="#a37b93" stroke-width="0.6"/><path d="M13 17 L47 19 L44 43 Q30 47 16 43 Z" fill="#efe2eb" opacity="0.75"/><path d="M18 19 L18 43 M30 18 L30 46 M42 19 L42 43" stroke="#ab859b" stroke-width="0.7" opacity="0.7"/><path d="M14 48 L18 54 M30 52 L30 59 M46 48 L42 54" stroke="#8b5d76" stroke-width="1.2" stroke-linecap="round"/>`
+      : '<ellipse cx="34" cy="24" rx="18" ry="10" fill="#f5dbe6" opacity="0.55"/>';
+    return `<svg viewBox="0 0 60 90" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="90" fill="#fff1f4"/>${curtain}<path d="M10 76 C18 68, 24 58, 28 44" stroke="#694128" stroke-width="1.8" fill="none" stroke-linecap="round"/>${[
+      [15, 28, 5.8, 6],
+      [28, 20, 6.4, 22],
+      [42, 23, 6.1, 10],
+      [49, 36, 5.5, 28],
+      [11, 45, 5.9, -8],
+      [34, 42, 6.1, 30],
+      [22, 56, 5.8, 16]
+    ].map(([cx, cy, size, rotate]) => blossom(cx, cy, size, '#f2a3b9', '#fff0b0', { rotate, outline: 'rgba(167,84,105,0.17)', pollen: '#b78a34', opacity: 0.9 })).join('')}${[[45, 50], [38, 62], [18, 65]].map(([cx, cy]) => `<ellipse cx="${cx}" cy="${cy}" rx="2.6" ry="1.4" fill="#f0b3c4" transform="rotate(${cx - cy} ${cx} ${cy})" opacity="0.8"/>`).join('')}${brightOverlay}${ribbonOverlay}${bottomMark}</svg>`;
+  }
+  if (m === 4) {
+    return `<svg viewBox="0 0 60 90" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="90" fill="#f4effb"/><path d="M9 10 C20 14, 32 17, 48 21" stroke="#664322" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M21 12 C22 24, 22 41, 20 79" stroke="#664322" stroke-width="1.4" fill="none" stroke-linecap="round"/><path d="M38 18 C38 31, 37 49, 36 82" stroke="#664322" stroke-width="1.4" fill="none" stroke-linecap="round"/>${[
+      [20, 23], [20, 33], [20, 44], [20, 55], [36, 29], [36, 40], [36, 51], [36, 62]
+    ].map(([cx, cy], index) => `${blossom(cx, cy, 4.9 - (index % 2) * 0.4, '#9a79dc', '#f5db84', { petals: 4, stretch: 1.85, rotate: index * 12, outline: 'rgba(94,74,140,0.16)' })}${blossom(cx + 2, cy + 5, 3.8, '#7f68c8', '#f1d471', { petals: 4, stretch: 1.8, rotate: index * 18 + 10, outline: 'rgba(94,74,140,0.14)', opacity: 0.84 })}`).join('')}<path d="M43 39 C47 33, 53 31, 56 35 C52 39, 47 40, 43 39 Z" fill="#727782" stroke="#4d5056" stroke-width="0.45"/><path d="M46 37 C49 34, 52 33, 55 33 C53 36, 50 38, 47 39 Z" fill="#c7ccd4" opacity="0.55"/><circle cx="54.7" cy="34.6" r="1.5" fill="#727782"/><path d="M56 35 L59 34" stroke="#4d5056" stroke-width="0.8" stroke-linecap="round"/>${brightOverlay}${ribbonOverlay}${bottomMark}</svg>`;
+  }
+  if (m === 5) {
+    return `<svg viewBox="0 0 60 90" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="90" fill="#eef6ee"/>${[
+      [16, 56, 3.9, 21, '#2b6f39', -22],
+      [26, 50, 3.8, 23, '#2a7738', 4],
+      [37, 53, 3.7, 20, '#2d7d44', 18],
+      [46, 60, 3.4, 15, '#3c8f57', 28]
+    ].map(([cx, cy, rx, ry, fill, rotate]) => leaf(cx, cy, rx, ry, fill, rotate, { veinWidth: 0.55 })).join('')}${[
+      [20, 29, 5.2, 10],
+      [31, 23, 4.9, 24],
+      [43, 31, 5.1, -10]
+    ].map(([cx, cy, size, rotate]) => blossom(cx, cy, size, '#7f9fd6', '#fff0b5', { petals: 4, stretch: 1.7, rotate, outline: 'rgba(73,98,148,0.16)' })).join('')}${card.flexAnimalJunk ? '<path d="M8 71 Q18 61 30 61 Q42 61 52 71" fill="none" stroke="#8b6543" stroke-width="4" stroke-linecap="round"/><path d="M11 71 Q20 65 30 65 Q40 65 49 71" fill="none" stroke="#dbc2a2" stroke-width="1.2" stroke-linecap="round"/><line x1="15" y1="71" x2="15" y2="81" stroke="#8b6543" stroke-width="2.2" stroke-linecap="round"/><line x1="45" y1="71" x2="45" y2="81" stroke="#8b6543" stroke-width="2.2" stroke-linecap="round"/>' : ''}${brightOverlay}${ribbonOverlay}${bottomMark}</svg>`;
+  }
+  if (m === 6) {
+    return `<svg viewBox="0 0 60 90" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="90" fill="#fff8eb"/><ellipse cx="30" cy="47" rx="18" ry="16" fill="#f6d6ba" opacity="0.36"/>${Array.from({ length: 10 }, (_, index) => {
+      const angle = index * 36;
+      const rad = angle * Math.PI / 180;
+      const cx = 30 + Math.cos(rad) * 8.4;
+      const cy = 49 + Math.sin(rad) * 8.2;
+      return blossom(Number(cx.toFixed(2)), Number(cy.toFixed(2)), 6.2, '#dd7757', '#f8d07a', { petals: 4, stretch: 1.9, rotate: angle + 8, outline: 'rgba(142,64,40,0.16)', opacity: 0.82 });
+    }).join('')}${blossom(30, 49, 9.8, '#ef8f6d', '#f6d070', { petals: 8, stretch: 1.6, rotate: 8, outline: 'rgba(142,64,40,0.18)' })}${[
+      [14, 64, 7.4, 12.8, '#49793b', -32],
+      [46, 66, 7.2, 12.2, '#4f8641', 28],
+      [27, 73, 5.6, 9.6, '#5d9447', -6]
+    ].map(([cx, cy, rx, ry, fill, rotate]) => leaf(cx, cy, rx, ry, fill, rotate, { veinWidth: 0.65 })).join('')}${card.animal ? '<path d="M42 28 C46 22, 52 22, 54 27 C50 30, 46 30, 42 28 Z" fill="#f2c34f" stroke="#ae7c20" stroke-width="0.45"/><path d="M43 28 C46 25, 50 24, 51 28 C48 30, 46 30, 43 28 Z" fill="#f7e09e" opacity="0.5"/><path d="M44 31 C48 34, 52 34, 53 30" fill="none" stroke="#8d5b18" stroke-width="0.9" stroke-linecap="round"/><path d="M47 27 L47 36" stroke="#42301e" stroke-width="0.7" stroke-linecap="round"/><path d="M46 26 L44 22 M48 26 L50 22" stroke="#42301e" stroke-width="0.7" stroke-linecap="round"/>' : ''}${brightOverlay}${ribbonOverlay}${bottomMark}</svg>`;
+  }
+  if (m === 7) {
+    return `<svg viewBox="0 0 60 90" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="90" fill="#fff2ec"/>${[[16, 82, 12, 21], [24, 82, 28, 15], [40, 82, 38, 24], [49, 82, 52, 31]].map(([x1, y1, x2, y2]) => `<path d="M${x1} ${y1} Q${(x1 + x2) / 2} ${(y1 + y2) / 2} ${x2} ${y2}" stroke="#8a4525" stroke-width="1.6" fill="none" stroke-linecap="round"/>`).join('')}${[
+      [13, 28], [27, 19], [39, 27], [24, 39], [42, 42], [20, 53], [35, 56]
+    ].map(([cx, cy], index) => `${blossom(cx, cy, 4.1, '#bc4238', '#f3d277', { petals: 4, stretch: 1.7, rotate: index * 20, outline: 'rgba(130,46,34,0.16)' })}${blossom(cx + 3, cy + 4, 2.9, '#d66a57', '#f8e6b0', { petals: 4, stretch: 1.6, rotate: index * 14 + 8, outline: 'rgba(130,46,34,0.12)', opacity: 0.8 })}`).join('')}${card.animal ? '<path d="M29 70 C33 62, 44 58, 51 62 C51 69, 42 74, 32 73 Z" fill="#6b4836" stroke="#4b2c20" stroke-width="0.6"/><path d="M47 63 C50 61, 53 61, 55 64 C53 66, 49 67, 46 66 Z" fill="#6b4836" stroke="#4b2c20" stroke-width="0.5"/><circle cx="53" cy="63.8" r="0.8" fill="#241511"/><path d="M54.5 65.2 L57.3 64.8" stroke="#e7d7c2" stroke-width="0.7" stroke-linecap="round"/><path d="M34 72 L32 80 M39 72 L39 81 M45 71 L46 79" stroke="#5a3826" stroke-width="1.2" stroke-linecap="round"/>' : ''}${brightOverlay}${ribbonOverlay}${bottomMark}</svg>`;
+  }
+  if (m === 8) {
+    return `<svg viewBox="0 0 60 90" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="90" fill="${card.bright ? '#edf3fb' : '#eff5ec'}"/><circle cx="39" cy="21" r="14" fill="#fff4ca" opacity="0.96"/><circle cx="39" cy="21" r="11.5" fill="#fffce8" opacity="0.55"/><path d="M20 22 C26 17, 34 16, 43 18" stroke="#d8e2ef" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.65"/>${[[12, 84, 14, 34], [18, 84, 21, 29], [24, 84, 22, 27], [30, 84, 29, 32], [36, 84, 34, 39]].map(([x1, y1, x2, y2]) => `<path d="M${x1} ${y1} Q${(x1 + x2) / 2 - 1} ${(y1 + y2) / 2} ${x2} ${y2}" stroke="#b89c5d" stroke-width="1.5" fill="none" stroke-linecap="round"/>`).join('')}${[[14, 34], [21, 29], [22, 27], [29, 32], [34, 39]].map(([cx, cy], index) => `<ellipse cx="${cx}" cy="${cy}" rx="${index % 2 === 0 ? 4.1 : 3.5}" ry="8.4" fill="#dec48b" opacity="0.72" transform="rotate(${index * 13 - 18} ${cx} ${cy})"/>`).join('')}<path d="M8 42 C12 39, 16 39, 20 42" stroke="#2f4352" stroke-width="1.2" fill="none" stroke-linecap="round"/><path d="M18 39 C21 36, 25 36, 29 39" stroke="#2f4352" stroke-width="1.2" fill="none" stroke-linecap="round"/><path d="M27 35 C31 32, 35 32, 39 35" stroke="#2f4352" stroke-width="1.1" fill="none" stroke-linecap="round" opacity="0.85"/>${brightOverlay}${ribbonOverlay}${bottomMark}</svg>`;
+  }
+  if (m === 9) {
+    return `<svg viewBox="0 0 60 90" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="90" fill="#fff8ea"/>${Array.from({ length: 14 }, (_, index) => {
+      const angle = index * (360 / 14);
+      const rad = angle * Math.PI / 180;
+      const cx = 30 + Math.cos(rad) * 10.5;
+      const cy = 41 + Math.sin(rad) * 10.5;
+      return blossom(Number(cx.toFixed(2)), Number(cy.toFixed(2)), 5.1, '#d5a61f', '#f7dc73', { petals: 4, stretch: 1.9, rotate: angle, outline: 'rgba(132,99,16,0.16)', opacity: 0.82 });
+    }).join('')}${blossom(30, 41, 8.2, '#e3b735', '#f7df80', { petals: 10, stretch: 1.65, rotate: 12, outline: 'rgba(132,99,16,0.17)' })}${leaf(14, 60, 5.4, 9.8, '#4d7d41', -30, { veinWidth: 0.6 })}${card.flexAnimalJunk ? '<path d="M22 69 L38 69 L40 80 L20 80 Z" fill="#ba3126" stroke="#7e221a" stroke-width="0.6"/><ellipse cx="30" cy="69" rx="8" ry="2.8" fill="#d95b4b" opacity="0.8"/><path d="M24 66 Q30 61 36 66" stroke="#f7ead6" stroke-width="1" fill="none" opacity="0.7"/><path d="M29 61 Q31 58 34 56" stroke="#d6d8d9" stroke-width="0.9" fill="none" stroke-linecap="round" opacity="0.8"/>' : ''}${brightOverlay}${ribbonOverlay}${bottomMark}</svg>`;
+  }
+  if (m === 10) {
+    return `<svg viewBox="0 0 60 90" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="90" fill="#fff4ec"/><path d="M34 84 C33 72, 33 61, 34 47" stroke="#6a3819" stroke-width="2.8" fill="none" stroke-linecap="round"/><path d="M34 63 C28 57, 22 52, 15 48" stroke="#6a3819" stroke-width="1.7" fill="none" stroke-linecap="round"/><path d="M34 57 C39 51, 44 47, 49 43" stroke="#6a3819" stroke-width="1.7" fill="none" stroke-linecap="round"/>${[
+      [16, 41, 0.72, -20, '#c94b32'],
+      [27, 28, 0.82, 6, '#cf5b37'],
+      [40, 35, 0.78, 12, '#c9502f'],
+      [33, 20, 0.66, -6, '#da6c3d'],
+      [14, 31, 0.62, -30, '#c64a31'],
+      [46, 25, 0.62, 22, '#d16439']
+    ].map(([cx, cy, scale, rotate, fill]) => mapleLeaf(cx, cy, scale, fill, rotate)).join('')}${card.animal ? '<path d="M11 70 C15 63, 23 61, 28 66 C27 71, 20 74, 13 73 Z" fill="#c9864e" stroke="#8e5a2d" stroke-width="0.6"/><path d="M23 65 C25 61, 28 59, 31 60 C30 63, 27 66, 24 67 Z" fill="#c9864e" stroke="#8e5a2d" stroke-width="0.5"/><path d="M17 74 L15 82 M22 73 L23 82" stroke="#8e5a2d" stroke-width="1.2" stroke-linecap="round"/><path d="M26 61 L23 55 M27 61 L29 55 M25 60 L26 53" stroke="#71441f" stroke-width="0.8" stroke-linecap="round"/>' : ''}${brightOverlay}${ribbonOverlay}${bottomMark}</svg>`;
+  }
+  if (m === 11) {
+    return `<svg viewBox="0 0 60 90" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="90" fill="#f3eef8"/>${[
+      [18, 56, 8.4, 13, '#7562b4', -24],
+      [41, 54, 7.5, 12, '#6d58aa', 28],
+      [30, 45, 8, 12.8, '#806dc4', 0]
+    ].map(([cx, cy, rx, ry, fill, rotate]) => leaf(cx, cy, rx, ry, fill, rotate, { vein: 'rgba(236,228,255,0.5)', veinWidth: 0.6, stroke: 'rgba(72,55,109,0.14)' })).join('')}${[
+      [18, 22], [30, 14], [42, 20]
+    ].map(([cx, cy], index) => `${blossom(cx, cy, 4.4, '#9a7bd8', '#f0d89a', { petals: 4, stretch: 1.95, rotate: index * 18, outline: 'rgba(98,72,154,0.14)' })}${blossom(cx, cy + 8, 3.4, '#7f65c1', '#f0d89a', { petals: 4, stretch: 1.85, rotate: index * 25 + 6, outline: 'rgba(98,72,154,0.12)', opacity: 0.85 })}`).join('')}${card.bright ? '<path d="M34 40 C40 29, 50 28, 54 34 C49 39, 40 42, 34 40 Z" fill="#e5a31a" stroke="#9b670f" stroke-width="0.6"/><path d="M39 38 C43 34, 47 33, 50 34 C47 37, 43 39, 40 40 Z" fill="#f7d275" opacity="0.5"/><path d="M44 40 C48 48, 53 52, 56 58" stroke="#c9631f" stroke-width="1.1" fill="none" stroke-linecap="round"/><path d="M41 40 C44 47, 46 53, 46 61" stroke="#d9862a" stroke-width="0.9" fill="none" stroke-linecap="round"/><path d="M49 33 L53 27 M49 33 L55 31" stroke="#b24a14" stroke-width="0.8" stroke-linecap="round"/>' : ''}${brightOverlay}${ribbonOverlay}${bottomMark}</svg>`;
+  }
+  if (m === 12) {
+    const highlight = card.bright
+      ? '<circle cx="44" cy="22" r="11" fill="#d55037" opacity="0.9"/><path d="M18 67 C21 54, 24 44, 29 37 C33 46, 33 58, 31 69" fill="#56463a" opacity="0.96"/><path d="M18 41 Q27 35 36 42" stroke="#3d3228" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M21 39 Q27 32 33 39" stroke="#3d3228" stroke-width="2.4" fill="none" stroke-linecap="round"/>'
+      : card.animal
+        ? '<path d="M40 52 C45 46, 52 45, 56 49 C51 53, 45 54, 40 52 Z" fill="#262b45"/><path d="M43 50 C46 48, 49 48, 52 49 C49 51, 46 52, 44 52 Z" fill="#f1f1f4" opacity="0.6"/><path d="M51 50 L56 45" stroke="#262b45" stroke-width="1.1" stroke-linecap="round"/>'
+        : '<path d="M11 70 C14 65, 20 65, 23 70 C20 74, 14 75, 11 70 Z" fill="#387647" opacity="0.92"/><ellipse cx="17" cy="73" rx="7" ry="3" fill="#4b9158" opacity="0.78"/><circle cx="14.5" cy="68.2" r="1.1" fill="#203825"/><circle cx="19" cy="68.2" r="1.1" fill="#203825"/>';
+    return `<svg viewBox="0 0 60 90" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="90" fill="#ebeff5"/>${[[8, 6, 5, 27], [18, 3, 14, 25], [28, 9, 24, 30], [38, 4, 34, 25], [48, 7, 44, 28]].map(([x1, y1, x2, y2]) => `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#618ab7" stroke-width="1" opacity="0.68"/>`).join('')}<path d="M28 85 C28 68, 28 49, 29 22" stroke="#554224" stroke-width="2.2" fill="none" stroke-linecap="round"/>${[[28, 28, 11, 54], [29, 33, 19, 62], [29, 26, 41, 51], [29, 31, 47, 60]].map(([x1, y1, x2, y2], index) => `<path d="M${x1} ${y1} Q${(x1 + x2) / 2} ${y1 + 10} ${x2} ${y2}" stroke="#5c8c52" stroke-width="1.3" fill="none" stroke-linecap="round" opacity="0.8"/>${leaf(x2, y2 + 2, 2.2, 6.2, index % 2 === 0 ? '#6a9c60' : '#7aac6a', index < 2 ? -18 : 18, { veinWidth: 0.4, opacity: 0.88 })}`).join('')}${highlight}${brightOverlay}${ribbonOverlay}${bottomMark}</svg>`;
+  }
+  return `<svg viewBox="0 0 60 90" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="90" fill="#f5ede0"/><text x="30" y="50" text-anchor="middle" fill="#555" font-size="14">${card.emoji || '?'}</text></svg>`;
+}
+
+function makePayout(winner, loser) {
+  const ws = scoreCaptured(winner.captured);
+  const ls = scoreCaptured(loser.captured);
+  let payout = ws.total;
+  if (winner.goCount === 1) payout += 1;
+  if (winner.goCount === 2) payout += 2;
+  if (winner.goCount >= 3) payout *= 2 ** (winner.goCount - 2);
+
+  const flags = [];
+  if (loser.goCount > 0) {
+    payout *= 2;
+    flags.push('고박');
+  }
+  if (ws.brightPoints > 0 && ls.brightCount === 0) {
+    payout *= 2;
+    flags.push('광박');
+  }
+  if (ws.junkPoints > 0 && ls.junkTotal < 6) {
+    payout *= 2;
+    flags.push('피박');
+  }
+
+  if (winner.heundeumDeclared) { payout *= 2; flags.push('흔들기'); }
+  if (G.nagariMultiplier > 1) { payout *= G.nagariMultiplier; flags.push(`나가리×${G.nagariMultiplier}`); }
+
+  return { payout, flags, winnerScore: ws, loserScore: ls };
+}
+
+function aiValue(card) {
+  if (card.bright) return 10;
+  if (card.combo === 'godori') return 7;
+  if (card.ribbon) return 5;
+  if (card.animal) return 4;
+  return card.junk >= 2 || card.flexAnimalJunk ? 3 : 1;
+}
+
+const G = {
+  round: 1,
+  dealer: 'human',
+  current: 'human',
+  busy: false,
+  message: '새 판을 시작해 주세요.',
+  toastTimer: null,
+  players: [],
+  table: [],
+  stock: [],
+  selectedCardId: null,
+  pending: null,
+  highlightPileIds: [],
+  lastEmphasis: [],
+  overlay: null,
+  muted: false,
+  audio: null,
+  effectReady: false,
+  awaitingGoStop: false,
+  result: null,
+  nagariMultiplier: 1,
+  lastRoundNagari: false,
+  sessionKey: 'gostop-session-v1',
+  sessionScore: null,
+  awaitingHeundeum: false,
+  pendingPoktanCardId: null,
+
+  defaultSessionScore() {
+    return { humanWins: 0, aiWins: 0, humanNet: 0, aiNet: 0 };
+  },
+
+  loadSessionScore() {
+    this.sessionScore = this.defaultSessionScore();
+    try {
+      const raw = window.sessionStorage.getItem(this.sessionKey);
+      if (!raw) return;
+      const parsed = JSON.parse(raw);
+      if (!parsed || typeof parsed !== 'object') return;
+      this.sessionScore = {
+        ...this.defaultSessionScore(),
+        humanWins: Number(parsed.humanWins) || 0,
+        aiWins: Number(parsed.aiWins) || 0,
+        humanNet: Number(parsed.humanNet) || 0,
+        aiNet: Number(parsed.aiNet) || 0
+      };
+    } catch (error) {
+      console.warn('세션 점수를 불러오지 못했습니다.', error);
+      this.sessionScore = this.defaultSessionScore();
+    }
+  },
+
+  saveSessionScore() {
+    try {
+      window.sessionStorage.setItem(this.sessionKey, JSON.stringify(this.sessionScore));
+    } catch (error) {
+      console.warn('세션 점수를 저장하지 못했습니다.', error);
+    }
+  },
+
+  resetSessionScore() {
+    this.sessionScore = this.defaultSessionScore();
+    this.saveSessionScore();
+    this.toast('세션 점수를 초기화했습니다.');
+    this.render();
+  },
+
+  recordSessionResult(winnerId, payout) {
+    if (!this.sessionScore) this.sessionScore = this.defaultSessionScore();
+    if (winnerId === 'human') {
+      this.sessionScore.humanWins += 1;
+      this.sessionScore.humanNet += payout;
+      this.sessionScore.aiNet -= payout;
+    } else {
+      this.sessionScore.aiWins += 1;
+      this.sessionScore.aiNet += payout;
+      this.sessionScore.humanNet -= payout;
+    }
+    this.saveSessionScore();
+  },
+
+  formatSessionNet(value) {
+    return `${value >= 0 ? '+' : ''}${value}`;
+  },
+
+  sessionSummaryText() {
+    const score = this.sessionScore || this.defaultSessionScore();
+    return `세션 · 나 ${score.humanWins}승 ${this.formatSessionNet(score.humanNet)}점 · AI ${score.aiWins}승 ${this.formatSessionNet(score.aiNet)}점`;
+  },
+
+  init() {
+    this.loadSessionScore();
+    this.players = [
+      { id: 'human', name: '나', hand: [], captured: [], goCount: 0, lastGoScore: 0, heundeumDeclared: false, heundeumChecked: false },
+      { id: 'ai', name: 'AI', hand: [], captured: [], goCount: 0, lastGoScore: 0, heundeumDeclared: false, heundeumChecked: false }
+    ];
+    this.bindUI();
+    this.startRound();
+  },
+
+  bindUI() {
+    document.getElementById('newRoundBtn').addEventListener('click', () => this.startRound());
+    document.getElementById('resetSessionBtn').addEventListener('click', () => this.resetSessionScore());
+    document.getElementById('muteBtn').addEventListener('click', () => {
+      this.muted = !this.muted;
+      document.getElementById('muteBtn').textContent = this.muted ? '소리 꺼짐' : '소리 켜짐';
+    });
+    document.getElementById('helpBtn').addEventListener('click', () => this.showOverlay('help'));
+    document.getElementById('helpClose').addEventListener('click', () => this.hideOverlay('help'));
+    document.getElementById('resultRestart').addEventListener('click', () => {
+      this.hideOverlay('result');
+      this.startRound();
+    });
+    document.getElementById('resultClose').addEventListener('click', () => this.hideOverlay('result'));
+    document.querySelectorAll('[data-go]').forEach((button) => {
+      button.addEventListener('click', () => this.resolveGoStop(button.dataset.go));
+    });
+    document.body.addEventListener('pointerdown', () => this.ensureAudio(), { once: true });
+  },
+
+  ensureAudio() {
+    if (this.audio) {
+      if (this.audio.state === 'suspended') this.audio.resume();
+      this.effectReady = true;
+      return;
+    }
+    const Ctx = window.AudioContext || window.webkitAudioContext;
+    if (!Ctx) return;
+    this.audio = new Ctx();
+    if (this.audio.state === 'suspended') this.audio.resume();
+    this.effectReady = true;
+    document.getElementById('footerText').textContent = '효과음 활성화됨. 버튼으로 음소거할 수 있습니다.';
+  },
+
+  playSound(type) {
+    if (this.muted || !this.effectReady || !this.audio) return;
+    const ctx = this.audio;
+    const now = ctx.currentTime;
+    const master = ctx.createGain();
+    master.gain.value = 0.22;
+    master.connect(ctx.destination);
+
+    if (type === 'deal' || type === 'play') {
+      const noise = ctx.createBufferSource();
+      const buffer = ctx.createBuffer(1, 4410, ctx.sampleRate);
+      const data = buffer.getChannelData(0);
+      for (let i = 0; i < data.length; i += 1) data[i] = (Math.random() * 2 - 1) * (1 - i / data.length);
+      noise.buffer = buffer;
+      const filter = ctx.createBiquadFilter();
+      filter.type = 'bandpass';
+      filter.frequency.value = type === 'deal' ? 900 : 1200;
+      const gain = ctx.createGain();
+      gain.gain.setValueAtTime(0.001, now);
+      gain.gain.exponentialRampToValueAtTime(type === 'deal' ? 0.08 : 0.13, now + 0.01);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.16);
+      noise.connect(filter).connect(gain).connect(master);
+      noise.start(now);
+      noise.stop(now + 0.18);
+    }
+
+    if (type === 'capture' || type === 'special') {
+      const osc = ctx.createOscillator();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(type === 'special' ? 220 : 180, now);
+      osc.frequency.exponentialRampToValueAtTime(type === 'special' ? 540 : 420, now + 0.07);
+      const gain = ctx.createGain();
+      gain.gain.setValueAtTime(0.001, now);
+      gain.gain.exponentialRampToValueAtTime(0.18, now + 0.015);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.22);
+      osc.connect(gain).connect(master);
+      osc.start(now);
+      osc.stop(now + 0.24);
+    }
+  },
+
+  player(id) { return this.players.find((p) => p.id === id); },
+  enemy(id) { return this.players.find((p) => p.id !== id); },
+
+  startRound() {
+    nextPileId = 1;
+    this.overlay = null;
+    this.awaitingGoStop = false;
+    this.result = null;
+    this.highlightPileIds = [];
+    this.lastEmphasis = [];
+    this.selectedCardId = null;
+    this.pending = null;
+    this.busy = false;
+    if (this.round === 1) this.dealer = 'human';
+    else if (!this.lastRoundNagari) this.dealer = this.dealer === 'human' ? 'ai' : 'human';
+    this.current = this.dealer;
+    this.players.forEach((player) => {
+      player.hand = [];
+      player.captured = [];
+      player.goCount = 0;
+      player.lastGoScore = 0;
+      player.heundeumDeclared = false;
+      player.heundeumChecked = false;
+    });
+    this.awaitingHeundeum = null;
+    this.pendingPoktanCardId = null;
+
+    let deck;
+    let redeal = true;
+    while (redeal) {
+      deck = shuffle(createDeck());
+      const human = this.player('human');
+      const ai = this.player('ai');
+      human.hand = [];
+      ai.hand = [];
+      this.table = [];
+      if (this.dealer === 'human') {
+        ai.hand.push(...deck.splice(0, 5));
+        human.hand.push(...deck.splice(0, 5));
+        this.table.push(...deck.splice(0, 4));
+        ai.hand.push(...deck.splice(0, 5));
+        human.hand.push(...deck.splice(0, 5));
+        this.table.push(...deck.splice(0, 4));
+      } else {
+        human.hand.push(...deck.splice(0, 5));
+        ai.hand.push(...deck.splice(0, 5));
+        this.table.push(...deck.splice(0, 4));
+        human.hand.push(...deck.splice(0, 5));
+        ai.hand.push(...deck.splice(0, 5));
+        this.table.push(...deck.splice(0, 4));
+      }
+      const tMap = countByMonth(this.table);
+      redeal = [...tMap.values()].some((list) => list.length === 4);
+      if (!redeal) {
+        this.stock = deck;
+        this.normalizeTable();
+      }
+    }
+
+    const instant = this.checkInitialInstantWin();
+    if (instant) {
+      this.finishRound(instant, this.enemy(instant.id), `${instant.name} 손안의 4장으로 즉시 승리!`, true);
+      return;
+    }
+
+    this.message = `${this.dealer === 'human' ? '내 선' : 'AI 선'}입니다. ${this.current === 'human' ? '손패를 고르세요.' : 'AI가 생각 중입니다.'}`;
+    this.playSound('deal');
+    this.checkHeundeum(this.current);
+    this.render();
+    if (this.current === 'ai') this.queueAI();
+    this.round += 1;
+  },
+
+  normalizeTable() {
+    const grouped = [...countByMonth(this.table).values()];
+    this.table = [];
+    grouped.forEach((cards) => {
+      if (cards.length === 3) this.table.push(pile(sortCards(cards), 'stack', null));
+      else cards.forEach((card) => { this.table.push(pile([card], 'single', null)); });
+    });
+    this.sortTable();
+  },
+
+  sortTable() {
+    this.table.sort((a, b) => a.month - b.month || a.id - b.id);
+  },
+
+  checkInitialInstantWin() {
+    return this.players.find((player) => [...countByMonth(player.hand).values()].some((list) => list.length === 4));
+  },
+
+  matchingPiles(month) {
+    return this.table.filter((entry) => entry.month === month);
+  },
+
+  showOverlay(type) {
+    const map = { go: 'goOverlay', result: 'resultOverlay', help: 'helpOverlay' };
+    this.overlay = type;
+    document.getElementById(map[type]).classList.add('show');
+  },
+
+  hideOverlay(type) {
+    const map = { go: 'goOverlay', result: 'resultOverlay', help: 'helpOverlay' };
+    this.overlay = null;
+    document.getElementById(map[type]).classList.remove('show');
+  },
+
+  toast(text) {
+    const el = document.getElementById('toast');
+    clearTimeout(this.toastTimer);
+    el.textContent = text;
+    el.classList.add('show');
+    this.toastTimer = setTimeout(() => el.classList.remove('show'), 1400);
+  },
+
+  onHumanCard(cardId) {
+    if (this.busy || this.current !== 'human' || this.awaitingGoStop || this.awaitingHeundeum) return;
+    const player = this.player('human');
+    const card = player.hand.find((entry) => entry.id === cardId);
+    if (!card) return;
+    const matches = this.matchingPiles(card.month);
+    this.selectedCardId = cardId;
+    // check poktan first
+    if (this.poktanTarget(player, card)) {
+      this.pendingPoktanCardId = cardId;
+      this.message = `폭탄 가능! ${card.month}월 4장을 한번에 먹을 수 있습니다.`;
+      this.render();
+      return;
+    }
+    this.pendingPoktanCardId = null;
+    if (matches.length > 1 && !matches.some((entry) => entry.type === 'stack')) {
+      this.highlightPileIds = matches.map((entry) => entry.id);
+      this.pending = { kind: 'chooseHandTarget', cardId };
+      this.message = '같은 월이 두 장 있습니다. 바닥패를 눌러 먹을 패를 고르세요.';
+      this.render();
+      return;
+    }
+    this.playHumanCard(cardId, matches[0] ? matches[0].id : null);
+  },
+
+  onPileClick(pileId) {
+    if (this.busy) return;
+    const target = this.table.find((entry) => entry.id === pileId);
+    if (!target) return;
+    if (this.pending && this.pending.kind === 'chooseHandTarget') {
+      this.playHumanCard(this.pending.cardId, pileId);
+      return;
+    }
+    if (this.pending && this.pending.kind === 'chooseDrawTarget') {
+      this.resolveDrawChoice('human', pileId);
+    }
+  },
+
+  playHumanCard(cardId, targetPileId) {
+    const player = this.player('human');
+    const card = removeCardById(player.hand, cardId);
+    if (!card) return;
+    this.selectedCardId = null;
+    this.highlightPileIds = [];
+    this.pending = null;
+    this.busy = true;
+    this.playSound('play');
+    this.lastEmphasis = [card.id];
+    this.message = `${card.month}월 ${card.name}을(를) 냈습니다.`;
+    this.resolvePlay('human', card, targetPileId);
+    this.render();
+  },
+
+  resolvePlay(playerId, card, targetPileId) {
+    const player = this.player(playerId);
+    const target = targetPileId ? this.table.find((entry) => entry.id === targetPileId) : null;
+    let immediateSpecial = null;
+    let heldPair = null;
+    if (target && target.type === 'stack') {
+      this.captureCards(playerId, [...target.cards, card]);
+      this.table = this.table.filter((entry) => entry.id !== target.id);
+      immediateSpecial = target.owner === playerId ? '자뻑' : '뻑 회수';
+      this.takeJunkFromEnemy(playerId, target.owner === playerId ? 2 : 1);
+      this.playSound('special');
+    } else if (target) {
+      this.table = this.table.filter((entry) => entry.id !== target.id);
+      heldPair = [target.cards[0], card];
+    } else {
+      this.table.push(pile([card], 'single', null));
+      this.sortTable();
+      this.pending = { kind: 'afterDiscard', playerId, cardId: card.id, month: card.month };
+    }
+    if (heldPair) this.pending = { kind: 'afterPair', playerId, heldPair, month: card.month };
+    if (!heldPair && !this.pending) this.pending = { kind: 'drawOnly', playerId };
+    if (immediateSpecial) this.toast(immediateSpecial);
+    setTimeout(() => this.drawFromStock(playerId), 320);
+  },
+
+  drawFromStock(playerId) {
+    if (!this.stock.length) {
+      this.handleEmptyStock();
+      return;
+    }
+    const draw = this.stock.shift();
+    this.playSound('play');
+    const pending = this.pending || { kind: 'drawOnly', playerId };
+    const matches = this.matchingPiles(draw.month);
+    if (pending.kind === 'afterPair') {
+      const remainingSame = matches.filter((entry) => entry.month === pending.month);
+      if (draw.month === pending.month) {
+        if (remainingSame.length) {
+          const rem = remainingSame[0];
+          this.table = this.table.filter((entry) => entry.id !== rem.id);
+          this.captureCards(playerId, [...pending.heldPair, ...rem.cards, draw]);
+          this.takeJunkFromEnemy(playerId, 1);
+          this.message = '따닥! 같은 월 네 장을 모두 먹었습니다.';
+          this.toast('따닥!');
+          this.playSound('special');
+          this.pending = null;
+          this.finishTurn(playerId);
+          return;
+        }
+        this.table.push(pile(sortCards([...pending.heldPair, draw]), 'stack', playerId));
+        this.sortTable();
+        this.message = '뻑! 같은 월 세 장이 바닥에 쌓였습니다.';
+        this.toast('뻑');
+        this.playSound('special');
+        this.pending = null;
+        this.finishTurn(playerId);
+        return;
+      }
+      if (matches.length > 1 && matches.every((entry) => entry.type === 'single') && playerId === 'human') {
+        this.pending = { kind: 'chooseDrawTarget', playerId, draw, heldPair: pending.heldPair };
+        this.highlightPileIds = matches.map((entry) => entry.id);
+        this.busy = false;
+        this.message = '뒤집은 패가 두 장과 맞습니다. 바닥패를 눌러 선택하세요.';
+        this.render();
+        return;
+      }
+      const chosen = matches.length ? this.pickBestPile(matches) : null;
+      if (chosen) {
+        this.table = this.table.filter((entry) => entry.id !== chosen.id);
+        this.captureCards(playerId, [...pending.heldPair, ...chosen.cards, draw]);
+        if (chosen.type === 'stack') {
+          this.takeJunkFromEnemy(playerId, chosen.owner === playerId ? 2 : 1);
+          this.toast(chosen.owner === playerId ? '자뻑 회수!' : '뻑 회수!');
+        }
+      } else {
+        this.table.push(pile([draw], 'single', null));
+        this.captureCards(playerId, pending.heldPair);
+      }
+      this.pending = null;
+      this.finishTurn(playerId);
+      return;
+    }
+
+    if (pending.kind === 'afterDiscard') {
+      const ownDiscard = this.table.find((entry) => entry.cards.some((item) => item.id === pending.cardId));
+      if (ownDiscard && ownDiscard.month === draw.month) {
+        this.table = this.table.filter((entry) => entry.id !== ownDiscard.id);
+        this.captureCards(playerId, [...ownDiscard.cards, draw]);
+        this.takeJunkFromEnemy(playerId, 1);
+        this.message = '쪽! 낸 패를 뒤집은 패로 다시 먹었습니다.';
+        this.toast('쪽');
+        this.playSound('special');
+        this.pending = null;
+        this.finishTurn(playerId);
+        return;
+      }
+      if (matches.length > 1 && playerId === 'human') {
+        this.pending = { kind: 'chooseDrawTarget', playerId, draw, heldPair: null };
+        this.highlightPileIds = matches.map((entry) => entry.id);
+        this.busy = false;
+        this.message = '뒤집은 패가 두 장과 맞습니다. 바닥패를 눌러 선택하세요.';
+        this.render();
+        return;
+      }
+      const chosen = matches.length ? this.pickBestPile(matches) : null;
+      if (chosen) {
+        this.table = this.table.filter((entry) => entry.id !== chosen.id);
+        this.captureCards(playerId, [...chosen.cards, draw]);
+        if (chosen.type === 'stack') {
+          this.takeJunkFromEnemy(playerId, chosen.owner === playerId ? 2 : 1);
+          this.toast(chosen.owner === playerId ? '자뻑 회수!' : '뻑 회수!');
+        }
+      } else {
+        this.table.push(pile([draw], 'single', null));
+      }
+      this.pending = null;
+      this.finishTurn(playerId);
+      return;
+    }
+
+    if (matches.length > 1 && playerId === 'human') {
+      this.pending = { kind: 'chooseDrawTarget', playerId, draw, heldPair: null };
+      this.highlightPileIds = matches.map((entry) => entry.id);
+      this.busy = false;
+      this.message = '뒤집은 패가 두 장과 맞습니다. 바닥패를 눌러 선택하세요.';
+      this.render();
+      return;
+    }
+    const chosen = matches.length ? this.pickBestPile(matches) : null;
+    if (chosen) {
+      this.table = this.table.filter((entry) => entry.id !== chosen.id);
+      this.captureCards(playerId, [...chosen.cards, draw]);
+      if (chosen.type === 'stack') {
+        this.takeJunkFromEnemy(playerId, chosen.owner === playerId ? 2 : 1);
+        this.toast(chosen.owner === playerId ? '자뻑 회수!' : '뻑 회수!');
+      }
+    } else {
+      this.table.push(pile([draw], 'single', null));
+      this.sortTable();
+    }
+    this.pending = null;
+    this.finishTurn(playerId);
+  },
+
+  resolveDrawChoice(playerId, pileId) {
+    const pending = this.pending;
+    const chosen = this.table.find((entry) => entry.id === pileId);
+    if (!pending || pending.kind !== 'chooseDrawTarget' || !chosen) return;
+    this.highlightPileIds = [];
+    this.busy = true;
+    this.table = this.table.filter((entry) => entry.id !== chosen.id);
+    const cards = pending.heldPair ? [...pending.heldPair, ...chosen.cards, pending.draw] : [...chosen.cards, pending.draw];
+    this.captureCards(playerId, cards);
+    if (chosen.type === 'stack') {
+      this.takeJunkFromEnemy(playerId, chosen.owner === playerId ? 2 : 1);
+      this.toast(chosen.owner === playerId ? '자뻑 회수!' : '뻑 회수!');
+    }
+    this.pending = null;
+    this.finishTurn(playerId);
+  },
+
+  pickBestPile(piles) {
+    return piles.slice().sort((a, b) => {
+      const av = a.cards.reduce((sum, card) => sum + aiValue(card), 0) + (a.type === 'stack' ? 8 : 0);
+      const bv = b.cards.reduce((sum, card) => sum + aiValue(card), 0) + (b.type === 'stack' ? 8 : 0);
+      return bv - av;
+    })[0];
+  },
+
+  captureCards(playerId, cards) {
+    const player = this.player(playerId);
+    player.captured.push(...cards);
+    this.lastEmphasis = cards.map((card) => card.id);
+    this.playSound(cards.length >= 4 ? 'special' : 'capture');
+    this.sortTable();
+    if (this.table.length === 0 && cards.length) {
+      this.takeJunkFromEnemy(playerId, 1);
+      this.toast('쓸');
+      this.message = '쓸! 바닥패를 모두 비워 피를 가져왔습니다.';
+    }
+  },
+
+  takeJunkFromEnemy(playerId, amount) {
+    const enemy = this.enemy(playerId);
+    const player = this.player(playerId);
+    let moved = 0;
+    while (moved < amount) {
+      const card = bestJunkCard(enemy.captured);
+      if (!card) break;
+      enemy.captured = enemy.captured.filter((entry) => entry.id !== card.id);
+      player.captured.push(card);
+      moved += 1;
+    }
+    if (moved) this.playSound('capture');
+  },
+
+  beginTurn(playerId) {
+    const player = this.player(playerId);
+    this.current = playerId;
+    this.highlightPileIds = [];
+
+    if (!player.hand.length) {
+      if (!this.stock.length) {
+        this.handleEmptyStock();
+        return;
+      }
+      this.busy = true;
+      this.pending = { kind: 'drawOnly', playerId };
+      this.message = playerId === 'human'
+        ? '손패가 없어 더미에서만 뒤집습니다.'
+        : 'AI는 손패가 없어 더미에서만 뒤집습니다.';
+      this.render();
+      setTimeout(() => this.drawFromStock(playerId), 320);
+      return;
+    }
+
+    this.message = playerId === 'human'
+      ? '내 차례입니다. 손패를 선택하세요.'
+      : 'AI가 패를 고르고 있습니다.';
+    this.checkHeundeum(playerId);
+    this.render();
+    if (playerId === 'ai') this.queueAI();
+  },
+
+  finishTurn(playerId) {
+    this.busy = false;
+    this.highlightPileIds = [];
+    this.sortTable();
+    const player = this.player(playerId);
+    const enemy = this.enemy(playerId);
+    const score = scoreCaptured(player.captured).total;
+    const goDecision = score >= 7 && score > player.lastGoScore ? chooseGoStop(player, enemy) : 'none';
+    this.render();
+    if (goDecision === 'prompt') {
+      this.awaitingGoStop = true;
+      document.getElementById('goTitle').textContent = `${player.name} ${score}점`;
+      document.getElementById('goText').textContent = `현재 ${score}점입니다. 스톱으로 판을 끝낼지, 고를 선언해 더 높은 점수를 노릴지 선택하세요.`;
+      this.showOverlay('go');
+      return;
+    }
+    if (goDecision === 'go') {
+      player.goCount += 1;
+      player.lastGoScore = score;
+      this.toast(`${player.name} 고!`);
+      this.message = `${player.name}가 고를 선언했습니다.`;
+    }
+    if (goDecision === 'stop') {
+      this.finishRound(player, enemy, `${player.name}가 ${score}점으로 스톱했습니다.`, false);
+      return;
+    }
+
+    if (!player.hand.length && !enemy.hand.length && !this.stock.length) {
+      this.handleEmptyStock();
+      return;
+    }
+    this.beginTurn(enemy.id);
+  },
+
+  resolveGoStop(choice) {
+    if (!this.awaitingGoStop) return;
+    const human = this.player('human');
+    const ai = this.player('ai');
+    const score = scoreCaptured(human.captured).total;
+    this.awaitingGoStop = false;
+    this.hideOverlay('go');
+    if (choice === 'stop') {
+      this.finishRound(human, ai, `내가 ${score}점으로 스톱했습니다.`, false);
+      return;
+    }
+    human.goCount += 1;
+    human.lastGoScore = score;
+    this.toast('고!');
+    this.message = `내가 ${score}점으로 고를 선언했습니다.`;
+    this.beginTurn('ai');
+  },
+
+  queueAI() {
+    if (this.current === 'ai') this.checkHeundeum('ai');
+    this.busy = true;
+    setTimeout(() => this.aiTurn(), 700);
+  },
+
+  aiTurn() {
+    const ai = this.player('ai');
+    if (!ai.hand.length) {
+      if (!this.stock.length) {
+        this.handleEmptyStock();
+        return;
+      }
+      this.pending = { kind: 'drawOnly', playerId: 'ai' };
+      this.message = 'AI는 손패가 없어 더미에서만 뒤집습니다.';
+      this.render();
+      setTimeout(() => this.drawFromStock('ai'), 320);
+      return;
+    }
+    const hand = sortCards(ai.hand);
+
+    // Check poktan first
+    for (const card of hand) {
+      if (this.poktanTarget(ai, card)) {
+        this.message = 'AI가 폭탄을 칩니다!';
+        this.executePoktan('ai', card);
+        this.render();
+        return;
+      }
+    }
+
+    let best = null;
+    for (const card of hand) {
+      const matches = this.matchingPiles(card.month);
+      if (!matches.length) {
+        const score = -aiValue(card);
+        if (!best || score > best.score) best = { cardId: card.id, pileId: null, score };
+        continue;
+      }
+      for (const entry of matches) {
+        const score = aiValue(card) + entry.cards.reduce((sum, hit) => sum + aiValue(hit), 0) + (entry.type === 'stack' ? 8 : 0);
+        if (!best || score > best.score) best = { cardId: card.id, pileId: entry.id, score };
+      }
+    }
+    if (!best) return;
+    const card = removeCardById(ai.hand, best.cardId);
+    this.busy = true;
+    this.message = `AI가 ${card.month}월 패를 냈습니다.`;
+    this.lastEmphasis = [card.id];
+    this.playSound('play');
+    this.resolvePlay('ai', card, best.pileId);
+    this.render();
+  },
+
+  handleEmptyStock() {
+    const human = this.player('human');
+    const ai = this.player('ai');
+    const hs = scoreCaptured(human.captured).total;
+    const as = scoreCaptured(ai.captured).total;
+    if (hs >= 7 && hs > as) {
+      this.finishRound(human, ai, '더미가 떨어졌지만 내가 우세합니다.', false);
+      return;
+    }
+    if (as >= 7 && as > hs) {
+      this.finishRound(ai, human, '더미가 떨어졌고 AI가 우세합니다.', false);
+      return;
+    }
+    this.lastRoundNagari = true;
+    this.nagariMultiplier *= 2;
+    this.result = { nagari: true };
+    document.getElementById('resultTitle').textContent = '나가리';
+    document.getElementById('resultText').textContent = `더미가 모두 소진되었습니다. 내 점수 ${hs}점, AI 점수 ${as}점. 다음 판 지급액이 ${this.nagariMultiplier}배가 됩니다!`;
+    this.showOverlay('result');
+    this.render();
+  },
+
+  finishRound(winner, loser, reason, instant) {
+    const payout = makePayout(winner, loser);
+    this.recordSessionResult(winner.id, payout.payout);
+    this.lastRoundNagari = false;
+    this.nagariMultiplier = 1;
+    const flagText = payout.flags.length ? ` (${payout.flags.join(', ')})` : '';
+    const sessionText = this.sessionSummaryText();
+    document.getElementById('resultTitle').textContent = `${winner.name} 승리`;
+    document.getElementById('resultText').textContent = instant
+      ? `${reason} 즉시승 처리합니다. ${sessionText}`
+      : `${reason} 최종 지급점수 ${payout.payout}점${flagText}. 내 점수 ${scoreCaptured(this.player('human').captured).total}점, AI 점수 ${scoreCaptured(this.player('ai').captured).total}점. ${sessionText}`;
+    this.showOverlay('result');
+    this.current = winner.id;
+    this.busy = true;
+    this.message = reason;
+    this.playSound('special');
+    this.render();
+  },
+
+
+  // --- 흔들기: find month where hand has 3+ cards ---
+  heundeumMonth(player) {
+    const map = groupByMonth(player.hand);
+    for (const [month, cards] of map) {
+      if (cards.length >= 3) return Number(month);
+    }
+    return null;
+  },
+
+  // --- 폭탄: check if poktan possible for a given card ---
+  poktanTarget(player, card) {
+    const sameMonthHand = player.hand.filter((c) => c.month === card.month && c.id !== card.id);
+    if (sameMonthHand.length < 2) return null;
+    const tablePiles = this.matchingPiles(card.month);
+    if (tablePiles.length !== 1) return null;
+    return { sameMonthHand, tablePile: tablePiles[0] };
+  },
+
+  // --- execute poktan ---
+  executePoktan(playerId, card) {
+    const player = this.player(playerId);
+    const target = this.poktanTarget(player, card);
+    if (!target) return false;
+    const allHandCards = [card, ...target.sameMonthHand];
+    allHandCards.forEach((c) => {
+      removeCardById(player.hand, c.id);
+    });
+    this.table = this.table.filter((e) => e.id !== target.tablePile.id);
+    this.captureCards(playerId, [...allHandCards, ...target.tablePile.cards]);
+    this.takeJunkFromEnemy(playerId, 1);
+    this.toast('폭탄!');
+    this.message = `폭탄! ${card.month}월 4장을 모두 먹었습니다.`;
+    this.playSound('special');
+    this.selectedCardId = null;
+    this.highlightPileIds = [];
+    this.pending = null;
+    this.pendingPoktanCardId = null;
+    this.busy = true;
+    setTimeout(() => this.drawFromStock(playerId), 320);
+    this.render();
+    return true;
+  },
+
+  // --- check and offer heundeum for a player at turn start ---
+  checkHeundeum(playerId) {
+    const player = this.player(playerId);
+    if (player.heundeumChecked) return;
+    player.heundeumChecked = true;
+    const month = this.heundeumMonth(player);
+    if (!month) return;
+    if (playerId === 'ai') {
+      if (Math.random() < 0.7) {
+        player.heundeumDeclared = true;
+        this.toast('AI 흔들기!');
+        this.message = `AI가 ${month}월 흔들기를 선언했습니다! (지급 2배)`;
+      }
+      return;
+    }
+    // human: set flag to show button in render()
+    this.awaitingHeundeum = { month };
+    this.render();
+  },
+
+
+  renderCard(card, options = {}) {
+    const classes = ['card'];
+    if (options.back) classes.push('card-back');
+    if (options.mini) classes.push('mini-card');
+    if (options.variant) classes.push(`card-${options.variant}`);
+    if (options.clickable) classes.push('clickable');
+    if (options.selected) classes.push('selected');
+    if (options.emph) classes.push('emph');
+    const style = options.back ? '' : `style="--accent:${card.accent}"`;
+    if (options.back) return `<div class="${classes.join(' ')}" ${style}></div>`;
+    const dataAttr = options.handCard ? `data-card-id="${card.id}"` : '';
+    if (options.mini) {
+      return `<div class="${classes.join(' ')}" ${style} title="${card.month}월 ${card.name}"><div class="card-art">${getCardSVG(card)}</div></div>`;
+    }
+    return `
+      <div class="${classes.join(' ')}" ${style} ${dataAttr}>
+        <div class="card-top"><span>${card.month}월</span><span class="kind-pill">${card.label}</span></div>
+        <div class="card-art">${getCardSVG(card)}</div>
+        <div class="card-bottom"><span>${card.glyph}</span><span>${card.combo || card.label}</span></div>
+      </div>`;
+  },
+
+  renderPile(entry) {
+    const info = MONTHS[entry.month];
+    const targetable = this.highlightPileIds.includes(entry.id);
+    const hot = entry.cards.some((card) => this.lastEmphasis.includes(card.id));
+    const sameMonthPiles = this.table.filter((pileEntry) => pileEntry.month === entry.month).length;
+    const stackLabel = entry.type === 'stack'
+      ? (entry.owner === 'human' ? '내 뻑' : entry.owner === 'ai' ? 'AI 뻑' : '쌓임')
+      : '';
+    const footLabel = entry.type === 'stack'
+      ? '쌓인 월'
+      : sameMonthPiles > 1
+        ? `같은 월 ${sameMonthPiles}곳`
+        : '맞춤 대기';
+    const cards = entry.cards.map((card, index) => {
+      const emph = this.lastEmphasis.includes(card.id);
+      const offsetX = entry.cards.length === 1 ? 0 : (index - (entry.cards.length - 1) / 2) * 8;
+      const offsetY = entry.cards.length === 1 ? 0 : index * -5;
+      return `<div class="pile-card" style="transform: translate(${offsetX}px, ${offsetY}px)">${this.renderCard(card, { emph, variant: 'field' })}</div>`;
+    }).join('');
+    const dots = Array.from({ length: Math.min(4, entry.cards.length) }, (_, index) => `<span class="pile-dot ${index < entry.cards.length ? 'on' : ''}"></span>`).join('');
+    return `<div class="field-slot ${targetable ? 'targetable' : ''} ${entry.type === 'stack' ? 'stacked' : ''} ${hot ? 'hot' : ''}" data-pile-id="${entry.id}"><div class="slot-meta"><span class="slot-month">${entry.month}월 · ${info.mark}</span>${stackLabel ? `<span class="slot-chip ${entry.owner === 'human' ? 'stack-human' : entry.owner === 'ai' ? 'stack-ai' : ''}">${stackLabel}</span>` : ''}</div><div class="pile">${cards}</div><div class="slot-foot"><span>${footLabel}</span><span class="pile-indicator">${dots}</span></div></div>`;
+  },
+
+  renderCaptureMini(cards) {
+    const flexCards = cards.filter((card) => card.flexAnimalJunk);
+    const flexMask = scoreCaptured(cards).flexMask;
+    const animalFlexIds = new Set(flexCards.filter((_, index) => (flexMask & (1 << index)) !== 0).map((card) => card.id));
+    const bucket = (card) => {
+      if (card.bright) return 0;
+      if (card.ribbon || card.excludedRibbon) return 1;
+      if (card.animal || animalFlexIds.has(card.id)) return 2;
+      return 3;
+    };
+    return cards.slice().sort((a, b) => bucket(a) - bucket(b) || a.month - b.month || a.id - b.id).map((card) => this.renderCard(card, { mini: true })).join('') || '<span style="color:#9aa18f;font-size:12px">없음</span>';
+  },
+
+  renderScoreBlock(player) {
+    const score = scoreCaptured(player.captured);
+    const extra = [];
+    if (player.heundeumDeclared) extra.push('흔들기');
+    if (score.hongdan) extra.push('홍단');
+    if (score.chodan) extra.push('초단');
+    if (score.cheongdan) extra.push('청단');
+    if (score.godori) extra.push('고도리');
+    const brightTitle = score.brightPoints > 0 ? `${score.brightPoints}점` : '-';
+    return `
+      <div class="panel" style="padding:10px 12px">
+        <div class="score-line"><span>${player.name}</span><strong>${score.total}점</strong></div>
+        <div class="score-line"><span>광 ${score.brightCount}</span><span>${brightTitle}</span></div>
+        <div class="score-line"><span>띠 ${score.ribbonCount}</span><span>${score.ribbonPoints}점</span></div>
+        <div class="score-line"><span>열끗 ${score.animalCount}</span><span>${score.animalPoints}점</span></div>
+        <div class="score-line"><span>피 ${score.junkTotal}</span><span>${score.junkPoints}점</span></div>
+        <div class="score-line"><span>족보</span><span>${extra.length ? extra.join(', ') : '-'}</span></div>
+        <div class="score-line"><span>고 횟수</span><span>${player.goCount}</span></div>
+      </div>`;
+  },
+
+  phaseContext() {
+    if (this.awaitingHeundeum) {
+      return {
+        active: 'hand',
+        title: '흔들기 선언 대기',
+        text: `${this.awaitingHeundeum.month}월 3장입니다. 선언하면 이번 판 지급이 2배가 됩니다.`
+      };
+    }
+    if (this.pendingPoktanCardId) {
+      const card = this.player('human').hand.find((entry) => entry.id === this.pendingPoktanCardId);
+      return {
+        active: 'hand',
+        title: '폭탄 선택 가능',
+        text: card ? `${card.month}월 네 장을 한 번에 정리할 수 있습니다.` : '폭탄 여부를 선택할 수 있습니다.'
+      };
+    }
+    if (this.awaitingGoStop) {
+      const human = this.player('human');
+      const score = scoreCaptured(human.captured).total;
+      return {
+        active: 'gostop',
+        title: '고 / 스톱 결단 구간',
+        text: `현재 ${score}점입니다. 스톱으로 끝낼지, 고를 외쳐 더 큰 지급을 노릴지 고르세요.`
+      };
+    }
+    if (this.pending && this.pending.kind === 'chooseHandTarget') {
+      return {
+        active: 'target',
+        title: '바닥 목표 선택',
+        text: '같은 월이 두 곳입니다. 이번에 먹을 더미를 바닥에서 직접 고르세요.'
+      };
+    }
+    if (this.pending && this.pending.kind === 'chooseDrawTarget') {
+      return {
+        active: 'flip',
+        title: '뒤집은 패 정리',
+        text: '뒤집은 패가 두 곳과 맞았습니다. 회수할 바닥패를 선택하세요.'
+      };
+    }
+    if (this.busy || (this.pending && ['afterPair', 'afterDiscard', 'drawOnly'].includes(this.pending.kind))) {
+      return {
+        active: 'flip',
+        title: '더미 뒤집기 / 정리 중',
+        text: this.current === 'human' ? '낸 패 이후 더미 결과를 정리하는 순서입니다.' : 'AI가 패를 낸 뒤 더미를 처리하고 있습니다.'
+      };
+    }
+    return {
+      active: 'hand',
+      title: this.current === 'human' ? '손패를 먼저 내는 차례' : 'AI가 손패를 고르는 차례',
+      text: this.current === 'human'
+        ? '손패 → 바닥 맞춤 → 더미 뒤집기 흐름으로 진행됩니다.'
+        : '지금은 AI가 손패를 고르고 있어 바닥이 잠시 대기 중입니다.'
+    };
+  },
+
+  comboMissing(cards, type) {
+    const defs = {
+      hong: { months: [1, 2, 3], pick: (card) => card.ribbon },
+      cho: { months: [4, 5, 7], pick: (card) => card.ribbon },
+      blue: { months: [6, 9, 10], pick: (card) => card.ribbon },
+      godori: { months: [2, 4, 8], pick: (card) => card.animal }
+    };
+    const def = defs[type];
+    if (!def) return [];
+    const owned = new Set(cards.filter(def.pick).map((card) => card.month));
+    return def.months.filter((month) => !owned.has(month));
+  },
+
+  nextThresholdHint(player, score) {
+    const hints = [];
+    const pushHint = (distance, priority, text) => {
+      if (distance <= 0) return;
+      hints.push({ distance, priority, text });
+    };
+
+    if (player.goCount > 0 && score.total <= player.lastGoScore) {
+      pushHint(1, 0, '1점 더 올리면 다시 고/스톱');
+    } else if (score.total < 7) {
+      pushHint(7 - score.total, 0, `${7 - score.total}점 남으면 고/스톱`);
+    }
+
+    if (score.brightCount < 3) pushHint(3 - score.brightCount, 2, `광 ${3 - score.brightCount}장 남음`);
+    else if (score.brightCount === 3) pushHint(1, 2, '광 1장 더면 4광');
+    else if (score.brightCount === 4) pushHint(1, 2, '광 1장 더면 5광');
+
+    if (score.ribbonCount < 5) pushHint(5 - score.ribbonCount, 2, `띠 ${5 - score.ribbonCount}장 남음`);
+    else pushHint(1, 3, '띠 1장 더면 +1점');
+
+    if (score.animalCount < 5) pushHint(5 - score.animalCount, 2, `열끗 ${5 - score.animalCount}장 남음`);
+    else pushHint(1, 3, '열끗 1장 더면 +1점');
+
+    if (score.junkTotal < 10) pushHint(10 - score.junkTotal, 2, `피 ${10 - score.junkTotal}장 남음`);
+    else pushHint(1, 3, '피 1장 더면 +1점');
+
+    [
+      { key: 'hong', label: '홍단' },
+      { key: 'cho', label: '초단' },
+      { key: 'blue', label: '청단' },
+      { key: 'godori', label: '고도리' }
+    ].forEach(({ key, label }) => {
+      const missing = this.comboMissing(player.captured, key);
+      const progress = key === 'godori'
+        ? player.captured.filter((card) => card.animal).length
+        : player.captured.filter((card) => card.ribbon).length;
+      if (missing.length && missing.length <= 2 && progress > 0) {
+        pushHint(missing.length, 1, `${label} ${missing.length === 1 ? '한 장 차' : `${missing.length}장 남음`}`);
+      }
+    });
+
+    hints.sort((a, b) => a.distance - b.distance || a.priority - b.priority || a.text.localeCompare(b.text, 'ko'));
+    return hints.length ? hints[0].text : (score.total >= 7 ? `${score.total}점 유지 중` : '족보 진행 중');
+  },
+
+  renderProgressPills(player, score, includeHint) {
+    const pill = (label, value, tone = '') => `<span class="progress-pill ${tone}">${label} ${value}</span>`;
+    const brightTone = score.brightCount >= 3 ? 'ready' : score.brightCount === 2 ? 'near' : '';
+    const animalTone = score.animalCount >= 5 ? 'ready' : score.animalCount === 4 ? 'near' : '';
+    const ribbonTone = score.ribbonCount >= 5 ? 'ready' : score.ribbonCount === 4 ? 'near' : '';
+    const junkTone = score.junkTotal >= 10 ? 'ready' : score.junkTotal === 9 ? 'near' : '';
+    const goTone = player.goCount > 0 ? 'ready' : '';
+    const chips = [
+      pill('광', score.brightCount, brightTone),
+      pill('열끗', score.animalCount, animalTone),
+      pill('띠', score.ribbonCount, ribbonTone),
+      pill('피', score.junkTotal, junkTone),
+      pill('고', player.goCount, goTone)
+    ];
+    if (score.hongdan) chips.push('<span class="capture-chip ready">홍단</span>');
+    if (score.chodan) chips.push('<span class="capture-chip ready">초단</span>');
+    if (score.cheongdan) chips.push('<span class="capture-chip ready">청단</span>');
+    if (score.godori) chips.push('<span class="capture-chip ready">고도리</span>');
+    if (player.heundeumDeclared) chips.push('<span class="capture-chip ready">흔들기</span>');
+    if (includeHint) chips.push(`<span class="capture-chip hint">${this.nextThresholdHint(player, score)}</span>`);
+    return chips.join('');
+  },
+
+  renderTurnFlow() {
+    const context = this.phaseContext();
+    const steps = [
+      { key: 'hand', title: '손패·특수', detail: '흔들기·폭탄 포함' },
+      { key: 'target', title: '바닥 고르기', detail: '겹치면 선택' },
+      { key: 'flip', title: '뒤집기·정리', detail: '쪽·따닥·뻑 확인' },
+      { key: 'gostop', title: '고 / 스톱', detail: '7점 이후 결단' }
+    ];
+    return steps.map((step, index) => {
+      const active = context.active === step.key;
+      const special = false;
+      return `<div class="flow-step ${active ? 'active' : ''} ${special ? 'special-active' : ''}"><span class="flow-index">${index + 1}</span><div><strong>${step.title}</strong><span>${step.detail}</span></div></div>`;
+    }).join('');
+  },
+
+  renderTurnNote(humanScore, aiScore) {
+    const context = this.phaseContext();
+    const chips = [];
+    if (this.stock.length <= 4) chips.push('<span class="note-chip warn">더미 4장 이하 · 나가리 압박</span>');
+    else if (this.stock.length <= 8) chips.push(`<span class="note-chip warn">더미 ${this.stock.length}장 · 막판 승부</span>`);
+    else if (this.stock.length <= 12) chips.push(`<span class="note-chip info">더미 ${this.stock.length}장 · 후반전</span>`);
+    if (this.nagariMultiplier > 1) chips.push(`<span class="note-chip alert">나가리 ×${this.nagariMultiplier}</span>`);
+    if (this.awaitingGoStop) chips.push('<span class="note-chip warn">지금 스톱 가능</span>');
+    else if (humanScore.total >= 6 || aiScore.total >= 6) {
+      const leader = humanScore.total >= aiScore.total ? '나' : 'AI';
+      const leaderScore = Math.max(humanScore.total, aiScore.total);
+      chips.push(`<span class="note-chip alert">${leader} ${leaderScore}점 압박</span>`);
+    }
+    if (this.player('human').goCount > 0) chips.push(`<span class="note-chip calm">내 고 ${this.player('human').goCount}</span>`);
+    if (this.player('ai').goCount > 0) chips.push(`<span class="note-chip info">AI 고 ${this.player('ai').goCount}</span>`);
+    return `<div><strong>${context.title}</strong><span>${context.text}</span></div><div class="turn-note-chips">${chips.slice(0, 4).join('')}</div>`;
+  },
+
+  render() {
+    const human = this.player('human');
+    const ai = this.player('ai');
+    const humanScore = scoreCaptured(human.captured);
+    const aiScore = scoreCaptured(ai.captured);
+    const phase = this.phaseContext();
+    const phaseBadge = ({ hand: '손패', target: '바닥 선택', flip: '뒤집기', gostop: '고/스톱' })[phase.active] || phase.title;
+    const stockTone = this.stock.length <= 4 ? 'critical' : this.stock.length <= 8 ? 'low' : this.stock.length <= 12 ? 'mid' : 'calm';
+    const stockText = this.stock.length <= 4 ? '바닥 압박' : this.stock.length <= 8 ? '막판' : this.stock.length <= 12 ? '후반' : '여유';
+    const stockWidth = this.stock.length === 0 ? 0 : Math.max(8, Math.min(100, (this.stock.length / 20) * 100));
+    document.getElementById('turnFlow').innerHTML = this.renderTurnFlow();
+    document.getElementById('turnNote').innerHTML = this.renderTurnNote(humanScore, aiScore);
+    document.getElementById('field').innerHTML = this.table.map((entry) => this.renderPile(entry)).join('') || '<div class="field-slot" style="grid-column:1/-1;color:#9eb8a9">바닥패 없음</div>';
+    document.getElementById('humanCapture').innerHTML = this.renderCaptureMini(human.captured);
+    document.getElementById('aiCapture').innerHTML = this.renderCaptureMini(ai.captured);
+    document.getElementById('humanCaptureTotal').className = `capture-total ${humanScore.total >= 7 ? 'ready' : humanScore.total === 6 ? 'near' : ''}`;
+    document.getElementById('humanCaptureTotal').textContent = `${humanScore.total}점${human.goCount ? ` · 고 ${human.goCount}` : ''}`;
+    document.getElementById('aiCaptureTotal').className = `capture-total ${aiScore.total >= 7 ? 'ready' : aiScore.total === 6 ? 'near' : ''}`;
+    document.getElementById('aiCaptureTotal').textContent = `${aiScore.total}점${ai.goCount ? ` · 고 ${ai.goCount}` : ''}`;
+    document.getElementById('humanCaptureSummary').innerHTML = this.renderProgressPills(human, humanScore, true);
+    document.getElementById('aiCaptureSummary').innerHTML = this.renderProgressPills(ai, aiScore, true);
+    document.getElementById('humanHand').innerHTML = sortCards(human.hand).map((card) => this.renderCard(card, {
+      clickable: this.current === 'human' && !this.busy && !this.awaitingGoStop,
+      handCard: true,
+      variant: 'player',
+      selected: this.selectedCardId === card.id,
+      emph: this.lastEmphasis.includes(card.id)
+    })).join('');
+    document.getElementById('aiHand').innerHTML = ai.hand.map(() => this.renderCard({}, { back: true, variant: 'opponent' })).join('');
+    document.getElementById('scorePanel').innerHTML = `${this.renderScoreBlock(human)}${this.renderScoreBlock(ai)}`;
+    document.getElementById('message').innerHTML = `${this.message}<br><span style="color:#b1baa8">고를 외친 뒤에는 더 높은 점수를 만들었을 때만 다시 선택할 수 있습니다.</span>`;
+    document.getElementById('mobileScoreSummary').textContent = `나 ${humanScore.total}점 · AI ${aiScore.total}점`;
+    document.getElementById('mobileTurnBadge').textContent = `${this.current === 'human' ? '내 차례' : 'AI 차례'} · ${phaseBadge}`;
+    document.getElementById('mobileMessage').textContent = this.message;
+    document.getElementById('stockInfo').innerHTML = `${this.renderCard({}, { back: true, variant: 'stock' })}<div class="stock-copy"><div class="stock-top"><strong>더미 ${this.stock.length}장</strong><span class="stock-alert ${stockTone}">${stockText}</span></div><div class="stock-sub">선: ${this.dealer === 'human' ? '나' : 'AI'}${this.nagariMultiplier > 1 ? ` · 나가리 ×${this.nagariMultiplier}` : ''}</div><div class="stock-meter"><span class="stock-meter-fill ${stockTone}" style="width:${stockWidth}%"></span></div></div>`;
+    document.getElementById('sessionScoreText').textContent = this.sessionSummaryText();
+    document.getElementById('turnBadge').textContent = `${this.current === 'human' ? '내 차례' : 'AI 차례'} · ${phaseBadge}`;
+    document.getElementById('promptBadge').textContent = this.awaitingHeundeum ? '흔들기 선택' : this.pendingPoktanCardId ? '폭탄 선택' : this.pending && this.pending.kind === 'chooseHandTarget' ? '바닥패 선택' : this.pending && this.pending.kind === 'chooseDrawTarget' ? '뒤집은 패 선택' : this.current === 'human' && !this.busy ? '손패를 누르세요' : '대기 중';
+    document.getElementById('aiHint').textContent = `손패 ${ai.hand.length}장 · ${aiScore.total}점`;
+    document.getElementById('roundBadge').textContent = `Round ${this.round}`;
+    document.getElementById('humanStrip').className = `player-strip ${this.current === 'human' ? 'active' : ''}`;
+    document.getElementById('humanStrip').innerHTML = `<strong>나</strong><div class="strip-top"><span>${human.hand.length}장 · 먹은 패 ${human.captured.length}장</span><span class="strip-score">${humanScore.total}점${human.goCount ? ` · 고 ${human.goCount}` : ''}</span></div><div class="strip-progress">${this.renderProgressPills(human, humanScore, false)}</div><span class="strip-hint">${this.nextThresholdHint(human, humanScore)}</span>`;
+    document.getElementById('aiStrip').className = `player-strip ${this.current === 'ai' ? 'active' : ''}`;
+    document.getElementById('aiStrip').innerHTML = `<strong>AI</strong><div class="strip-top"><span>${ai.hand.length}장 · 먹은 패 ${ai.captured.length}장</span><span class="strip-score">${aiScore.total}점${ai.goCount ? ` · 고 ${ai.goCount}` : ''}</span></div><div class="strip-progress">${this.renderProgressPills(ai, aiScore, false)}</div><span class="strip-hint">${this.nextThresholdHint(ai, aiScore)}</span>`;
+
+    document.querySelectorAll('[data-card-id]').forEach((node) => {
+      node.addEventListener('pointerdown', (event) => {
+        event.preventDefault();
+        this.onHumanCard(Number(node.dataset.cardId));
+      });
+    });
+    document.querySelectorAll('[data-pile-id]').forEach((node) => {
+      node.addEventListener('pointerdown', (event) => {
+        event.preventDefault();
+        this.onPileClick(Number(node.dataset.pileId));
+      });
+    });
+
+    // --- specialActions: poktan + heundeum buttons ---
+    const sa = document.getElementById('specialActions');
+    if (sa) {
+      let saHtml = '';
+      if (this.awaitingHeundeum && this.current === 'human' && !this.busy) {
+        saHtml += `<button type="button" class="btn" id="heundeumYes" style="background:linear-gradient(180deg,rgba(242,197,107,0.4),rgba(167,109,31,0.2))">&#128293; ${this.awaitingHeundeum.month}월 흔들기 선언 (2배)</button>`;
+        saHtml += `<button type="button" class="btn alt" id="heundeumNo">선언 건너뛰기</button>`;
+      }
+      if (this.pendingPoktanCardId && this.current === 'human' && !this.busy && !this.awaitingHeundeum) {
+        saHtml += `<button type="button" class="btn" id="poktanYes" style="background:linear-gradient(180deg,rgba(207,89,76,0.4),rgba(207,89,76,0.15))">&#128308; 폭탄 치기!</button>`;
+        saHtml += `<button type="button" class="btn alt" id="poktanNo">일반 플레이</button>`;
+      }
+      sa.innerHTML = saHtml;
+
+      const heundeumYes = document.getElementById('heundeumYes');
+      if (heundeumYes) heundeumYes.addEventListener('pointerdown', (e) => { e.preventDefault(); this.player('human').heundeumDeclared = true; this.awaitingHeundeum = null; this.toast('흔들기! 지급 2배'); this.message = `흔들기 선언했습니다. 이번 판 승리 시 지급이 2배가 됩니다.`; this.render(); });
+      const heundeumNo = document.getElementById('heundeumNo');
+      if (heundeumNo) heundeumNo.addEventListener('pointerdown', (e) => { e.preventDefault(); this.awaitingHeundeum = null; this.render(); });
+
+      const poktanYes = document.getElementById('poktanYes');
+      if (poktanYes) poktanYes.addEventListener('pointerdown', (e) => {
+        e.preventDefault();
+        const pCard = this.player('human').hand.find((c) => c.id === this.pendingPoktanCardId);
+        if (pCard) this.executePoktan('human', pCard);
+      });
+      const poktanNo = document.getElementById('poktanNo');
+      if (poktanNo) poktanNo.addEventListener('pointerdown', (e) => {
+        e.preventDefault();
+        const pCardId = this.pendingPoktanCardId;
+        this.pendingPoktanCardId = null;
+        const pCard = this.player('human').hand.find((c) => c.id === pCardId);
+        if (!pCard) { this.render(); return; }
+        const matches = this.matchingPiles(pCard.month);
+        if (matches.length > 1 && !matches.some((entry) => entry.type === 'stack')) {
+          this.highlightPileIds = matches.map((entry) => entry.id);
+          this.pending = { kind: 'chooseHandTarget', cardId: pCardId };
+          this.message = '같은 월이 두 장 있습니다. 바닥패를 눌러 먹을 패를 고르세요.';
+          this.render();
+        } else {
+          this.playHumanCard(pCardId, matches[0] ? matches[0].id : null);
+        }
+      });
+    }
+
+    // --- nagari multiplier display ---
+    const nagariLine = document.getElementById('nagariLine');
+    if (nagariLine) {
+      nagariLine.style.display = this.nagariMultiplier > 1 ? '' : 'none';
+      const nagariText = document.getElementById('nagariMultText');
+      if (nagariText) nagariText.textContent = `\u00d7${this.nagariMultiplier}`;
+    }
+  }
+};
+
+G.init();
+</script>
+</body>
+</html>
