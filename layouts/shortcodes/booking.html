@@ -1,0 +1,57 @@
+<link rel="stylesheet" href="/booking/booking.css?v=20260429">
+
+<section class="booking-shell" data-booking-root>
+  <div class="booking-hero">
+    <p class="booking-eyebrow">Schedule with Peter</p>
+    <h1>Book a meeting</h1>
+    <p>Choose one of the open times below. The page creates an .ics calendar file for you and opens a pre-filled email request so I can confirm the meeting.</p>
+  </div>
+
+  <div class="booking-status" data-booking-status role="status">Loading availability…</div>
+
+  <div class="booking-layout" hidden data-booking-app>
+    <aside class="booking-panel booking-settings">
+      <h2>Meeting details</h2>
+      <label for="booking-type">Meeting type</label>
+      <select id="booking-type" data-booking-type></select>
+
+      <label for="booking-duration">Duration</label>
+      <select id="booking-duration" data-booking-duration></select>
+
+      <label for="booking-timezone">Your timezone</label>
+      <select id="booking-timezone" data-booking-timezone></select>
+
+      <label for="booking-name">Your name</label>
+      <input id="booking-name" data-booking-name type="text" autocomplete="name" placeholder="Jane Doe">
+
+      <label for="booking-email">Your email</label>
+      <input id="booking-email" data-booking-email type="email" autocomplete="email" placeholder="jane@example.com">
+
+      <label for="booking-note">What would you like to discuss?</label>
+      <textarea id="booking-note" data-booking-note rows="4" placeholder="Optional context for the meeting"></textarea>
+    </aside>
+
+    <main class="booking-panel booking-slots">
+      <div class="booking-slots-header">
+        <h2>Available times</h2>
+        <p data-booking-range></p>
+      </div>
+      <div class="booking-slot-grid" data-booking-slots></div>
+    </main>
+  </div>
+
+  <dialog class="booking-confirmation" data-booking-dialog>
+    <form method="dialog">
+      <button class="booking-close" value="cancel" aria-label="Close">×</button>
+      <h2>Confirm your meeting request</h2>
+      <p data-booking-summary></p>
+      <div class="booking-actions">
+        <button type="button" class="btn btn-primary" data-booking-download>Download .ics</button>
+        <a class="btn btn-outline-primary" data-booking-email-link href="#">Email request</a>
+      </div>
+      <p class="booking-small">Your calendar file is generated in your browser. The slot is not final until I confirm by email.</p>
+    </form>
+  </dialog>
+</section>
+
+<script src="/booking/booking.js" defer></script>
