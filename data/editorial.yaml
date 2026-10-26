@@ -1,0 +1,22 @@
+eyebrow: AI · Business strategy · Research
+headline:
+  first: Bringing AI
+  emphasis: into meaningful
+  last: practice.
+focus:
+  - Enterprise AI
+  - Go-to-market strategy
+  - NLP & language models
+  - Computational social science
+work:
+  - page: /publication/li2021openva
+    label: Open-source software · Global health
+    title: The openVA toolkit
+    description: Standardized tools for verbal autopsy analysis, bringing methods and models into a common workflow.
+  - page: /publication/coverage
+    label: Data infrastructure · Demography
+    title: COVerAGE-DB
+    description: A global demographic database for understanding COVID-19 cases and deaths across populations.
+about:
+  eyebrow: A little background
+  title: From research to practice.

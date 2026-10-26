@@ -1,0 +1,17 @@
+// Match retained research and archive pages to the editorial homepage.
+body:not(.dark) {
+  background: #f7f6ef;
+  color: #203c32;
+
+  .navbar, .page-footer { background: #f7f6ef; }
+  .navbar .navbar-nav .nav-link, .navbar-brand, h1, h2, h3 { color: #203c32; }
+  a { color: #315e49; }
+  .btn-outline-primary { color: #315e49; border-color: #315e49; }
+  .btn-outline-primary:hover, .btn-primary { color: white; background: #203c32; border-color: #203c32; }
+}
+
+h1, h2, h3, .navbar-brand { font-family: Georgia, 'Times New Roman', serif; font-weight: 400; }
+.navbar { box-shadow: none; border-bottom: 1px solid #d7dbce; }
+.article-title { line-height: 1.2; letter-spacing: -.025em; }
+.article-container { max-width: 880px; }
+a:focus-visible, button:focus-visible { outline: 3px solid #a76a2d; outline-offset: 4px; }

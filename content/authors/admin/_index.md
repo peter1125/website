@@ -10,16 +10,17 @@ last_name: Choi
 superuser: true
 
 # Role/position/tagline
-role: Data Scientist at Nationwide
+role: Korea GTM Lead at Articul8 AI
 
 # Organizations/Affiliations to show in About widget
 organizations:
-  - name: Nationwide
-    url: "https://www.nationwide.com/"
+  - name: Articul8 AI
+    url: "https://www.articul8.ai/"
 
 
 # Short bio (displayed in user profile at end of posts)
-bio: Data Scientist building predictive and GenAI systems for enterprise decisions.
+bio: Korea GTM Lead at Articul8 AI, bringing together AI, data science, and business strategy.
+location: Seoul, South Korea
 
 # Interests to show in About widget
 interests:
@@ -83,8 +84,10 @@ highlight_name: true
 ---
 
 
-I am a Data Scientist at [Nationwide](https://www.nationwide.com/), focused on predictive modeling, NLP, and LLM-based workflows that turn unstructured business data into measurable decisions.
+I am the Korea GTM Lead at [Articul8 AI](https://www.articul8.ai/), based in Seoul, South Korea. My work brings together AI, data science, and business strategy.
 
-I earned a Ph.D. in Sociology from [The Ohio State University](https://sociology.osu.edu/) in May 2023, advised by [Sam Clark](http://www.samclark.net/). My dissertation focused on computational social science for sociological research. I also worked with the [openVA](http://openva.net/) team, developing software and tooling for global health research and verbal autopsy analysis.
+Previously, I was an AI/ML Analytic Scientist at [Nationwide](https://www.nationwide.com/), where I focused on predictive modeling, NLP, and LLM-based workflows that turn unstructured business data into measurable decisions.
 
-Before my doctoral work, I advised multinational organizations on sustainability and global business strategy. I am based in Columbus, Ohio.
+I earned my Ph.D. in Sociology from [The Ohio State University](https://sociology.osu.edu/) in May 2023, advised by [Sam Clark](https://www.samclark.net/). My dissertation focused on computational social science for sociological research. I also worked with the [openVA](https://openva.net/) team, developing software and tools for global health research and verbal autopsy analysis.
+
+Before my doctoral work, I advised multinational organizations on sustainability and global business strategy.
