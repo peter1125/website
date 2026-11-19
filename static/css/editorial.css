@@ -58,6 +58,7 @@ h2 { font: normal 40px/1.2 Georgia, "Times New Roman", serif; letter-spacing: -1
 .work-card:hover .work-cta { text-decoration: underline; }
 .about { display: grid; grid-template-columns: 1fr 1.6fr; gap: 70px; border-top: 1px solid var(--line); }
 .about-heading h2 { max-width: 290px; margin-top: 20px; }
+.profile-date { margin: 14px 0 0; color: var(--muted); font-size: 12px; }
 .biography p { margin: 0 0 21px; color: var(--muted); font-size: 14px; line-height: 1.9; }
 .biography a:not(.text-link) { text-decoration: underline; text-decoration-color: #aebba5; }
 .publication-row { display: grid; grid-template-columns: 60px 1fr 22px; gap: 24px; border-top: 1px solid var(--line); padding: 24px 0; }

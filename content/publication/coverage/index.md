@@ -3,7 +3,6 @@ title: "Data Resource Profile: COVerAGE-DB: a global demographic database of COV
 authors:
 - Tim Riffe
 - Enrique Acosta
-- admin
 - the COVerAGE-DB team
 author_notes:
 - 
@@ -37,9 +36,9 @@ featured: false
 # links:
 # - name: ""
 #   url: ""
-url_pdf: https://watermark.silverchair.com/dyab027.pdf?token=AQECAHi208BE49Ooan9kkhW_Ercy7Dm3ZL_9Cf3qfKAc485ysgAAAuAwggLcBgkqhkiG9w0BBwagggLNMIICyQIBADCCAsIGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMjaguqnxa3SnL6PHGAgEQgIICk1LL6UpzYgbjjV50-LoNDqMxg6Yc9xyAFvOfMM0BmwgIzWjB4HeLs8MKnFXQ7H9woOk4ICMlNfZyiFwbjJc3VdVSOtppBFsUbCEILnd2HeKns3JLA68CSp3ibHppxIJyZ5EM2Ckpjhv3m38QL10FT1xCyZj5dHtndB6evOBVYc9nXx1Ggs7sPfgpuGfZuk9_btF3dM1-bSCsygWROS5BvR6AudNKC7Gqd47-CW-KQ8Rvv8vAXh1VqsK9AnauN5gQl2Xin3dgu5pdxSlVp9MjbdSag4lnxS4BKmfJfCprcp8emYL7jMM3u7imRbSaXLhUmvtKKsXJYaDNQkNCiX2lObY9LlljTgqHuTfy6QJKcslY4sqREqCOaE6HvHbafUZcSjLuKN2DAZqdgokb2pRGpGJ1wyWWFCSxLM2CZqddXpGtO07waCSzg9Ga8assd5C8ZIF2pWslCbkG5yOzsNcvntRS-z7RZXvBAbJ_PeAUYkmQi6x8jXpVQwpj4-Is1t7kfv-coS23hlfvrMogPcXKbW7DCcMPlChcl-Syf6ShMrjBjMWCASHzbdy7AylZADqRyQRIwVqPDTmDFDGTZzb7ygCWpyXBeTYF0d7iV7ulwFcPzA52lndLwefKccE4GJebeku0NfFLwDkfAC6tD__ouTi5x4cr2iPYR_XBT-WKYcQX4CcZRI28PxP3Nr3vh_4UJDDhQKMe2wCz8LZTH_R2cjI3dAK5zloRTkgrCS5SNKb8FWQqrpxau5YDwNAJUjpVwiWRON-GDb_Et3xc62_Ppl89iV80_h-8DwlBHua0oagPqGoc6dNw5wq8Slzybo72ZyJKxTTksO94jTVAVaZMLA1RYyflQDbo50EToYE3oPsokipH
+url_pdf: "https://findresearcher.sdu.dk/ws/portalfiles/portal/199357006/dyab027.pdf"
 url_code: ''
-url_dataset: ''
+url_dataset: "https://doi.org/10.17605/OSF.IO/MPWJQ"
 url_poster: ''
 url_project: ''
 url_slides: ''
@@ -65,5 +64,7 @@ projects: []
 #   Simply enter your slide deck's filename without extension.
 #   E.g. `slides: "example"` references `content/slides/example/index.md`.
 #   Otherwise, set `slides: ""`.
-slides: example
+slides: ""
 ---
+
+Eungang Choi contributed as a member of the COVerAGE-DB team. The [project’s citation and full contributor list](https://www.coverage-db.org/home/about) identifies the researchers behind the database. The [open-access paper](https://pmc.ncbi.nlm.nih.gov/articles/PMC8128459/) explains how the team harmonized age groups for comparisons across populations.
