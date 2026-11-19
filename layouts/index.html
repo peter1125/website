@@ -8,21 +8,21 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ site.Title }} · Articul8 AI</title>
+  <title>{{ site.Title }} · Korea GTM Lead at Articul8 AI</title>
   <meta name="description" content="{{ $description }}">
   <meta name="theme-color" content="#203c32">
   <meta name="author" content="{{ $profile.Title }}">
   <link rel="canonical" href="{{ .Permalink }}">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="{{ site.Title }}">
-  <meta property="og:title" content="{{ site.Title }} · Articul8 AI">
+  <meta property="og:title" content="{{ site.Title }} · Korea GTM Lead at Articul8 AI">
   <meta property="og:description" content="{{ $description }}">
   <meta property="og:url" content="{{ .Permalink }}">
   <meta property="og:image" content="{{ $portrait.Permalink }}">
   <meta property="og:image:alt" content="Portrait of {{ $profile.Title }}">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@{{ site.Params.marketing.seo.twitter }}">
-  <meta name="twitter:title" content="{{ site.Title }} · Articul8 AI">
+  <meta name="twitter:title" content="{{ site.Title }} · Korea GTM Lead at Articul8 AI">
   <meta name="twitter:description" content="{{ $description }}">
   <meta name="twitter:image" content="{{ $portrait.Permalink }}">
   <link rel="manifest" href="{{ "manifest.webmanifest" | relURL }}">
@@ -32,8 +32,20 @@
   {{ end }}
   <link rel="alternate" type="application/rss+xml" title="{{ site.Title }}" href="{{ "index.xml" | relURL }}">
   <link rel="stylesheet" href="{{ "css/editorial.css" | relURL }}?v={{ (readFile "static/css/editorial.css" | sha256 | first 12) }}">
-  {{ $person := dict "@context" "https://schema.org" "@type" "Person" "name" "Eungang Choi" "alternateName" "Peter Choi" "url" .Permalink "image" $portrait.Permalink "jobTitle" "Korea GTM Lead" "worksFor" (dict "@type" "Organization" "name" "Articul8 AI" "url" "https://www.articul8.ai/") "homeLocation" (dict "@type" "Place" "name" $profile.Params.location) "sameAs" (slice "https://linkedin.com/in/peter1125" "https://github.com/peter1125" "https://scholar.google.com/citations?user=ONfbbeoAAAAJ&hl=en") }}
-  <script type="application/ld+json">{{ $person | jsonify | safeJS }}</script>
+  {{ $employer := index $profile.Params.organizations 0 }}
+  {{ $jobTitle := $profile.Params.role | replaceRE (printf " at %s$" $employer.name) "" }}
+  {{ $person := dict
+    "@type" "Person" "@id" (printf "%s#person" .Permalink)
+    "name" "Eungang Choi" "alternateName" (slice "Peter Choi" $profile.Title $profile.Params.name_ko)
+    "url" .Permalink "image" $portrait.Permalink "jobTitle" $jobTitle
+    "worksFor" (dict "@type" "Organization" "name" $employer.name "url" $employer.url)
+    "homeLocation" (dict "@type" "Place" "name" $profile.Params.location)
+    "alumniOf" (dict "@type" "CollegeOrUniversity" "name" "The Ohio State University")
+    "sameAs" (slice "https://linkedin.com/in/peter1125" "https://github.com/peter1125" "https://scholar.google.com/citations?user=ONfbbeoAAAAJ&hl=en")
+  }}
+  {{ $page := dict "@type" "ProfilePage" "@id" .Permalink "url" .Permalink "name" $profile.Title
+    "dateModified" $profile.Params.profile_updated "mainEntity" (dict "@id" (index $person "@id")) }}
+  <script type="application/ld+json">{{ dict "@context" "https://schema.org" "@graph" (slice $page $person) | jsonify | safeJS }}</script>
   {{ partial "analytics/google_analytics" . }}
 </head>
 <body id="top">
@@ -53,9 +65,9 @@
       <section class="hero" aria-labelledby="hero-title">
         <div class="hero-copy">
           <p class="eyebrow">{{ $editorial.eyebrow }}</p>
-          <h1 id="hero-title">{{ $editorial.headline.first }}<br><em>{{ $editorial.headline.emphasis }}</em><br>{{ $editorial.headline.last }}</h1>
-          <p class="intro">I’m <strong>{{ $profile.Title }}</strong>, {{ $profile.Params.role | replaceRE " at Articul8 AI$" "" }} at <a href="{{ (index $profile.Params.organizations 0).url }}">Articul8 AI</a>, based in {{ $profile.Params.location }}. My work brings together AI, data science, and business strategy.</p>
-          <div class="actions"><a class="button" href="#selected-work">Explore my work <span aria-hidden="true">↗</span></a><a class="text-link" href="{{ "uploads/cv.pdf" | relURL }}">View CV <span aria-hidden="true">↗</span></a></div>
+          <h1 id="hero-title">{{ $profile.Params.first_name }} <em>{{ $profile.Params.last_name }}</em></h1>
+          <p class="intro">I’m the {{ $jobTitle }} at <a href="{{ $employer.url }}">{{ $employer.name }}</a>, where I lead go-to-market strategy in South Korea. Before joining Articul8, I built predictive models and worked with language models at Nationwide.</p>
+          <div class="actions"><a class="button" href="#selected-work">Explore my work <span aria-hidden="true">↗</span></a><a class="text-link" href="{{ "uploads/cv.pdf" | relURL }}">View CV (PDF) <span aria-hidden="true">↗</span></a></div>
         </div>
         <figure class="portrait">
           <img src="{{ $portrait.RelPermalink }}" alt="{{ $profile.Title }}" width="640" height="760" fetchpriority="high">
@@ -72,8 +84,8 @@
         </div>
       </section>
       <section class="section about" id="about" aria-labelledby="about-title">
-        <div class="about-heading"><p class="eyebrow">{{ $editorial.about.eyebrow }}</p><h2 id="about-title">{{ $editorial.about.title }}</h2></div>
-        <div class="biography">{{ $profile.Content }}<a class="text-link" href="{{ "uploads/cv.pdf" | relURL }}">Read my full CV <span aria-hidden="true">↗</span></a></div>
+        <div class="about-heading"><p class="eyebrow">{{ $editorial.about.eyebrow }}</p><h2 id="about-title">{{ $editorial.about.title }}</h2><p class="profile-date">Updated <time datetime="{{ $profile.Params.profile_updated }}">{{ time.Format "January 2, 2006" $profile.Params.profile_updated }}</time></p></div>
+        <div class="biography">{{ $profile.Content }}<p lang="ko">{{ $profile.Params.bio_ko }}</p><a class="text-link" href="{{ "uploads/cv.pdf" | relURL }}">Download my CV (PDF) <span aria-hidden="true">↗</span></a></div>
       </section>
       <section class="section publications" id="publications" aria-labelledby="publications-title">
         <div class="section-heading"><h2 id="publications-title">Research &amp; publications</h2><a class="text-link" href="https://scholar.google.com/citations?user=ONfbbeoAAAAJ&amp;hl=en">Google Scholar <span aria-hidden="true">↗</span></a></div>

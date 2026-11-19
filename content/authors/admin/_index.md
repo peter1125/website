@@ -19,7 +19,10 @@ organizations:
 
 
 # Short bio (displayed in user profile at end of posts)
-bio: Korea GTM Lead at Articul8 AI, bringing together AI, data science, and business strategy.
+bio: Eungang (Peter) Choi leads go-to-market strategy for Articul8 AI in South Korea. He previously worked as an AI/ML Analytic Scientist at Nationwide.
+name_ko: 최은강
+bio_ko: 최은강(Eungang Peter Choi)은 Articul8 AI(아티큘8)에서 한국 시장의 사업 전략(GTM)을 담당합니다. 미국 보험사 Nationwide에서 AI/ML 데이터 과학자로 일했고, 오하이오주립대학교에서 사회학 박사 학위를 받았습니다. 사망 원인 분석에 쓰이는 설문 자료를 정리하는 파이썬 패키지 pyCrossVA 개발에도 참여했습니다.
+profile_updated: '2026-11-19T11:10:02+00:00'
 location: Seoul, South Korea
 
 # Interests to show in About widget
@@ -84,10 +87,10 @@ highlight_name: true
 ---
 
 
-I am the Korea GTM Lead at [Articul8 AI](https://www.articul8.ai/), based in Seoul, South Korea. My work brings together AI, data science, and business strategy.
+Eungang (Peter) Choi leads go-to-market strategy for [Articul8 AI](https://www.articul8.ai/) in South Korea. Before joining Articul8, he worked as an AI/ML Analytic Scientist at [Nationwide](https://www.nationwide.com/), where he used predictive models and natural language processing to analyze unstructured business data.
 
-Previously, I was an AI/ML Analytic Scientist at [Nationwide](https://www.nationwide.com/), where I focused on predictive modeling, NLP, and LLM-based workflows that turn unstructured business data into measurable decisions.
+Choi earned his Ph.D. in Sociology at The Ohio State University in May 2023. His [doctoral dissertation](https://etd.ohiolink.edu/acprod/odb_etd/etd/r/1501/10?clear=10&p10_accession_num=osu1681743610412743), advised by [Sam Clark](https://www.samclark.net/), examined how social scientists can recognize bias when using computational methods.
 
-I earned my Ph.D. in Sociology from [The Ohio State University](https://sociology.osu.edu/) in May 2023, advised by [Sam Clark](https://www.samclark.net/). My dissertation focused on computational social science for sociological research. I also worked with the [openVA](https://openva.net/) team, developing software and tools for global health research and verbal autopsy analysis.
+Choi co-authored [the openVA toolkit paper](https://journal.r-project.org/articles/RJ-2023-020/) and contributed to [pyCrossVA](https://github.com/verbal-autopsy-software/pyCrossVA), a Python package that converts verbal autopsy survey responses into inputs for cause-of-death algorithms. He was also a member of the [COVerAGE-DB research team](https://www.coverage-db.org/home/about), which harmonized COVID-19 case and death counts by age and sex across populations.
 
-Before my doctoral work, I advised multinational organizations on sustainability and global business strategy.
+Before his doctoral work, Choi advised multinational organizations on sustainability and business strategy.

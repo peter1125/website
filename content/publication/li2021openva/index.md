@@ -14,3 +14,4 @@ url_pdf: "https://journal.r-project.org/articles/RJ-2023-020/openVA-RJ-R1.pdf"
 doi: ""
 ---
 
+Eungang Choi co-authored the [openVA toolkit paper in The R Journal](https://journal.r-project.org/articles/RJ-2023-020/) and contributed to [pyCrossVA](https://github.com/verbal-autopsy-software/pyCrossVA). The Python package turns responses from verbal autopsy questionnaires into the data formats used by cause-of-death algorithms.
